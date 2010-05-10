@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xsd:schema xmlns="http://kriswallsmith.net/schema/dic/facebook"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://kriswallsmith.net/schema/dic/facebook"
+    elementFormDefault="qualified">
+
+  <xsd:element name="facebook" type="facebook" />
+
+  <xsd:complexType name="facebook">
+    <xsd:attribute name="class" type="xsd:string" />
+    <xsd:attribute name="app_id" type="xsd:string" />
+    <xsd:attribute name="secret" type="xsd:string" />
+    <xsd:attribute name="cookie" type="xsd:string" />
+    <xsd:attribute name="domain" type="xsd:string" />
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+  <parameters>
+    <parameter key="facebook.class">Facebook</parameter>
+    <parameter key="facebook.app_id">null</parameter>
+    <parameter key="facebook.secret">null</parameter>
+    <parameter key="facebook.cookie">null</parameter>
+    <parameter key="facebook.domain">null</parameter>
+  </parameters>
+
+  <services>
+    <service id="facebook" class="%facebook.class%">
+      <argument type="collection">
+        <argument key="appId">%facebook.app_id%</argument>
+        <argument key="secret">%facebook.secret%</argument>
+        <argument key="cookie">%facebook.cookie%</argument>
+        <argument key="domain">%facebook.domain%</argument>
+      </argument>
+    </service>
+  </services>
+</container>
