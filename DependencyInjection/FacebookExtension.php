@@ -13,7 +13,7 @@ class FacebookExtension extends LoaderExtension
         'facebook' => 'facebook.xml',
     );
 
-    public function apiLoadOnce()
+    public function apiLoadDefaults()
     {
         $configuration = new BuilderConfiguration();
 
