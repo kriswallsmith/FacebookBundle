@@ -1,5 +1,5 @@
 Installation
-------------
+============
 
   1. Add this bundle and the Facebook PHP SDK to your project as Git submodules:
 
