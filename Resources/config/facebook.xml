@@ -10,6 +10,8 @@
     <parameter key="facebook.secret">null</parameter>
     <parameter key="facebook.cookie">null</parameter>
     <parameter key="facebook.domain">null</parameter>
+    <parameter key="facebook.xfbml">true</parameter>
+    <parameter key="facebook.culture">en_US</parameter>
   </parameters>
 
   <services>
