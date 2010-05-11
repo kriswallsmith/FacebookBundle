@@ -27,8 +27,7 @@ Installation
                 // ...
             );
 
-            if ($this->isDebug())
-            {
+            if ($this->isDebug()) {
                 $bundles[] = new Symfony\Framework\ProfilerBundle\Bundle();
             }
 
