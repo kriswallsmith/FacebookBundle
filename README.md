@@ -38,7 +38,22 @@ Installation
 
         # application/config/config.yml
         facebook.api:
-          app_id: ~
-          secret: ~
+          app_id: 123456879
+          secret: s3cr3t
           cookie: true
-          domain: ~
+
+Setting up the JavaScript SDK
+-----------------------------
+
+A view file (and controller) is included for loading the Facebook JavaScript
+SDK and initializing it with parameters from your service container. To setup
+the Facebook JavaScript environment, add the following to your layout just
+after the opening `body` tag:
+
+    <body>
+      <?php $view->actions->output('FacebookBundle:Default:init') ?>
+
+If you will be adding XFBML markup to your site you must also declare the
+namespace, perhaps in the opening `html` tag:
+
+    <html xmlns:fb="http://www.facebook.com/2008/fbml">
