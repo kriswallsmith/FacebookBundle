@@ -2,10 +2,12 @@
 <script>
   window.fbAsyncInit = function() {
     FB.init(<?php echo json_encode(array(
-      'appId'  => $app_id,
-      'status' => $status, // check login status
-      'cookie' => $cookie, // enable cookies to allow the server to access the session
-      'xfbml'  => $xfbml,  // parse XFBML
+      'appId'   => $app_id,
+      'cookie'  => $cookie,
+      'logging' => $logging,
+      'session' => $session,
+      'status'  => $status,
+      'xfbml'   => $xfbml,
     )) ?>);
   };
 

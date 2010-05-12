@@ -5,12 +5,18 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
   <parameters>
-    <parameter key="facebook.class">Facebook</parameter>
+    <!-- parameters used in both the js and php api classes -->
     <parameter key="facebook.app_id">null</parameter>
+    <parameter key="facebook.cookie">false</parameter>
+
+    <!-- parameters used by the php api -->
+    <parameter key="facebook.class">Facebook</parameter>
     <parameter key="facebook.secret">null</parameter>
-    <parameter key="facebook.cookie">null</parameter>
     <parameter key="facebook.domain">null</parameter>
-    <parameter key="facebook.xfbml">true</parameter>
+
+    <!-- parameters used by the js api -->
+    <parameter key="facebook.logging">true</parameter>
+    <parameter key="facebook.xfbml">false</parameter>
     <parameter key="facebook.culture">en_US</parameter>
   </parameters>
 
