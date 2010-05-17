@@ -41,7 +41,7 @@ class FacebookExtension extends LoaderExtension
 
     public function getNamespace()
     {
-        return 'http://kriswallsmith.net/schema/dic/facebook';
+        return 'http://www.symfony-project.org/schema/dic/facebook';
     }
 
     public function getAlias()
