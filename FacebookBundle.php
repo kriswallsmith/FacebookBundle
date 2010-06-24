@@ -2,12 +2,12 @@
 
 namespace Bundle\FacebookBundle;
 
-use Symfony\Foundation\Bundle\Bundle as BaseBundle;
+use Symfony\Foundation\Bundle\Bundle;
 use Symfony\Components\DependencyInjection\ContainerInterface;
 use Symfony\Components\DependencyInjection\Loader\Loader;
 use Bundle\FacebookBundle\DependencyInjection\FacebookExtension;
 
-class Bundle extends BaseBundle
+class FacebookBundle extends Bundle
 {
     public function buildContainer(ContainerInterface $container)
     {
