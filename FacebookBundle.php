@@ -1,11 +1,11 @@
 <?php
 
-namespace Bundle\FacebookBundle;
+namespace Bundle\Kris\FacebookBundle;
 
 use Symfony\Foundation\Bundle\Bundle;
 use Symfony\Components\DependencyInjection\ContainerInterface;
 use Symfony\Components\DependencyInjection\Loader\Loader;
-use Bundle\FacebookBundle\DependencyInjection\FacebookExtension;
+use Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension;
 
 class FacebookBundle extends Bundle
 {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xsd:schema xmlns="http://www.symfony-project.org/schema/dic/facebook"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.symfony-project.org/schema/dic/facebook"
+    elementFormDefault="qualified">
+
+    <xsd:element name="facebook">
+        <xsd:complexType>
+            <xsd:attribute name="class" type="xsd:string" />
+            <xsd:attribute name="app_id" type="xsd:string" />
+            <xsd:attribute name="secret" type="xsd:string" />
+            <xsd:attribute name="cookie" type="xsd:string" />
+            <xsd:attribute name="domain" type="xsd:string" />
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

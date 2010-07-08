@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FacebookBundle\Controller;
+namespace Bundle\Kris\FacebookBundle\Controller;
 
 use Symfony\Framework\WebBundle\Controller;
 

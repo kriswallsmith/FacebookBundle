@@ -3,8 +3,8 @@ Installation
 
   1. Add this bundle and the Facebook PHP SDK to your project as Git submodules:
 
-        $ git submodule add git://github.com/kriswallsmith/FacebookBundle.git src/Bundle/FacebookBundle
-        $ git submodule add git://github.com/facebook/php-sdk.git src/vendor/Facebook
+        $ git submodule add git://github.com/kriswallsmith/FacebookBundle.git src/Bundle/Kris/FacebookBundle
+        $ git submodule add git://github.com/facebook/php-sdk.git src/vendor/facebook
 
   2. Add the `Facebook` class to your project's autoloader bootstrap script:
 
@@ -21,17 +21,11 @@ Installation
         // application/ApplicationKernel.php
         public function registerBundles()
         {
-            $bundles = array(
+            return array(
                 // ...
-                new Bundle\FacebookBundle\Bundle(),
+                new Bundle\Kris\FacebookBundle\FacebookBundle(),
                 // ...
             );
-
-            if ($this->isDebug()) {
-                $bundles[] = new Symfony\Framework\ProfilerBundle\Bundle();
-            }
-
-            return $bundles;
         }
 
   4. Configure the `facebook` service:

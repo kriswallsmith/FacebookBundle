@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FacebookBundle\DependencyInjection;
+namespace Bundle\Kris\FacebookBundle\DependencyInjection;
 
 use Symfony\Components\DependencyInjection\Loader\LoaderExtension;
 use Symfony\Components\DependencyInjection\Loader\XmlFileLoader;
@@ -13,22 +13,17 @@ class FacebookExtension extends LoaderExtension
         'facebook' => 'facebook.xml',
     );
 
-    public function apiLoadDefaults()
+    public function apiLoad($config, BuilderConfiguration $configuration)
     {
-        $configuration = new BuilderConfiguration();
+        if (!$configuration->hasDefinition('facebook')) {
+            $loader = new XmlFileLoader(__DIR__.'/../Resources/config');
+            $configuration->merge($loader->load($this->resources['facebook']));
+        }
 
-        $loader = new XmlFileLoader(__DIR__.'/../Resources/config');
-        $configuration->merge($loader->load($this->resources['facebook']));
-
-        return $configuration;
-    }
-
-    public function apiLoad($config)
-    {
-        $configuration = new BuilderConfiguration();
-
-        foreach ($config as $key => $value) {
-            $configuration->setParameter('facebook.' . $key, $value);
+        foreach (array('class', 'app_id', 'secret', 'cookie', 'domain') as $attribute) {
+            if (isset($config[$attribute])) {
+                $configuration->setParameter('facebook.'.$attribute, $config[$attribute]);
+            }
         }
 
         return $configuration;
@@ -36,12 +31,12 @@ class FacebookExtension extends LoaderExtension
 
     public function getXsdValidationBasePath()
     {
-        return __DIR__.'/../Resources/config/';
+        return __DIR__.'/../Resources/config/schema';
     }
 
     public function getNamespace()
     {
-        return 'http://www.symfony-project.org/schema/dic/facebook';
+        return 'http://kriswallsmith.net/schema/dic/facebook';
     }
 
     public function getAlias()
