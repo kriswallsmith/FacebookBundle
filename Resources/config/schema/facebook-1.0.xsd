@@ -12,6 +12,9 @@
             <xsd:attribute name="secret" type="xsd:string" />
             <xsd:attribute name="cookie" type="xsd:string" />
             <xsd:attribute name="domain" type="xsd:string" />
+            <xsd:attribute name="logging" type="xsd:string" />
+            <xsd:attribute name="culture" type="xsd:string" />
+            <xsd:attribute name="xfbml" type="xsd:string" />
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

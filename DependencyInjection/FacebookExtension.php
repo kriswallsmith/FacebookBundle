@@ -20,7 +20,7 @@ class FacebookExtension extends LoaderExtension
             $configuration->merge($loader->load($this->resources['facebook']));
         }
 
-        foreach (array('class', 'app_id', 'secret', 'cookie', 'domain') as $attribute) {
+        foreach (array('class', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'xfbml') as $attribute) {
             if (isset($config[$attribute])) {
                 $configuration->setParameter('facebook.'.$attribute, $config[$attribute]);
             }
