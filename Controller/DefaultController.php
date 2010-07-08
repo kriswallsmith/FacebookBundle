@@ -2,7 +2,7 @@
 
 namespace Bundle\Kris\FacebookBundle\Controller;
 
-use Symfony\Framework\WebBundle\Controller;
+use Symfony\Framework\FoundationBundle\Controller;
 
 class DefaultController extends Controller
 {
@@ -17,7 +17,7 @@ class DefaultController extends Controller
      */
     public function initAction($status = false, $xfbml = null, $session = null)
     {
-        return $this->render('FacebookBundle:Default:init', array(
+        return $this->render('Kris/FacebookBundle:Default:init', array(
             'app_id'  => $this->container->getParameter('facebook.app_id'),
             'cookie'  => $this->container->getParameter('facebook.cookie'),
             'xfbml'   => $xfbml ?: $this->container->getParameter('facebook.xfbml'),
