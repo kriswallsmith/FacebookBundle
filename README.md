@@ -46,13 +46,13 @@ Installation
 Setting up the JavaScript SDK
 -----------------------------
 
-A view file (and controller) is included for loading the Facebook JavaScript
-SDK and initializing it with parameters from your service container. To setup
-the Facebook JavaScript environment, add the following to your layout just
-after the opening `body` tag:
+A templating helper is included for loading the Facebook JavaScript SDK and
+initializing it with parameters from your service container. To setup the
+Facebook JavaScript environment, add the following to your layout just after
+the opening `body` tag:
 
       <body>
-        <?php $view->actions->output('Kris/FacebookBundle:Default:init') ?>
+        <?php echo $view->facebook->initialize(array('xfbml' => true)) ?>
 
 If you will be adding XFBML markup to your site you must also declare the
 namespace, perhaps in the opening `html` tag:
