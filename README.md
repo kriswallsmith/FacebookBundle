@@ -32,12 +32,14 @@ Installation
 
           # application/config/config.yml
           facebook.api:
+            alias: facebook
             app_id: 123456879
             secret: s3cr3t
             cookie: true
 
           # application/config/config.xml
           <facebook:api
+            alias="facebook"
             app_id="123456879"
             secret="s3cr3t"
             cookie="true"
