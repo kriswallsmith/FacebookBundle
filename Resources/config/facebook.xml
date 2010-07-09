@@ -6,27 +6,27 @@
 
   <parameters>
     <!-- parameters used in both the js and php api classes -->
-    <parameter key="facebook.app_id">null</parameter>
-    <parameter key="facebook.cookie">false</parameter>
+    <parameter key="kris.facebook.app_id">null</parameter>
+    <parameter key="kris.facebook.cookie">false</parameter>
 
     <!-- parameters used by the php api -->
-    <parameter key="facebook.class">Facebook</parameter>
-    <parameter key="facebook.secret">null</parameter>
-    <parameter key="facebook.domain">null</parameter>
+    <parameter key="kris.facebook.class">Facebook</parameter>
+    <parameter key="kris.facebook.secret">null</parameter>
+    <parameter key="kris.facebook.domain">null</parameter>
 
     <!-- parameters used by the js api -->
-    <parameter key="facebook.logging">true</parameter>
-    <parameter key="facebook.xfbml">false</parameter>
-    <parameter key="facebook.culture">en_US</parameter>
+    <parameter key="kris.facebook.logging">true</parameter>
+    <parameter key="kris.facebook.xfbml">false</parameter>
+    <parameter key="kris.facebook.culture">en_US</parameter>
   </parameters>
 
   <services>
-    <service id="facebook" class="%facebook.class%">
+    <service id="kris.facebook" class="%kris.facebook.class%">
       <argument type="collection">
-        <argument key="appId">%facebook.app_id%</argument>
-        <argument key="secret">%facebook.secret%</argument>
-        <argument key="cookie">%facebook.cookie%</argument>
-        <argument key="domain">%facebook.domain%</argument>
+        <argument key="appId">%kris.facebook.app_id%</argument>
+        <argument key="secret">%kris.facebook.secret%</argument>
+        <argument key="cookie">%kris.facebook.cookie%</argument>
+        <argument key="domain">%kris.facebook.domain%</argument>
       </argument>
     </service>
   </services>

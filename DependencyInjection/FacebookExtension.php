@@ -15,14 +15,14 @@ class FacebookExtension extends LoaderExtension
 
     public function apiLoad($config, BuilderConfiguration $configuration)
     {
-        if (!$configuration->hasDefinition('facebook')) {
+        if (!$configuration->hasDefinition('kris.facebook')) {
             $loader = new XmlFileLoader(__DIR__.'/../Resources/config');
             $configuration->merge($loader->load($this->resources['facebook']));
         }
 
         foreach (array('class', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'xfbml') as $attribute) {
             if (isset($config[$attribute])) {
-                $configuration->setParameter('facebook.'.$attribute, $config[$attribute]);
+                $configuration->setParameter('kris.facebook.'.$attribute, $config[$attribute]);
             }
         }
 

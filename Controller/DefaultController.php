@@ -18,11 +18,11 @@ class DefaultController extends Controller
     public function initAction($status = false, $xfbml = null, $session = null)
     {
         return $this->render('Kris/FacebookBundle:Default:init', array(
-            'app_id'  => $this->container->getParameter('facebook.app_id'),
-            'cookie'  => $this->container->getParameter('facebook.cookie'),
-            'xfbml'   => $xfbml ?: $this->container->getParameter('facebook.xfbml'),
-            'logging' => $this->container->getParameter('facebook.logging'),
-            'culture' => $this->container->getParameter('facebook.culture'),
+            'app_id'  => $this->container->getParameter('kris.facebook.app_id'),
+            'cookie'  => $this->container->getParameter('kris.facebook.cookie'),
+            'xfbml'   => $xfbml ?: $this->container->getParameter('kris.facebook.xfbml'),
+            'logging' => $this->container->getParameter('kris.facebook.logging'),
+            'culture' => $this->container->getParameter('kris.facebook.culture'),
             'status'  => $status,
             'session' => $session,
         ));
