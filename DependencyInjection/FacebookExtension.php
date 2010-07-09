@@ -29,8 +29,6 @@ class FacebookExtension extends LoaderExtension
                 $configuration->setParameter('kris.facebook.'.$attribute, $config[$attribute]);
             }
         }
-
-        return $configuration;
     }
 
     public function getXsdValidationBasePath()
