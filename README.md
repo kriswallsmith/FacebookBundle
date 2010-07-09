@@ -36,7 +36,7 @@ Installation
             secret: s3cr3t
             cookie: true
 
-    Or in XML:
+  Or in XML:
 
           # application/config/config.xml
           <facebook:api
