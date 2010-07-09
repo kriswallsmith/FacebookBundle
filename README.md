@@ -11,7 +11,7 @@ Installation
           // src/autoload.php
           spl_autoload_register(function($class) {
               if ('Facebook' == $class) {
-                  require_once __DIR__.'/vendor/Facebook/src/facebook.php';
+                  require_once __DIR__.'/vendor/facebook/src/facebook.php';
                   return true;
               }
           });
@@ -23,18 +23,27 @@ Installation
           {
               return array(
                   // ...
-                  new Bundle\Kris\FacebookBundle\FacebookBundle(),
+                  new Bundle\Kris\FacebookBundle\KrisFacebookBundle(),
                   // ...
               );
           }
 
-  4. Configure the `facebook` service:
+  4. Configure the `facebook` service in your YAML config:
 
           # application/config/config.yml
           facebook.api:
             app_id: 123456879
             secret: s3cr3t
             cookie: true
+
+    Or in XML:
+
+          # application/config/config.xml
+          <facebook:api
+            app_id="123456879"
+            secret="s3cr3t"
+            cookie="true"
+          />
 
 Setting up the JavaScript SDK
 -----------------------------
