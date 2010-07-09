@@ -28,15 +28,13 @@ Installation
               );
           }
 
-  4. Configure the `facebook` service in your YAML config:
+  4. Configure the `facebook` service in your config:
 
           # application/config/config.yml
           facebook.api:
             app_id: 123456879
             secret: s3cr3t
             cookie: true
-
-  Or in XML:
 
           # application/config/config.xml
           <facebook:api
