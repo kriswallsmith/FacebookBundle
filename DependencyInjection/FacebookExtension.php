@@ -2,31 +2,30 @@
 
 namespace Bundle\Kris\FacebookBundle\DependencyInjection;
 
-use Symfony\Components\DependencyInjection\Loader\LoaderExtension;
+use Symfony\Components\DependencyInjection\Extension\Extension;
 use Symfony\Components\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Components\DependencyInjection\BuilderConfiguration;
-use Symfony\Components\DependencyInjection\ContainerInterface;
+use Symfony\Components\DependencyInjection\ContainerBuilder;
 
-class FacebookExtension extends LoaderExtension
+class FacebookExtension extends Extension
 {
     protected $resources = array(
         'facebook' => 'facebook.xml',
     );
 
-    public function apiLoad($config, BuilderConfiguration $configuration)
+    public function apiLoad($config, ContainerBuilder $container)
     {
-        if (!$configuration->hasDefinition('kris.facebook')) {
-            $loader = new XmlFileLoader(__DIR__.'/../Resources/config');
-            $configuration->merge($loader->load($this->resources['facebook']));
+        if (!$container->hasDefinition('kris.facebook')) {
+            $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+            $loader->load($this->resources['facebook']);
         }
 
         if (isset($config['alias'])) {
-            $configuration->setAlias($config['alias'], 'kris.facebook');
+            $container->setAlias($config['alias'], 'kris.facebook');
         }
 
         foreach (array('class', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture') as $attribute) {
             if (isset($config[$attribute])) {
-                $configuration->setParameter('kris.facebook.'.$attribute, $config[$attribute]);
+                $container->setParameter('kris.facebook.'.$attribute, $config[$attribute]);
             }
         }
     }
