@@ -54,7 +54,7 @@ Facebook JavaScript environment, add the following to your layout just after
 the opening `body` tag:
 
       <body>
-        <?php echo $view->facebook->initialize(array('xfbml' => true)) ?>
+        <?php echo $view['facebook']->initialize(array('xfbml' => true)) ?>
 
 If you will be adding XFBML markup to your site you must also declare the
 namespace, perhaps in the opening `html` tag:
