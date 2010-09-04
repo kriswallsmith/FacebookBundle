@@ -3,8 +3,8 @@
 namespace Bundle\Kris\FacebookBundle;
 
 use Symfony\Framework\Bundle\Bundle;
-use Symfony\Components\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Components\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension;
 
 class KrisFacebookBundle extends Bundle

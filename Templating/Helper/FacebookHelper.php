@@ -2,7 +2,7 @@
 
 namespace Bundle\Kris\FacebookBundle\Templating\Helper;
 
-use Symfony\Components\Templating\Helper\Helper;
+use Symfony\Component\Templating\Helper\Helper;
 
 class FacebookHelper extends Helper
 {
