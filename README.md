@@ -3,7 +3,7 @@ Installation
 
   1. Add this bundle and the Facebook PHP SDK to your project as Git submodules:
 
-          $ git submodule add git://github.com/kriswallsmith/FacebookBundle.git src/Bundle/Kris/FacebookBundle
+          $ git submodule add git://github.com/kriswallsmith/KrisFacebookBundle.git src/Bundle/Kris/FacebookBundle
           $ git submodule add git://github.com/facebook/php-sdk.git src/vendor/facebook
 
   2. Add the `Facebook` class to your project's autoloader bootstrap script:
