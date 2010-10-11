@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="./Tests/bootstrap.php">
+  <php>
+    <!-- <server name="SYMFONY" value="/path/to/symfony" /> -->
+  </php>
+
+  <testsuites>
+    <testsuite name="KrisFacebookBundle">
+      <directory suffix="Test.php">./Tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
