@@ -15,8 +15,7 @@ class FacebookExtension extends Extension
     public function apiLoad($config, ContainerBuilder $container)
     {
         if (!$container->hasDefinition('kris.facebook')) {
-            $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-            $loader->load($this->resources['facebook']);
+            $this->loadDefaults($container);
         }
 
         if (isset($config['alias'])) {
@@ -43,5 +42,11 @@ class FacebookExtension extends Extension
     public function getAlias()
     {
         return 'facebook';
+    }
+
+    protected function loadDefaults($container)
+    {
+        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+        $loader->load($this->resources['facebook']);
     }
 }
