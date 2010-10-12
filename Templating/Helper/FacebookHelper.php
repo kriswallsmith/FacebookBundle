@@ -74,6 +74,9 @@ HTML;
         )));
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getName()
     {
         return 'facebook';

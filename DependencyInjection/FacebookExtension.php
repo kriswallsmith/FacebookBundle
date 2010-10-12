@@ -29,21 +29,33 @@ class FacebookExtension extends Extension
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getXsdValidationBasePath()
     {
         return __DIR__.'/../Resources/config/schema';
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getNamespace()
     {
         return 'http://kriswallsmith.net/schema/dic/facebook';
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getAlias()
     {
         return 'facebook';
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function loadDefaults($container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');

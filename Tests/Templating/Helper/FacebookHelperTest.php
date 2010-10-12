@@ -6,6 +6,9 @@ use Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper;
 
 class FacebookHelperTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper::initialize
+     */
     public function testInitialize()
     {
         $helper = new FacebookHelper('123');

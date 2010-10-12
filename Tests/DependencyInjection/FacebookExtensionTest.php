@@ -6,6 +6,9 @@ use Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension;
 
 class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     */
     public function testApiLoadLoadsDefaults()
     {
         $container = $this->getMock('Symfony\\Component\\DependencyInjection\\ContainerBuilder');
@@ -26,6 +29,9 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $extension->apiLoad(array(), $container);
     }
 
+    /**
+     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     */
     public function testApiLoadDoesNotReloadDefaults()
     {
         $container = $this->getMock('Symfony\\Component\\DependencyInjection\\ContainerBuilder');
@@ -45,6 +51,9 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $extension->apiLoad(array(), $container);
     }
 
+    /**
+     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     */
     public function testApiLoadSetsAlias()
     {
         $alias = 'foo';
@@ -65,6 +74,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      * @dataProvider parameterNames
      */
     public function testApiLoadSetParameters($name)
