@@ -32,6 +32,7 @@
     </service>
     <service id="kris.facebook.helper" class="%kris.facebook.helper.class%">
       <tag name="templating.helper" alias="facebook" />
+      <argument type="service" id="templating" />
       <argument>%kris.facebook.app_id%</argument>
       <argument>%kris.facebook.cookie%</argument>
       <argument>%kris.facebook.logging%</argument>

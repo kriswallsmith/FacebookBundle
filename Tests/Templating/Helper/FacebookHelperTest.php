@@ -11,8 +11,26 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitialize()
     {
-        $helper = new FacebookHelper('123');
-        $html = $helper->initialize();
-        $this->assertTrue(false !== strpos($html, '"123"'));
+        $expected = new \stdClass();
+
+        $templating = $this->getMockBuilder('Symfony\\Component\\Templating\\Engine')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $templating
+            ->expects($this->once())
+            ->method('render')
+            ->with('Kris\\FacebookBundle::initialize.php', array(
+                'appId'   => 123,
+                'cookie'  => false,
+                'culture' => 'en_US',
+                'logging' => true,
+                'session' => null,
+                'status'  => false,
+                'xfbml'   => false,
+            ))
+            ->will($this->returnValue($expected));
+
+        $helper = new FacebookHelper($templating, '123');
+        $this->assertSame($expected, $helper->initialize());
     }
 }

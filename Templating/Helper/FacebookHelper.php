@@ -3,75 +3,54 @@
 namespace Bundle\Kris\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
+use Symfony\Component\Templating\Engine;
 
 class FacebookHelper extends Helper
 {
-    const FORMAT = <<<HTML
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() { FB.init(%s); };
-  (function() {
-    var e = document.createElement('script');
-    e.src = document.location.protocol + %s;
-    e.async = true;
-    document.getElementById('fb-root').appendChild(e);
-  })();
-</script>
-
-HTML;
-
+    protected $templating;
     protected $appId;
     protected $cookie;
     protected $logging;
     protected $culture;
 
-    public function __construct($appId, $cookie = false, $logging = true, $culture = 'en_US')
+    public function __construct(Engine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US')
     {
-        $this->appId = $appId;
-        $this->cookie = $cookie;
-        $this->logging = $logging;
-        $this->culture = $culture;
+        $this->templating = $templating;
+        $this->appId      = $appId;
+        $this->cookie     = $cookie;
+        $this->logging    = $logging;
+        $this->culture    = $culture;
     }
 
     /**
      * Returns the HTML necessary for initializing the JavaScript SDK.
-     * 
-     * Available options:
-     * 
+     *
+     * The default template includes the following parameters:
+     *
+     *  * appId
      *  * xfbml
      *  * session
      *  * status
      *  * cookie
      *  * logging
      *  * culture
-     * 
-     * @param array $options An array of initialization options
-     * 
+     *
+     * @param array  $parameters An array of parameters for the initialization template
+     * @param string $name       A template name
+     *
      * @return string An HTML string
      */
-    public function initialize($options = array())
+    public function initialize($parameters = array(), $name = 'Kris\\FacebookBundle::initialize.php')
     {
-        // apply defaults
-        $options += array(
+        return $this->templating->render($name, $parameters + array(
+            'appId'   => $this->appId,
             'xfbml'   => false,
             'session' => null,
             'status'  => false,
-            'cookie'  => null,
-            'logging' => null,
-            'culture' => null,
-        );
-
-        return vsprintf(static::FORMAT, array_map('json_encode', array(
-            array(
-                'appId'   => $this->appId,
-                'xfbml'   => $options['xfbml'],
-                'session' => $options['session'],
-                'status'  => $options['status'],
-                'cookie'  => $options['cookie'] ?: $this->cookie,
-                'logging' => $options['logging'] ?: $this->logging,
-            ),
-            '//connect.facebook.net/'.($options['culture'] ?: $this->culture).'/all.js',
-        )));
+            'cookie'  => $this->cookie,
+            'logging' => $this->logging,
+            'culture' => $this->culture,
+        ));
     }
 
     /**
