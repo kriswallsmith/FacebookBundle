@@ -9,7 +9,7 @@ class FacebookHelper extends Helper
     const FORMAT = <<<HTML
 <div id="fb-root"></div>
 <script>
-  window.fbAsyncInit = function() { FB.init(%s); };
+  window.fbAsyncInit = function() { FB.init(%s); %s; };
   (function() {
     var e = document.createElement('script');
     e.src = document.location.protocol + %s;
@@ -35,18 +35,19 @@ HTML;
 
     /**
      * Returns the HTML necessary for initializing the JavaScript SDK.
-     * 
+     *
      * Available options:
-     * 
+     *
      *  * xfbml
      *  * session
      *  * status
      *  * cookie
      *  * logging
      *  * culture
-     * 
+     *  * customCode
+     *
      * @param array $options An array of initialization options
-     * 
+     *
      * @return string An HTML string
      */
     public function initialize($options = array())
@@ -59,19 +60,23 @@ HTML;
             'cookie'  => null,
             'logging' => null,
             'culture' => null,
+            'customCode' => '',
         );
 
-        return vsprintf(static::FORMAT, array_map('json_encode', array(
-            array(
+        $parameters = array(
+            json_encode(array(
                 'appId'   => $this->appId,
                 'xfbml'   => $options['xfbml'],
                 'session' => $options['session'],
                 'status'  => $options['status'],
                 'cookie'  => $options['cookie'] ?: $this->cookie,
                 'logging' => $options['logging'] ?: $this->logging,
-            ),
-            '//connect.facebook.net/'.($options['culture'] ?: $this->culture).'/all.js',
-        )));
+            )),
+            $options['customCode'],
+            json_encode('//connect.facebook.net/'.($options['culture'] ?: $this->culture).'/all.js'),
+        );
+
+        return vsprintf(static::FORMAT, $parameters);
     }
 
     /**
