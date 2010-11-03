@@ -6,6 +6,7 @@
 
   <parameters>
     <!-- parameters used in both the js and php api classes -->
+    <parameter key="kris.facebook.file">null</parameter>
     <parameter key="kris.facebook.app_id">null</parameter>
     <parameter key="kris.facebook.cookie">false</parameter>
 
@@ -23,6 +24,7 @@
 
   <services>
     <service id="kris.facebook" class="%kris.facebook.class%">
+      <file>%kris.facebook.file%</file>
       <argument type="collection">
         <argument key="appId">%kris.facebook.app_id%</argument>
         <argument key="secret">%kris.facebook.secret%</argument>

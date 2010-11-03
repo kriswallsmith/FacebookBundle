@@ -7,6 +7,7 @@
 
     <xsd:element name="facebook">
         <xsd:complexType>
+            <xsd:attribute name="file" type="xsd:string" />
             <xsd:attribute name="alias" type="xsd:string" />
             <xsd:attribute name="class" type="xsd:string" />
             <xsd:attribute name="app_id" type="xsd:integer" />

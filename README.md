@@ -6,17 +6,7 @@ Installation
           $ git submodule add git://github.com/kriswallsmith/KrisFacebookBundle.git src/Bundle/Kris/FacebookBundle
           $ git submodule add git://github.com/facebook/php-sdk.git src/vendor/facebook
 
-  2. Add the `Facebook` class to your project's autoloader bootstrap script:
-
-          // src/autoload.php
-          spl_autoload_register(function($class) {
-              if ('Facebook' == $class) {
-                  require_once __DIR__.'/vendor/facebook/src/facebook.php';
-                  return true;
-              }
-          });
-
-  3. Add this bundle to your application's kernel:
+  2. Add this bundle to your application's kernel:
 
           // application/ApplicationKernel.php
           public function registerBundles()
@@ -28,22 +18,27 @@ Installation
               );
           }
 
-  4. Configure the `facebook` service in your config:
+  3. Configure the `facebook` service in your config:
 
           # application/config/config.yml
           facebook.api:
-            alias: facebook
+            file:   %kernel.root_dir%/../src/vendor/facebook/src/facebook.php
+            alias:  facebook
             app_id: 123456879
             secret: s3cr3t
             cookie: true
 
           # application/config/config.xml
           <facebook:api
+            file="%kernel.root_dir%/../src/vendor/facebook/src/facebook.php"
             alias="facebook"
             app_id="123456879"
             secret="s3cr3t"
             cookie="true"
           />
+
+     If you do not include a `file` value in the config you will have to 
+     configure your application to autoload the `Facebook` class.
 
 Setting up the JavaScript SDK
 -----------------------------
