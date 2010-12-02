@@ -20,6 +20,7 @@
     <parameter key="kris.facebook.culture">en_US</parameter>
 
     <parameter key="kris.facebook.helper.class">Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
+    <parameter key="kris.facebook.twig.extension.class">Bundle\Kris\FacebookBundle\Extension\FacebookExtension</parameter>
   </parameters>
 
   <services>
@@ -39,6 +40,10 @@
       <argument>%kris.facebook.cookie%</argument>
       <argument>%kris.facebook.logging%</argument>
       <argument>%kris.facebook.culture%</argument>
+    </service>
+    <service id="kris.facebook.twig" class="%kris.facebook.twig.extension.class%">
+      <argument key="appId">%kris.facebook.app_id%</argument>
+      <tag name="twig.extension" />
     </service>
   </services>
 </container>

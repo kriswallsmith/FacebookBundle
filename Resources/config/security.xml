@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="security.authentication.listener.facebook.class">Bundle\Kris\FacebookBundle\Security\Firewall\FacebookListener</parameter>
+        <parameter key="facebook.appId"></parameter>
+        <parameter key="facebook.secret"></parameter>
+        <parameter key="facebook.cookie">true</parameter>
+        <parameter key="facebook.sdk.file">%kernel.root_dir%/../src/vendor/facebook-php-sdk/src/facebook.php</parameter>
+    </parameters>
+
+    <services>
+        <service id="facebook.auth" class="Bundle\Kris\FacebookBundle\Security\Provider\FacebookProvider">
+            <argument type="service" id="kris.facebook" />
+        </service>
+    </services>
+</container>

@@ -40,6 +40,29 @@ Installation
      If you do not include a `file` value in the config you will have to 
      configure your application to autoload the `Facebook` class.
 
+  4. Add this configuration if you want to use the `security component`:
+  
+          # application/config/config.yml
+          security.config:
+              providers:
+      
+                  facebook: 
+                    id: facebook.auth
+      
+              firewalls:
+      
+                  public:
+                      pattern:   /.*
+                      facebook:  true
+                      anonymous: true
+                      stateless: true
+                      security:  true
+      
+              access_control:
+                  - { path: /.*, role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
+
+
+
 Setting up the JavaScript SDK
 -----------------------------
 

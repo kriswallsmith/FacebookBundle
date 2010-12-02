@@ -10,6 +10,7 @@ class FacebookExtension extends Extension
 {
     protected $resources = array(
         'facebook' => 'facebook.xml',
+        'security' => 'security.xml'
     );
 
     public function apiLoad($config, ContainerBuilder $container)
@@ -60,5 +61,6 @@ class FacebookExtension extends Extension
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load($this->resources['facebook']);
+        $loader->load($this->resources['security']);
     }
 }
