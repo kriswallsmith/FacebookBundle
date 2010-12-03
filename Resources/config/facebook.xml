@@ -19,6 +19,8 @@
     <parameter key="kris.facebook.logging">%kernel.debug%</parameter>
     <parameter key="kris.facebook.culture">en_US</parameter>
 
+    <parameter key="kris.facebook.permissions" type="collection"></parameter>
+
     <parameter key="kris.facebook.helper.class">Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
   </parameters>
 
@@ -39,6 +41,7 @@
       <argument>%kris.facebook.cookie%</argument>
       <argument>%kris.facebook.logging%</argument>
       <argument>%kris.facebook.culture%</argument>
+      <argument>%kris.facebook.permissions%</argument>
     </service>
   </services>
 </container>

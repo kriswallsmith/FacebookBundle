@@ -12,14 +12,16 @@ class FacebookHelper extends Helper
     protected $cookie;
     protected $logging;
     protected $culture;
+    protected $permissions;
 
-    public function __construct(Engine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US')
+    public function __construct(Engine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', $permissions = array())
     {
         $this->templating = $templating;
         $this->appId      = $appId;
         $this->cookie     = $cookie;
         $this->logging    = $logging;
         $this->culture    = $culture;
+        $this->permissions= $permissions;
     }
 
     /**
@@ -50,6 +52,15 @@ class FacebookHelper extends Helper
             'cookie'  => $this->cookie,
             'logging' => $this->logging,
             'culture' => $this->culture,
+        ));
+    }
+
+    public function loginButton($parameters = array(), $name = 'Kris\\FacebookBundle::loginButton.php')
+    {
+        return $this->templating->render($name, $parameters + array(
+            'autologoutlink'   => 'false',
+            'label'   => '',
+            'permissions' => implode(', ', $this->permissions),
         ));
     }
 
