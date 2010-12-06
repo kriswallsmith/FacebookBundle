@@ -22,7 +22,7 @@ class FacebookExtension extends Extension
             $container->setAlias($config['alias'], 'kris.facebook');
         }
 
-        foreach (array('class', 'file', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture') as $attribute) {
+        foreach (array('class', 'file', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'permissions') as $attribute) {
             if (isset($config[$attribute])) {
                 $container->setParameter('kris.facebook.'.$attribute, $config[$attribute]);
             }
