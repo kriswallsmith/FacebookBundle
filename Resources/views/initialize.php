@@ -8,7 +8,7 @@ window.fbAsyncInit = function() {
     'status'  => $status,
     'cookie'  => $cookie,
     'logging' => $logging)) ?>);
-  <?php $view['slots']->output('fbAsyncInit') ?>
+  <?php echo $fbAsyncInit ?>
 };
 
 (function() {
