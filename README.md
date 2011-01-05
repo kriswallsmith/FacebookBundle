@@ -52,9 +52,9 @@ the opening `body` tag:
           <!-- inside a php template -->
           <?php echo $view['facebook']->initialize(array('xfbml' => true)) ?>
           <!-- inside a twig template -->
-          {{ _view.facebook.initialize(['xfbml': true])|raw }}
+          {{ facebook_initialize({'xfbml': true}) }}
 
-If you will be adding XFBML markup to your site you must also declare the
+If you will be adding XFBML markup to your site you may also declare the
 namespace, perhaps in the opening `html` tag:
 
       <html xmlns:fb="http://www.facebook.com/2008/fbml">
@@ -64,5 +64,7 @@ Include the login button in your templates
 
 Just add the following code in one of your templates:
 
-      {{ facebook_initialize() }}
-      {{ facebook_login_button() }}
+    <!-- inside a php template -->
+    <?php echo $view['facebook']->loginButton(array('autologoutlink' => true)) ?>
+    <!-- inside a twig template -->
+    {{ facebook_login_button({'autologoutlink': true}) }}
