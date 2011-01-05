@@ -1,0 +1,51 @@
+<?php
+
+namespace Bundle\Kris\FacebookBundle\Twig\Extension;
+
+use Bundle\Kris\FacebookBundle\Twig\TokenParser\FacebookTokenParser;
+
+/**
+ *
+ */
+class FacebookExtension extends \Twig_Extension
+{
+    protected $helper;
+
+    public function __construct($helper)
+    {
+        $this->helper = $helper;
+    }
+
+    /**
+     * Returns a list of global functions to add to the existing list.
+     *
+     * @return array An array of global functions
+     */
+    public function getFunctions()
+    {
+        return array(
+            'facebook_initialize' => new \Twig_Function_Method($this, 'renderInitialize', array('is_safe' => array('html'))),
+            'facebook_login_button' => new \Twig_Function_Method($this, 'renderLoginButton', array('is_safe' => array('html'))),
+        );
+    }
+
+    /**
+     * Returns the name of the extension.
+     *
+     * @return string The extension name
+     */
+    public function getName()
+    {
+        return 'facebook';
+    }
+
+    public function renderInitialize($parameters = array(), $name = 'Kris\\FacebookBundle::initialize.php')
+    {
+        return $this->helper->initialize($parameters, $name);
+    }
+
+    public function renderLoginButton($parameters = array(), $name = 'Kris\\FacebookBundle::loginButton.php')
+    {
+        return $this->helper->loginButton($parameters, $name);
+    }
+}

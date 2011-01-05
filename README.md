@@ -22,22 +22,22 @@ Installation
 
           # application/config/config.yml
           facebook.api:
-            file:   %kernel.root_dir%/../src/vendor/facebook/src/facebook.php
-            alias:  facebook
-            app_id: 123456879
-            secret: s3cr3t
-            cookie: true
+              file:   %kernel.root_dir%/../src/vendor/facebook/src/facebook.php
+              alias:  facebook
+              app_id: 123456879
+              secret: s3cr3t
+              cookie: true
 
           # application/config/config.xml
           <facebook:api
-            file="%kernel.root_dir%/../src/vendor/facebook/src/facebook.php"
-            alias="facebook"
-            app_id="123456879"
-            secret="s3cr3t"
-            cookie="true"
+              file="%kernel.root_dir%/../src/vendor/facebook/src/facebook.php"
+              alias="facebook"
+              app_id="123456879"
+              secret="s3cr3t"
+              cookie="true"
           />
 
-     If you do not include a `file` value in the config you will have to 
+     If you do not include a `file` value in the config you will have to
      configure your application to autoload the `Facebook` class.
 
 Setting up the JavaScript SDK
@@ -49,12 +49,20 @@ Facebook JavaScript environment, add the following to your layout just after
 the opening `body` tag:
 
       <body>
-        <!-- inside a php template -->
-        <?php echo $view['facebook']->initialize(array('xfbml' => true)) ?>
-        <!-- inside a twig template -->
-        {{ _view.facebook.initialize(['xfbml': true])|raw }}
+          <!-- inside a php template -->
+          <?php echo $view['facebook']->initialize(array('xfbml' => true)) ?>
+          <!-- inside a twig template -->
+          {{ _view.facebook.initialize(['xfbml': true])|raw }}
 
 If you will be adding XFBML markup to your site you must also declare the
 namespace, perhaps in the opening `html` tag:
 
       <html xmlns:fb="http://www.facebook.com/2008/fbml">
+
+Include the login button in your templates
+------------------------------------------
+
+Just add the following code in one of your templates:
+
+      {{ facebook_initialize() }}
+      {{ facebook_login_button() }}

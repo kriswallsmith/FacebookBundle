@@ -22,6 +22,7 @@
     <parameter key="kris.facebook.permissions" type="collection"></parameter>
 
     <parameter key="kris.facebook.helper.class">Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
+    <parameter key="kris.facebook.twig.extension.class">Bundle\Kris\FacebookBundle\Twig\Extension\FacebookExtension</parameter>
   </parameters>
 
   <services>
@@ -42,6 +43,10 @@
       <argument>%kris.facebook.logging%</argument>
       <argument>%kris.facebook.culture%</argument>
       <argument>%kris.facebook.permissions%</argument>
+    </service>
+    <service id="kris.facebook.twig" class="%kris.facebook.twig.extension.class%">
+        <argument type="service" id="kris.facebook.helper" />
+      <tag name="twig.extension" />
     </service>
   </services>
 </container>
