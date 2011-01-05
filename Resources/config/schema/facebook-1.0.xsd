@@ -17,6 +17,13 @@
             <xsd:attribute name="logging" type="xsd:boolean" />
             <xsd:attribute name="culture" type="xsd:string" />
             <xsd:attribute name="xfbml" type="xsd:boolean" />
+            <xsd:attribute name="permissions" type="permissions" />
         </xsd:complexType>
     </xsd:element>
+
+    <xsd:complexType name="permissions">
+        <xsd:sequence>
+            <xsd:element name="pemrmission" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:schema>

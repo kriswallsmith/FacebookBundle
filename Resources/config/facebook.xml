@@ -26,6 +26,7 @@
   </parameters>
 
   <services>
+
     <service id="kris.facebook" class="%kris.facebook.class%">
       <file>%kris.facebook.file%</file>
       <argument type="collection">
@@ -35,6 +36,7 @@
         <argument key="domain">%kris.facebook.domain%</argument>
       </argument>
     </service>
+
     <service id="kris.facebook.helper" class="%kris.facebook.helper.class%">
       <tag name="templating.helper" alias="facebook" />
       <argument type="service" id="templating" />
@@ -44,9 +46,11 @@
       <argument>%kris.facebook.culture%</argument>
       <argument>%kris.facebook.permissions%</argument>
     </service>
+
     <service id="kris.facebook.twig" class="%kris.facebook.twig.extension.class%">
-        <argument type="service" id="kris.facebook.helper" />
+      <argument type="service" id="kris.facebook.helper" />
       <tag name="twig.extension" />
     </service>
+
   </services>
 </container>
