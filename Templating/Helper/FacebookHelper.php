@@ -16,12 +16,12 @@ class FacebookHelper extends Helper
 
     public function __construct(Engine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', $permissions = array())
     {
-        $this->templating = $templating;
-        $this->appId      = $appId;
-        $this->cookie     = $cookie;
-        $this->logging    = $logging;
-        $this->culture    = $culture;
-        $this->permissions= $permissions;
+        $this->templating  = $templating;
+        $this->appId       = $appId;
+        $this->cookie      = $cookie;
+        $this->logging     = $logging;
+        $this->culture     = $culture;
+        $this->permissions = $permissions;
     }
 
     /**
@@ -45,22 +45,23 @@ class FacebookHelper extends Helper
     public function initialize($parameters = array(), $name = 'Kris\\FacebookBundle::initialize.php')
     {
         return $this->templating->render($name, $parameters + array(
-            'appId'   => $this->appId,
-            'xfbml'   => false,
-            'session' => null,
-            'status'  => false,
-            'cookie'  => $this->cookie,
-            'logging' => $this->logging,
-            'culture' => $this->culture,
+            'fbAsyncInit' => '',
+            'appId'       => $this->appId,
+            'xfbml'       => false,
+            'session'     => null,
+            'status'      => false,
+            'cookie'      => $this->cookie,
+            'logging'     => $this->logging,
+            'culture'     => $this->culture,
         ));
     }
 
     public function loginButton($parameters = array(), $name = 'Kris\\FacebookBundle::loginButton.php')
     {
         return $this->templating->render($name, $parameters + array(
-            'autologoutlink'   => 'false',
-            'label'   => '',
-            'permissions' => implode(', ', $this->permissions),
+            'autologoutlink' => 'false',
+            'label'          => '',
+            'permissions'    => implode(', ', $this->permissions),
         ));
     }
 
