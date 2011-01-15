@@ -3,7 +3,7 @@
 namespace Bundle\Kris\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Component\Templating\Engine;
+use Symfony\Component\Templating\DelegatingEngine;
 
 class FacebookHelper extends Helper
 {
@@ -14,7 +14,7 @@ class FacebookHelper extends Helper
     protected $culture;
     protected $permissions;
 
-    public function __construct(Engine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', $permissions = array())
+    public function __construct(DelegatingEngine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', $permissions = array())
     {
         $this->templating  = $templating;
         $this->appId       = $appId;
@@ -42,8 +42,9 @@ class FacebookHelper extends Helper
      *
      * @return string An HTML string
      */
-    public function initialize($parameters = array(), $name = 'Kris\\FacebookBundle::initialize.php')
+    public function initialize($parameters = array(), $name = null)
     {
+        $name = $name ?: 'KrisFacebookBundle::initialize.php.html';
         return $this->templating->render($name, $parameters + array(
             'fbAsyncInit' => '',
             'appId'       => $this->appId,
@@ -56,8 +57,9 @@ class FacebookHelper extends Helper
         ));
     }
 
-    public function loginButton($parameters = array(), $name = 'Kris\\FacebookBundle::loginButton.php')
+    public function loginButton($parameters = array(), $name = null)
     {
+        $name = $name ?: 'KrisFacebookBundle::loginButton.php.html';
         return $this->templating->render($name, $parameters + array(
             'autologoutlink' => 'false',
             'label'          => '',

@@ -39,12 +39,12 @@ class FacebookExtension extends \Twig_Extension
         return 'facebook';
     }
 
-    public function renderInitialize($parameters = array(), $name = 'Kris\\FacebookBundle::initialize.php')
+    public function renderInitialize($parameters = array(), $name = null)
     {
         return $this->helper->initialize($parameters, $name);
     }
 
-    public function renderLoginButton($parameters = array(), $name = 'Kris\\FacebookBundle::loginButton.php')
+    public function renderLoginButton($parameters = array(), $name = null)
     {
         return $this->helper->loginButton($parameters, $name);
     }

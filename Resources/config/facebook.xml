@@ -38,13 +38,13 @@
     </service>
 
     <service id="kris.facebook.helper" class="%kris.facebook.helper.class%">
-      <tag name="templating.helper" alias="facebook" />
       <argument type="service" id="templating" />
       <argument>%kris.facebook.app_id%</argument>
       <argument>%kris.facebook.cookie%</argument>
       <argument>%kris.facebook.logging%</argument>
       <argument>%kris.facebook.culture%</argument>
       <argument>%kris.facebook.permissions%</argument>
+      <tag name="templating.helper" alias="facebook" />
     </service>
 
     <service id="kris.facebook.twig" class="%kris.facebook.twig.extension.class%">
