@@ -21,7 +21,7 @@ Installation
   3. Configure the `facebook` service in your config:
 
           # application/config/config.yml
-          facebook.api:
+          fos_facebook.api:
               file:   %kernel.root_dir%/../src/vendor/facebook/src/facebook.php
               alias:  facebook
               app_id: 123456879
@@ -29,7 +29,7 @@ Installation
               cookie: true
 
           # application/config/config.xml
-          <facebook:api
+          <fos_facebook:api
               file="%kernel.root_dir%/../src/vendor/facebook/src/facebook.php"
               alias="facebook"
               app_id="123456879"
