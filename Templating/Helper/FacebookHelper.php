@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\Kris\FacebookBundle\Templating\Helper;
+namespace Bundle\FOS\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\DelegatingEngine;
@@ -44,7 +44,7 @@ class FacebookHelper extends Helper
      */
     public function initialize($parameters = array(), $name = null)
     {
-        $name = $name ?: 'KrisFacebookBundle::initialize.php.html';
+        $name = $name ?: 'FOSFacebookBundle::initialize.php.html';
         return $this->templating->render($name, $parameters + array(
             'fbAsyncInit' => '',
             'appId'       => $this->appId,
@@ -59,7 +59,7 @@ class FacebookHelper extends Helper
 
     public function loginButton($parameters = array(), $name = null)
     {
-        $name = $name ?: 'KrisFacebookBundle::loginButton.php.html';
+        $name = $name ?: 'FOSFacebookBundle::loginButton.php.html';
         return $this->templating->render($name, $parameters + array(
             'autologoutlink' => 'false',
             'label'          => '',

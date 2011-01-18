@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xsd:schema xmlns="http://kriswallsmith.net/schema/dic/facebook"
+<xsd:schema xmlns="http://www.symfony-project.org/schema/dic/fos_facebook"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="http://kriswallsmith.net/schema/dic/facebook"
+    targetNamespace="http://www.symfony-project.org/schema/dic/fos_facebook"
     elementFormDefault="qualified">
 
     <xsd:element name="facebook">

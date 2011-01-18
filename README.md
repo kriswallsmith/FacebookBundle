@@ -3,7 +3,7 @@ Installation
 
   1. Add this bundle and the Facebook PHP SDK to your project as Git submodules:
 
-          $ git submodule add git://github.com/kriswallsmith/KrisFacebookBundle.git src/Bundle/Kris/FacebookBundle
+          $ git submodule add git://github.com/FriendsOfSymfony/FacebookBundle.git src/Bundle/FOS/FacebookBundle
           $ git submodule add git://github.com/facebook/php-sdk.git src/vendor/facebook
 
   2. Add this bundle to your application's kernel:
@@ -13,7 +13,7 @@ Installation
           {
               return array(
                   // ...
-                  new Bundle\Kris\FacebookBundle\KrisFacebookBundle(),
+                  new Bundle\FOS\FacebookBundle\FOSFacebookBundle(),
                   // ...
               );
           }

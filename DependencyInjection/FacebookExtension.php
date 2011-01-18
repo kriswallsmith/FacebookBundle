@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\Kris\FacebookBundle\DependencyInjection;
+namespace Bundle\FOS\FacebookBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -14,17 +14,17 @@ class FacebookExtension extends Extension
 
     public function apiLoad($config, ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('kris.facebook')) {
+        if (!$container->hasDefinition('fos_facebook.api')) {
             $this->loadDefaults($container);
         }
 
         if (isset($config['alias'])) {
-            $container->setAlias($config['alias'], 'kris.facebook');
+            $container->setAlias($config['alias'], 'fos_facebook.api');
         }
 
         foreach (array('class', 'file', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'permissions') as $attribute) {
             if (isset($config[$attribute])) {
-                $container->setParameter('kris.facebook.'.$attribute, $config[$attribute]);
+                $container->setParameter('fos_facebook.'.$attribute, $config[$attribute]);
             }
         }
     }
@@ -42,7 +42,7 @@ class FacebookExtension extends Extension
      */
     public function getNamespace()
     {
-        return 'http://kriswallsmith.net/schema/dic/facebook';
+        return 'http://www.symfony-project.org/schema/dic/fos_facebook';
     }
 
     /**
@@ -50,7 +50,7 @@ class FacebookExtension extends Extension
      */
     public function getAlias()
     {
-        return 'facebook';
+        return 'fos_facebook';
     }
 
     /**

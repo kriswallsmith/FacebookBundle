@@ -1,28 +1,29 @@
 <?php
 
-namespace Bundle\Kris\FacebookBundle\Tests\Templating\Helper;
+namespace Bundle\FOS\FacebookBundle\Tests\Templating\Helper;
 
-use Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper;
+use Bundle\FOS\FacebookBundle\Templating\Helper\FacebookHelper;
 
 class FacebookHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Bundle\Kris\FacebookBundle\Templating\Helper\FacebookHelper::initialize
+     * @covers Bundle\FOS\FacebookBundle\Templating\Helper\FacebookHelper::initialize
      */
     public function testInitialize()
     {
         $expected = new \stdClass();
 
-        $templating = $this->getMockBuilder('Symfony\\Component\\Templating\\Engine')
+        $templating = $this->getMockBuilder('Symfony\Component\Templating\DelegatingEngine')
             ->disableOriginalConstructor()
             ->getMock();
         $templating
             ->expects($this->once())
             ->method('render')
-            ->with('Kris\\FacebookBundle::initialize.php', array(
+            ->with('FOSFacebookBundle::initialize.php.html', array(
                 'appId'   => 123,
                 'cookie'  => false,
                 'culture' => 'en_US',
+                'fbAsyncInit' => '',
                 'logging' => true,
                 'session' => null,
                 'status'  => false,

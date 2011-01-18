@@ -2,11 +2,11 @@
 
 <phpunit bootstrap="./Tests/bootstrap.php" color="true">
   <php>
-    <!-- <server name="SYMFONY" value="/path/to/symfony" /> -->
+    <server name="SYMFONY" value="../../../vendor/symfony/src" />
   </php>
 
   <testsuites>
-    <testsuite name="KrisFacebookBundle">
+    <testsuite name="FOSFacebookBundle">
       <directory suffix="Test.php">./Tests</directory>
     </testsuite>
   </testsuites>

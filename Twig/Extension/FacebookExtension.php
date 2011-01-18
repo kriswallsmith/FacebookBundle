@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\Kris\FacebookBundle\Twig\Extension;
+namespace Bundle\FOS\FacebookBundle\Twig\Extension;
 
-use Bundle\Kris\FacebookBundle\Twig\TokenParser\FacebookTokenParser;
+use Bundle\FOS\FacebookBundle\Twig\TokenParser\FacebookTokenParser;
 
 /**
  *

@@ -1,13 +1,13 @@
 <?php
 
-namespace Bundle\Kris\FacebookBundle\Tests\DependencyInjection;
+namespace Bundle\FOS\FacebookBundle\Tests\DependencyInjection;
 
-use Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension;
+use Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension;
 
 class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      */
     public function testApiLoadLoadsDefaults()
     {
@@ -15,10 +15,10 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $container
             ->expects($this->once())
             ->method('hasDefinition')
-            ->with('kris.facebook')
+            ->with('fos_facebook.api')
             ->will($this->returnValue(false));
 
-        $extension = $this->getMockBuilder('Bundle\\Kris\\FacebookBundle\\DependencyInjection\\FacebookExtension')
+        $extension = $this->getMockBuilder('Bundle\\FOS\\FacebookBundle\\DependencyInjection\\FacebookExtension')
             ->setMethods(array('loadDefaults'))
             ->getMock();
         $extension
@@ -30,7 +30,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      */
     public function testApiLoadDoesNotReloadDefaults()
     {
@@ -38,10 +38,10 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $container
             ->expects($this->once())
             ->method('hasDefinition')
-            ->with('kris.facebook')
+            ->with('fos_facebook.api')
             ->will($this->returnValue(true));
 
-        $extension = $this->getMockBuilder('Bundle\\Kris\\FacebookBundle\\DependencyInjection\\FacebookExtension')
+        $extension = $this->getMockBuilder('Bundle\\FOS\\FacebookBundle\\DependencyInjection\\FacebookExtension')
             ->setMethods(array('loadDefaults'))
             ->getMock();
         $extension
@@ -52,7 +52,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      */
     public function testApiLoadSetsAlias()
     {
@@ -62,19 +62,19 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $container
             ->expects($this->once())
             ->method('hasDefinition')
-            ->with('kris.facebook')
+            ->with('fos_facebook.api')
             ->will($this->returnValue(true));
         $container
             ->expects($this->once())
             ->method('setAlias')
-            ->with($alias, 'kris.facebook');
+            ->with($alias, 'fos_facebook');
 
         $extension = new FacebookExtension();
         $extension->apiLoad(array('alias' => $alias), $container);
     }
 
     /**
-     * @covers Bundle\Kris\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      * @dataProvider parameterNames
      */
     public function testApiLoadSetParameters($name)
@@ -85,12 +85,12 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $container
             ->expects($this->once())
             ->method('hasDefinition')
-            ->with('kris.facebook')
+            ->with('fos_facebook.api')
             ->will($this->returnValue(true));
         $container
             ->expects($this->once())
             ->method('setParameter')
-            ->with('kris.facebook.'.$name, $value);
+            ->with('fos_facebook.'.$name, $value);
 
         $extension = new FacebookExtension();
         $extension->apiLoad(array($name => $value), $container);
