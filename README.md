@@ -40,6 +40,31 @@ Installation
      If you do not include a `file` value in the config you will have to
      configure your application to autoload the `Facebook` class.
 
+  4. Add this configuration if you want to use the `security component`:
+
+        # application/config/config.yml
+          security.config:
+              templates:
+                  - "%kernel.root_dir%/../src/Bundle/FOS/FacebookBundle/Resources/config/security_templates.xml"
+
+              providers:
+                  fos_facebook:
+                    id: fos_facebook.auth
+
+              firewalls:
+                  public:
+                      pattern:   /.*
+                      fos_facebook:  true
+                      anonymous: true
+                      stateless: true
+
+                  only_facebook: # with facebook entry point (redirect to the facebook login url)
+                      pattern:   /only_facebook/.*
+                      fos_facebook:  true
+
+              access_control:
+                  - { path: /.*, role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
+
 Setting up the JavaScript SDK
 -----------------------------
 

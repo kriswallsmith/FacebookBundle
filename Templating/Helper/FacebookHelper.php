@@ -14,7 +14,7 @@ class FacebookHelper extends Helper
     protected $culture;
     protected $permissions;
 
-    public function __construct(DelegatingEngine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', $permissions = array())
+    public function __construct(DelegatingEngine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', array $permissions = array())
     {
         $this->templating  = $templating;
         $this->appId       = $appId;

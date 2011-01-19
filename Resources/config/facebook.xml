@@ -20,6 +20,12 @@
     <parameter key="fos_facebook.culture">en_US</parameter>
 
     <parameter key="fos_facebook.permissions" type="collection"></parameter>
+    
+    <parameter key="fos_facebook.login_url.cancel_url">null</parameter>
+    <parameter key="fos_facebook.login_url.canvas">0</parameter>
+    <parameter key="fos_facebook.login_url.display">page</parameter>
+    <parameter key="fos_facebook.login_url.fbconnect">1</parameter>
+    <parameter key="fos_facebook.login_url.next">null</parameter>
 
     <parameter key="fos_facebook.helper.class">Bundle\FOS\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
     <parameter key="fos_facebook.twig.extension.class">Bundle\FOS\FacebookBundle\Twig\Extension\FacebookExtension</parameter>
