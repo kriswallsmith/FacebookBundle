@@ -10,6 +10,7 @@ class FacebookExtension extends Extension
 {
     protected $resources = array(
         'facebook' => 'facebook.xml',
+        'security' => 'security.xml',
     );
 
     public function apiLoad($config, ContainerBuilder $container)
@@ -24,7 +25,15 @@ class FacebookExtension extends Extension
 
         foreach (array('class', 'file', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'permissions') as $attribute) {
             if (isset($config[$attribute])) {
-                $container->setParameter('fos_facebook.'.$attribute, $config[$attribute]);
+                $container->setParameter('fos_facebook.' . $attribute, $config[$attribute]);
+            }
+        }
+
+        if (isset($config['login_url']) && is_array($config['login_url'])) {
+            foreach (array('cancel_url', 'canvas', 'display', 'fbconnect', 'next') as $attribute) {
+                if (isset($config['login_url'][$attribute])) {
+                    $container->setParameter('fos_facebook.login_url.' . $attribute, $config['login_url'][$attribute]);
+                }
             }
         }
     }
@@ -34,7 +43,7 @@ class FacebookExtension extends Extension
      */
     public function getXsdValidationBasePath()
     {
-        return __DIR__.'/../Resources/config/schema';
+        return __DIR__ . '/../Resources/config/schema';
     }
 
     /**
@@ -58,7 +67,8 @@ class FacebookExtension extends Extension
      */
     protected function loadDefaults($container)
     {
-        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+        $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
         $loader->load($this->resources['facebook']);
+        $loader->load($this->resources['security']);
     }
 }
