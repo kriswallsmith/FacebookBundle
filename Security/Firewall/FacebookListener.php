@@ -2,17 +2,16 @@
 
 namespace Bundle\FOS\FacebookBundle\Security\Firewall;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Security\Firewall\PreAuthenticatedListener;
+use Bundle\FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
+use Symfony\Component\HttpKernel\Security\Firewall\FormAuthenticationListener;
 
 /**
  * Facebook authentication listener.
  */
-class FacebookListener extends PreAuthenticatedListener
+class FacebookListener extends FormAuthenticationListener
 {
-    protected function getPreAuthenticatedData(Request $request)
+    protected function attemptAuthentication($request)
     {
-        // array(id_user, query_string)
-        return array('_fos_facebook_', '_no_pass_');
+        return $this->authenticationManager->authenticate(new FacebookUserToken());
     }
 }
