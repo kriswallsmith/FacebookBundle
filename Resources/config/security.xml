@@ -6,8 +6,6 @@
 
     <parameters>
         <parameter key="fos_facebook.security.authentication.entry_point.class">Bundle\FOS\FacebookBundle\Security\EntryPoint\FacebookAuthenticationEntryPoint</parameter>
-        <parameter key="fos_facebook.security.authentication.listener.class">Bundle\FOS\FacebookBundle\Security\Firewall\FacebookListener</parameter>
-        <parameter key="fos_facebook.security.authentication.provider.class">Bundle\FOS\FacebookBundle\Security\Provider\FacebookProvider</parameter>
     </parameters>
 
     <services>
@@ -22,10 +20,6 @@
                 <argument key="next">%fos_facebook.login_url.next%</argument>
                 <argument key="req_perms">%fos_facebook.permissions%</argument>
             </argument>
-        </service>
-        
-        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
-            <argument type="service" id="fos_facebook.api" />
         </service>
         
     </services>
