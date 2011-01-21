@@ -3,21 +3,19 @@
 namespace Bundle\FOS\FacebookBundle\Security\Authentication\Provider;
 
 use Symfony\Component\Security\User\AccountInterface;
-
 use Symfony\Component\Security\User\AccountCheckerInterface;
-
 use Symfony\Component\Security\User\UserProviderInterface;
-
 use Symfony\Component\Security\Exception\AuthenticationException;
-use Bundle\FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
-use \Facebook;
 use Symfony\Component\Security\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Authentication\Provider\AuthenticationProviderInterface;
+
+use Bundle\FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
+use \Facebook;
 
 class FacebookProvider implements AuthenticationProviderInterface
 {
     /**
-		 * @var \Facebook
+     * @var \Facebook
      */
     protected $facebook;
     protected $userProvider;
