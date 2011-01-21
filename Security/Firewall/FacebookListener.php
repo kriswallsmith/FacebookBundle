@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\FacebookBundle\Security\Firewall;
+namespace FOS\FacebookBundle\Security\Firewall;
 
 use Bundle\FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
 use Symfony\Component\HttpKernel\Security\Firewall\FormAuthenticationListener;

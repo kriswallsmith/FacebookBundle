@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="fos_facebook.security.authentication.entry_point.class">Bundle\FOS\FacebookBundle\Security\EntryPoint\FacebookAuthenticationEntryPoint</parameter>
+        <parameter key="fos_facebook.security.authentication.entry_point.class">FOS\FacebookBundle\Security\EntryPoint\FacebookAuthenticationEntryPoint</parameter>
     </parameters>
 
     <services>
