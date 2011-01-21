@@ -2,6 +2,12 @@
 
 namespace Bundle\FOS\FacebookBundle\Security\Authentication\Provider;
 
+use Symfony\Component\Security\User\AccountInterface;
+
+use Symfony\Component\Security\User\AccountCheckerInterface;
+
+use Symfony\Component\Security\User\UserProviderInterface;
+
 use Symfony\Component\Security\Exception\AuthenticationException;
 use Bundle\FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
 use \Facebook;
@@ -14,10 +20,18 @@ class FacebookProvider implements AuthenticationProviderInterface
 		 * @var \Facebook
      */
     protected $facebook;
+    protected $userProvider;
+    protected $accountChecker;
 
-    public function __construct(Facebook $facebook)
+    public function __construct(Facebook $facebook, UserProviderInterface $userProvider = null, AccountCheckerInterface $accountChecker = null)
     {
+        if (null !== $userProvider && null === $accountChecker) {
+            throw new \InvalidArgumentException('$accountChecker cannot be null, if $userProvider is not null.');
+        }
+
         $this->facebook = $facebook;
+        $this->userProvider = $userProvider;
+        $this->accountChecker = $accountChecker;
     }
 
     public function authenticate(TokenInterface $token)
@@ -48,6 +62,18 @@ class FacebookProvider implements AuthenticationProviderInterface
 
     protected function createAuthenticatedToken($uid)
     {
-        return new FacebookUserToken($uid);
+        if (null === $this->userProvider) {
+            return new FacebookUserToken($uid);
+        }
+
+        $user = $this->userProvider->loadUserByUsername($uid);
+        if (!$user instanceof AccountInterface) {
+            throw new \RuntimeException('User provider did not return an implementation of account interface.');
+        }
+
+        $this->accountChecker->checkPreAuth($user);
+        $this->accountChecker->checkPostAuth($user);
+
+        return new FacebookUserToken($user, $user->getRoles());
     }
 }
