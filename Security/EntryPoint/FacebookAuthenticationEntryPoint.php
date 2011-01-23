@@ -42,7 +42,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
                     'canvas' => $this->options->get('canvas', 0),
                     'display' => $this->options->get('display', 'page'),
                     'fbconnect' => $this->options->get('fbconnect', 1),
-                    'req_perms' => $this->options->get('req_perms', ''),
+                    'permissions' => implode(', ', $this->options->get('permissions', array())),
                     'next' => $this->options->get('next', $request->getUri()),
                 ))
         );

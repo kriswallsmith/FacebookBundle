@@ -71,7 +71,8 @@ class FacebookExtension extends Extension
     protected function loadDefaults($container)
     {
         $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
-        $loader->load($this->resources['facebook']);
-        $loader->load($this->resources['security']);
+        foreach ($this->resources as $resource) {
+            $loader->load($resource);
+        }
     }
 }
