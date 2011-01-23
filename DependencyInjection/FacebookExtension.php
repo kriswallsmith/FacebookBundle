@@ -13,11 +13,14 @@ class FacebookExtension extends Extension
         'security' => 'security.xml',
     );
 
-    public function apiLoad($config, ContainerBuilder $container)
+    public function apiLoad($configs, ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('fos_facebook.api')) {
-            $this->loadDefaults($container);
+        $config = array_pop($configs);
+        foreach ($configs as $tmp) {
+            $config = array_merge($config, $tmp);
         }
+
+        $this->loadDefaults($container);
 
         if (isset($config['alias'])) {
             $container->setAlias($config['alias'], 'fos_facebook.api');
