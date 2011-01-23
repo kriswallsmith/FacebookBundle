@@ -11,12 +11,9 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testApiLoadLoadsDefaults()
     {
-        $container = $this->getMock('Symfony\\Component\\DependencyInjection\\ContainerBuilder');
-        $container
-            ->expects($this->once())
-            ->method('hasDefinition')
-            ->with('fos_facebook.api')
-            ->will($this->returnValue(false));
+        $container = $this->getMockBuilder('Symfony\\Component\\DependencyInjection\\ContainerBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $extension = $this->getMockBuilder('FOS\\FacebookBundle\\DependencyInjection\\FacebookExtension')
             ->setMethods(array('loadDefaults'))
@@ -26,29 +23,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('loadDefaults')
             ->with($container);
 
-        $extension->apiLoad(array(), $container);
-    }
-
-    /**
-     * @covers FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
-     */
-    public function testApiLoadDoesNotReloadDefaults()
-    {
-        $container = $this->getMock('Symfony\\Component\\DependencyInjection\\ContainerBuilder');
-        $container
-            ->expects($this->once())
-            ->method('hasDefinition')
-            ->with('fos_facebook.api')
-            ->will($this->returnValue(true));
-
-        $extension = $this->getMockBuilder('FOS\\FacebookBundle\\DependencyInjection\\FacebookExtension')
-            ->setMethods(array('loadDefaults'))
-            ->getMock();
-        $extension
-            ->expects($this->never())
-            ->method('loadDefaults');
-
-        $extension->apiLoad(array(), $container);
+        $extension->apiLoad(array(array()), $container);
     }
 
     /**
@@ -58,54 +33,75 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $alias = 'foo';
 
-        $container = $this->getMock('Symfony\\Component\\DependencyInjection\\ContainerBuilder');
-        $container
-            ->expects($this->once())
-            ->method('hasDefinition')
-            ->with('fos_facebook.api')
-            ->will($this->returnValue(true));
+        $container = $this->getMockBuilder('Symfony\\Component\\DependencyInjection\\ContainerBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $container
             ->expects($this->once())
             ->method('setAlias')
             ->with($alias, 'fos_facebook.api');
 
+        $parameterBag = $this->getMockBuilder('Symfony\Component\DependencyInjection\ParameterBag\\ParameterBag')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $parameterBag
+            ->expects($this->any())
+            ->method('add');
+
+        $container
+            ->expects($this->any())
+            ->method('getParameterBag')
+            ->will($this->returnValue($parameterBag));
+
         $extension = new FacebookExtension();
-        $extension->apiLoad(array('alias' => $alias), $container);
+        $extension->apiLoad(array(array('alias' => $alias)), $container);
     }
 
     /**
      * @covers FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      * @dataProvider parameterNames
      */
-    public function testApiLoadSetParameters($name)
+    public function testApiLoadSetParameters($name, $value)
     {
-        $value = 'foo';
+        $container = $this->getMockBuilder('Symfony\\Component\\DependencyInjection\\ContainerBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $container = $this->getMock('Symfony\\Component\\DependencyInjection\\ContainerBuilder');
-        $container
-            ->expects($this->once())
-            ->method('hasDefinition')
-            ->with('fos_facebook.api')
-            ->will($this->returnValue(true));
         $container
             ->expects($this->once())
             ->method('setParameter')
             ->with('fos_facebook.'.$name, $value);
 
+        $parameterBag = $this->getMockBuilder('Symfony\Component\DependencyInjection\ParameterBag\\ParameterBag')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $parameterBag
+            ->expects($this->any())
+            ->method('add');
+
+        $container
+            ->expects($this->any())
+            ->method('getParameterBag')
+            ->will($this->returnValue($parameterBag));
+
         $extension = new FacebookExtension();
-        $extension->apiLoad(array($name => $value), $container);
+        $extension->apiLoad(array(array($name => $value)), $container);
     }
 
     public function parameterNames()
     {
         return array(
-            array('class'),
-            array('app_id'),
-            array('secret'),
-            array('cookie'),
-            array('domain'),
-            array('logging'),
-            array('culture'),
+            array('class', 'foo'),
+            array('app_id', 'foo'),
+            array('secret', 'foo'),
+            array('cookie', 'foo'),
+            array('domain', 'foo'),
+            array('logging', 'foo'),
+            array('culture', 'foo'),
+            array('permissions', array('email')),
         );
     }
 }
