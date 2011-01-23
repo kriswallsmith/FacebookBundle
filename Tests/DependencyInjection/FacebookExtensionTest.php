@@ -7,7 +7,7 @@ use FOS\FacebookBundle\DependencyInjection\FacebookExtension;
 class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      */
     public function testApiLoadLoadsDefaults()
     {
@@ -30,7 +30,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      */
     public function testApiLoadDoesNotReloadDefaults()
     {
@@ -52,7 +52,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      */
     public function testApiLoadSetsAlias()
     {
@@ -74,7 +74,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Bundle\FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
+     * @covers FOS\FacebookBundle\DependencyInjection\FacebookExtension::apiLoad
      * @dataProvider parameterNames
      */
     public function testApiLoadSetParameters($name)

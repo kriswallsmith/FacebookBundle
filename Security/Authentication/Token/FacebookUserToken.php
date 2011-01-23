@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\FacebookBundle\Security\Authentication\Token;
+namespace FOS\FacebookBundle\Security\Authentication\Token;
 
 use Symfony\Component\Security\Authentication\Token\Token;
 

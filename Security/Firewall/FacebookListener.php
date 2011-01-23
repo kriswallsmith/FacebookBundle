@@ -2,7 +2,7 @@
 
 namespace FOS\FacebookBundle\Security\Firewall;
 
-use Bundle\FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
+use FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
 use Symfony\Component\HttpKernel\Security\Firewall\FormAuthenticationListener;
 use Symfony\Component\HttpFoundation\Request;
 
