@@ -44,7 +44,7 @@ class FacebookHelper extends Helper
      */
     public function initialize($parameters = array(), $name = null)
     {
-        $name = $name ?: 'FOSFacebookBundle::initialize.php.html';
+        $name = $name ?: 'FOSFacebookBundle::initialize.html.php';
         return $this->templating->render($name, $parameters + array(
             'fbAsyncInit' => '',
             'appId'       => $this->appId,
@@ -59,7 +59,7 @@ class FacebookHelper extends Helper
 
     public function loginButton($parameters = array(), $name = null)
     {
-        $name = $name ?: 'FOSFacebookBundle::loginButton.php.html';
+        $name = $name ?: 'FOSFacebookBundle::loginButton.html.php';
         return $this->templating->render($name, $parameters + array(
             'autologoutlink' => 'false',
             'label'          => '',
