@@ -74,4 +74,14 @@ class FacebookProvider implements AuthenticationProviderInterface
 
         return new FacebookUserToken($user, $user->getRoles());
     }
+
+    /**
+     * Finds a user by account
+     *
+     * @param AccountInterface $user
+     */
+    public function loadUserByAccount(AccountInterface $user)
+    {
+        throw new UnsupportedAccountException('Account is not supported.');
+    }
 }

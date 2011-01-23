@@ -10,9 +10,9 @@ class FacebookFactory implements SecurityFactoryInterface
 {
     public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPoint)
     {
-        if ($userProviderId != 'fos_facebook.auth') {
-            $providerId = 'fos_facebook.auth.'.$id;
-            $provider = clone $container->getDefinition('fos_facebook.auth');
+        $providerId = 'fos_facebook.auth';
+        if ($userProviderId !== $providerId) {
+            $provider = clone $container->getDefinition($providerId);
 
             $arguments = $provider->getArguments();
             $arguments[] = new Reference($userProviderId);
@@ -20,12 +20,13 @@ class FacebookFactory implements SecurityFactoryInterface
 
             $provider->setArguments($arguments);
 
+            $providerId.= '.'.$id;
             $container->setDefinition($providerId, $provider);
         }
 
-        // listener
-        $listenerId = 'fos_facebook.security.authentication.listener.'.$id;
-        $listener = $container->setDefinition($listenerId, clone $container->getDefinition('fos_facebook.security.authentication.listener'));
+        $listenerId = 'fos_facebook.security.authentication.listener';
+        $listener = clone $container->getDefinition($listenerId);
+
         $arguments = $listener->getArguments();
         $arguments[1] = new Reference($providerId);
 
@@ -36,6 +37,9 @@ class FacebookFactory implements SecurityFactoryInterface
         }
 
         $listener->setArguments($arguments);
+
+        $listenerId.= '.'.$id;
+        $container->setDefinition($listenerId, $listener);
 
         return array($providerId, $listenerId, 'fos_facebook.security.authentication.entry_point');
     }

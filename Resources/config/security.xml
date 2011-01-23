@@ -10,6 +10,10 @@
 
     <services>
         
+        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
+            <argument type="service" id="fos_facebook.api" />
+        </service>
+
         <service id="fos_facebook.security.authentication.entry_point" class="%fos_facebook.security.authentication.entry_point.class%" public="false">
             <argument type="service" id="fos_facebook.api" />
             <argument type="collection">
