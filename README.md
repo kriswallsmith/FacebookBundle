@@ -73,6 +73,29 @@ Installation
               access_control:
                   - { path: /.*, role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
 
+  6. Optionally define a custom user provider class and use it as the provider or define path for login
+
+        # application/config/config.yml
+          security.config:
+              templates:
+                  - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_templates.xml"
+                  - "%kernel.root_dir%/../src/Application/helloBundle/Resources/config/facebook.xml"
+
+              providers:
+                  fos_facebook:
+                    id: fos_facebook.user_provider
+
+              firewalls:
+                  public:
+                      pattern:   /.*
+                      fos_facebook:
+                        login_path: /facebook
+                        check_path: /facebook-check
+                        default_target_path: /facebook
+                      anonymous: true
+                      stateless: true
+
+
 Setting up the JavaScript SDK
 -----------------------------
 
