@@ -15,9 +15,9 @@ class FacebookExtension extends Extension
 
     public function apiLoad($configs, ContainerBuilder $container)
     {
-        $config = array_pop($configs);
+        $config = array_shift($configs);
         foreach ($configs as $tmp) {
-            $config = array_merge($config, $tmp);
+            $config = array_replace_recursive($config, $tmp);
         }
 
         $this->loadDefaults($container);
