@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['SYMFONY'].'/Symfony/Component/HttpFoundation/UniversalClassLoader.php';
+require_once $_SERVER['SYMFONY'].'/Symfony/Component/HttpKernel/bootstrap.php';
 
 use Symfony\Component\HttpFoundation\UniversalClassLoader;
 
