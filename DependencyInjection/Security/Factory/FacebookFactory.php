@@ -29,13 +29,28 @@ class FacebookFactory implements SecurityFactoryInterface
 
         $arguments = $listener->getArguments();
         $arguments[1] = new Reference($providerId);
-
-        if (is_array($config)) {
-            $options = $container->getParameter('fos_facebook.security.authentication.options');
-            $options = array_merge($options, $config);
-            $arguments[2] = $options;
+        
+        $options = array(
+            'check_path'                     => '/login_check',
+            'login_path'                     => '/login',
+            'use_forward'                    => false,
+            'always_use_default_target_path' => false,
+            'default_target_path'            => '/',
+            'target_path_parameter'          => '_target_path',
+            'use_referer'                    => false,
+            'failure_path'                   => null,
+            'failure_forward'                => false,
+        );
+        foreach (array_keys($options) as $key) {
+            if (isset($config[$key])) {
+                $options[$key] = $config[$key];
+            }
         }
-
+        $arguments[2] = $options;
+        
+        $container->setParameter('fos_facebook.security.authentication.options', $options);
+        $container->setParameter('fos_facebook.security.authentication.check_path', $options['check_path']);
+        
         $listener->setArguments($arguments);
 
         $listenerId.= '.'.$id;

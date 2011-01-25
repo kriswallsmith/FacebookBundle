@@ -21,11 +21,11 @@
 
     <parameter key="fos_facebook.permissions" type="collection"></parameter>
     
-    <parameter key="fos_facebook.login_url.cancel_url">null</parameter>
+    <parameter key="fos_facebook.login_url.cancel_url"></parameter>
     <parameter key="fos_facebook.login_url.canvas">0</parameter>
     <parameter key="fos_facebook.login_url.display">page</parameter>
     <parameter key="fos_facebook.login_url.fbconnect">1</parameter>
-    <parameter key="fos_facebook.login_url.next">null</parameter>
+    <parameter key="fos_facebook.login_url.next">/login_check</parameter>
 
     <parameter key="fos_facebook.helper.class">FOS\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
     <parameter key="fos_facebook.twig.extension.class">FOS\FacebookBundle\Twig\Extension\FacebookExtension</parameter>
@@ -50,12 +50,12 @@
       <argument>%fos_facebook.logging%</argument>
       <argument>%fos_facebook.culture%</argument>
       <argument>%fos_facebook.permissions%</argument>
-      <tag name="templating.helper" alias="facebook" />
+      <tag name="templating.helpe" alias="facebook" />
     </service>
 
     <service id="fos_facebook.twig" class="%fos_facebook.twig.extension.class%">
       <argument type="service" id="fos_facebook.helper" />
-      <tag name="twig.extension" />
+      <tag name="twig.extensio" />
     </service>
 
   </services>

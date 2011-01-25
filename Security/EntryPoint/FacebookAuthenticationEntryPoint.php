@@ -38,12 +38,12 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
     {
         $response = new Response();
         $response->setRedirect($this->facebook->getLoginUrl(array(
-                    'cancel_url' => $this->options->get('cancel_url', $request->getUri()),
+                    'cancel_url' => $request->getUriForPath($this->options->get('cancel_url', '')),
                     'canvas' => $this->options->get('canvas', 0),
                     'display' => $this->options->get('display', 'page'),
                     'fbconnect' => $this->options->get('fbconnect', 1),
-                    'permissions' => implode(', ', $this->options->get('permissions', array())),
-                    'next' => $this->options->get('next', $request->getUri()),
+                    'permissions' => implode(',', $this->options->get('permissions', array())),
+                    'next' => $request->getUriForPath($this->options->get('next', '')),
                 ))
         );
 
