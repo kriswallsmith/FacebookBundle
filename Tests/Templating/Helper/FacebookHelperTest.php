@@ -1,13 +1,13 @@
 <?php
 
-namespace Bundle\FOS\FacebookBundle\Tests\Templating\Helper;
+namespace FOS\FacebookBundle\Tests\Templating\Helper;
 
-use Bundle\FOS\FacebookBundle\Templating\Helper\FacebookHelper;
+use FOS\FacebookBundle\Templating\Helper\FacebookHelper;
 
 class FacebookHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Bundle\FOS\FacebookBundle\Templating\Helper\FacebookHelper::initialize
+     * @covers FOS\FacebookBundle\Templating\Helper\FacebookHelper::initialize
      */
     public function testInitialize()
     {
@@ -19,7 +19,7 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
         $templating
             ->expects($this->once())
             ->method('render')
-            ->with('FOSFacebookBundle::initialize.php.html', array(
+            ->with('FOSFacebookBundle::initialize.html.php', array(
                 'appId'   => 123,
                 'cookie'  => false,
                 'culture' => 'en_US',

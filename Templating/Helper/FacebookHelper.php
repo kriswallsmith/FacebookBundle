@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\FOS\FacebookBundle\Templating\Helper;
+namespace FOS\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Component\Templating\DelegatingEngine;
+use Symfony\Component\Templating\EngineInterface;
 
 class FacebookHelper extends Helper
 {
@@ -14,7 +14,7 @@ class FacebookHelper extends Helper
     protected $culture;
     protected $permissions;
 
-    public function __construct(DelegatingEngine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', array $permissions = array())
+    public function __construct(EngineInterface $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', array $permissions = array())
     {
         $this->templating  = $templating;
         $this->appId       = $appId;
@@ -44,10 +44,10 @@ class FacebookHelper extends Helper
      */
     public function initialize($parameters = array(), $name = null)
     {
-        $name = $name ?: 'FOSFacebookBundle::initialize.php.html';
+        $name = $name ?: 'FOSFacebookBundle::initialize.html.php';
         return $this->templating->render($name, $parameters + array(
             'fbAsyncInit' => '',
-            'appId'       => $this->appId,
+            'appId'       => (string) $this->appId,
             'xfbml'       => false,
             'session'     => null,
             'status'      => false,
@@ -59,11 +59,11 @@ class FacebookHelper extends Helper
 
     public function loginButton($parameters = array(), $name = null)
     {
-        $name = $name ?: 'FOSFacebookBundle::loginButton.php.html';
+        $name = $name ?: 'FOSFacebookBundle::loginButton.html.php';
         return $this->templating->render($name, $parameters + array(
             'autologoutlink' => 'false',
             'label'          => '',
-            'permissions'    => implode(', ', $this->permissions),
+            'permissions'    => implode(',', $this->permissions),
         ));
     }
 

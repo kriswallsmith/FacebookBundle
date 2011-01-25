@@ -4,15 +4,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="fos_facebook.security.authentication.listener.class">FOS\FacebookBundle\Security\Firewall\FacebookListener</parameter>
+        <parameter key="fos_facebook.security.authentication.provider.class">FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider</parameter>
+        <parameter key="fos_facebook.security.authentication.options" type="collection" />
+    </parameters>
+
     <services>
-        
-        <service id="facebook.auth.factory" class="Bundle\FOS\FacebookBundle\DependencyInjection\Security\Factory\FacebookFactory" public="false">
+        <service id="facebook.auth.factory" class="FOS\FacebookBundle\DependencyInjection\Security\Factory\FacebookFactory" public="false">
             <tag name="security.listener.factory" />
+        </service>
+        
+        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
+            <argument type="service" id="fos_facebook.api" />
         </service>
 
         <service id="fos_facebook.security.authentication.listener" class="%fos_facebook.security.authentication.listener.class%" public="false">
             <argument type="service" id="security.context" />
             <argument type="service" id="security.authentication.manager" />
+            <argument>%fos_facebook.security.authentication.options%</argument>
             <argument type="service" id="logger" on-invalid="null" />
         </service>
         

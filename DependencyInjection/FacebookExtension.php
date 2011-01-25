@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\FacebookBundle\DependencyInjection;
+namespace FOS\FacebookBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -13,11 +13,14 @@ class FacebookExtension extends Extension
         'security' => 'security.xml',
     );
 
-    public function apiLoad($config, ContainerBuilder $container)
+    public function apiLoad($configs, ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('fos_facebook.api')) {
-            $this->loadDefaults($container);
+        $config = array_shift($configs);
+        foreach ($configs as $tmp) {
+            $config = array_replace_recursive($config, $tmp);
         }
+
+        $this->loadDefaults($container);
 
         if (isset($config['alias'])) {
             $container->setAlias($config['alias'], 'fos_facebook.api');
@@ -68,7 +71,8 @@ class FacebookExtension extends Extension
     protected function loadDefaults($container)
     {
         $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
-        $loader->load($this->resources['facebook']);
-        $loader->load($this->resources['security']);
+        foreach ($this->resources as $resource) {
+            $loader->load($resource);
+        }
     }
 }

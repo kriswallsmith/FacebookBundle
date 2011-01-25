@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\FacebookBundle\DependencyInjection\Security\Factory;
+namespace FOS\FacebookBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -8,22 +8,55 @@ use Symfony\Bundle\FrameworkBundle\DependencyInjection\Security\Factory\Security
 
 class FacebookFactory implements SecurityFactoryInterface
 {
-    public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
+    public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPoint)
     {
-        $provider = 'security.authentication.provider.pre_authenticated.'.$id;
-        $container
-            ->register($provider, '%security.authentication.provider.pre_authenticated.class%')
-            ->setArguments(array(new Reference($userProvider), new Reference('security.account_checker')))
-        ;
+        $providerId = 'fos_facebook.auth';
+        if ($userProviderId !== $providerId) {
+            $provider = clone $container->getDefinition($providerId);
 
-        // listener
-        $listenerId = 'fos_facebook.security.authentication.listener.'.$id;
-        $listener = $container->setDefinition($listenerId, clone $container->getDefinition('fos_facebook.security.authentication.listener'));
+            $arguments = $provider->getArguments();
+            $arguments[] = new Reference($userProviderId);
+            $arguments[] = new Reference('security.account_checker');
+
+            $provider->setArguments($arguments);
+
+            $providerId.= '.'.$id;
+            $container->setDefinition($providerId, $provider);
+        }
+
+        $listenerId = 'fos_facebook.security.authentication.listener';
+        $listener = clone $container->getDefinition($listenerId);
+
         $arguments = $listener->getArguments();
-        $arguments[1] = new Reference($provider);
+        $arguments[1] = new Reference($providerId);
+        
+        $options = array(
+            'check_path'                     => '/login_check',
+            'login_path'                     => '/login',
+            'use_forward'                    => false,
+            'always_use_default_target_path' => false,
+            'default_target_path'            => '/',
+            'target_path_parameter'          => '_target_path',
+            'use_referer'                    => false,
+            'failure_path'                   => null,
+            'failure_forward'                => false,
+        );
+        foreach (array_keys($options) as $key) {
+            if (isset($config[$key])) {
+                $options[$key] = $config[$key];
+            }
+        }
+        $arguments[2] = $options;
+        
+        $container->setParameter('fos_facebook.security.authentication.options', $options);
+        $container->setParameter('fos_facebook.security.authentication.check_path', $options['check_path']);
+        
         $listener->setArguments($arguments);
 
-        return array($provider, $listenerId, 'fos_facebook.security.authentication.entry_point');
+        $listenerId.= '.'.$id;
+        $container->setDefinition($listenerId, $listener);
+
+        return array($providerId, $listenerId, 'fos_facebook.security.authentication.entry_point');
     }
 
     public function getPosition()
