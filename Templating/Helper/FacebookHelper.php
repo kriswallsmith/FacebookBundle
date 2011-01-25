@@ -3,7 +3,7 @@
 namespace FOS\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Component\Templating\DelegatingEngine;
+use Symfony\Component\Templating\EngineInterface;
 
 class FacebookHelper extends Helper
 {
@@ -14,7 +14,7 @@ class FacebookHelper extends Helper
     protected $culture;
     protected $permissions;
 
-    public function __construct(DelegatingEngine $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', array $permissions = array())
+    public function __construct(EngineInterface $templating, $appId, $cookie = false, $logging = true, $culture = 'en_US', array $permissions = array())
     {
         $this->templating  = $templating;
         $this->appId       = $appId;
@@ -47,7 +47,7 @@ class FacebookHelper extends Helper
         $name = $name ?: 'FOSFacebookBundle::initialize.html.php';
         return $this->templating->render($name, $parameters + array(
             'fbAsyncInit' => '',
-            'appId'       => $this->appId,
+            'appId'       => (string) $this->appId,
             'xfbml'       => false,
             'session'     => null,
             'status'      => false,
@@ -63,7 +63,7 @@ class FacebookHelper extends Helper
         return $this->templating->render($name, $parameters + array(
             'autologoutlink' => 'false',
             'label'          => '',
-            'permissions'    => implode(', ', $this->permissions),
+            'permissions'    => implode(',', $this->permissions),
         ));
     }
 

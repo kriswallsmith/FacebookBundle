@@ -3,17 +3,23 @@
 namespace FOS\FacebookBundle\Twig\Extension;
 
 use FOS\FacebookBundle\Twig\TokenParser\FacebookTokenParser;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- *
+ * 
  */
 class FacebookExtension extends \Twig_Extension
 {
-    protected $helper;
+    protected $container;
 
-    public function __construct($helper)
+    /**
+     * Constructor.
+     * 
+     * @param ContainerInterface $container 
+     */
+    public function __construct(ContainerInterface $container)
     {
-        $this->helper = $helper;
+        $this->container = $container;
     }
 
     /**
@@ -41,11 +47,11 @@ class FacebookExtension extends \Twig_Extension
 
     public function renderInitialize($parameters = array(), $name = null)
     {
-        return $this->helper->initialize($parameters, $name);
+        return $this->container->get('fos_facebook.helper')->initialize($parameters, $name ?: 'FOSFacebookBundle::initialize.html.twig');
     }
 
     public function renderLoginButton($parameters = array(), $name = null)
     {
-        return $this->helper->loginButton($parameters, $name);
+        return $this->container->get('fos_facebook.helper')->loginButton($parameters, $name ?: 'FOSFacebookBundle::loginButton.html.twig');
     }
 }
