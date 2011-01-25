@@ -50,12 +50,12 @@
       <argument>%fos_facebook.logging%</argument>
       <argument>%fos_facebook.culture%</argument>
       <argument>%fos_facebook.permissions%</argument>
-      <tag name="templating.helpe" alias="facebook" />
+      <tag name="templating.helper" alias="facebook" />
     </service>
 
     <service id="fos_facebook.twig" class="%fos_facebook.twig.extension.class%">
       <argument type="service" id="fos_facebook.helper" />
-      <tag name="twig.extensio" />
+      <tag name="twig.extension" />
     </service>
 
   </services>
