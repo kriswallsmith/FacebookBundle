@@ -5,7 +5,7 @@ namespace FOS\FacebookBundle\Security\Authentication\Provider;
 use Symfony\Component\Security\Core\User\AccountInterface;
 use Symfony\Component\Security\Core\User\AccountCheckerInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
@@ -42,11 +42,9 @@ class FacebookProvider implements AuthenticationProviderInterface
             if ($uid = $this->facebook->getUser()) {
                 return $this->createAuthenticatedToken($uid);
             }
+        } catch (AuthenticationException $failed) {
+            throw $failed;
         } catch (\Exception $failed) {
-            if ($failed instanceof AuthenticationException) {
-                throw $failed;
-            }
-
             throw new AuthenticationException($failed->getMessage(), $failed->getCode(), $failed);
         }
 
