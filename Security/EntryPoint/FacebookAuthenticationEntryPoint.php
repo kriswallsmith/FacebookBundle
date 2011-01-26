@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Authentication\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Exception\AuthenticationException;
-use Symfony\Component\Security\SecurityContext;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * FacebookAuthenticationEntryPoint starts an authentication via Facebook.

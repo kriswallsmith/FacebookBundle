@@ -2,12 +2,12 @@
 
 namespace FOS\FacebookBundle\Security\Authentication\Provider;
 
-use Symfony\Component\Security\User\AccountInterface;
-use Symfony\Component\Security\User\AccountCheckerInterface;
-use Symfony\Component\Security\User\UserProviderInterface;
+use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\AccountCheckerInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Exception\AuthenticationException;
-use Symfony\Component\Security\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Authentication\Provider\AuthenticationProviderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
 use FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
 use \Facebook;

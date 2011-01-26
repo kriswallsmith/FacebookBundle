@@ -22,9 +22,12 @@
         <service id="fos_facebook.security.authentication.listener" class="%fos_facebook.security.authentication.listener.class%" public="false">
             <argument type="service" id="security.context" />
             <argument type="service" id="security.authentication.manager" />
+            <argument type="service" id="security.authentication.session_strategy" />
+            <argument />
             <argument>%fos_facebook.security.authentication.options%</argument>
+            <argument type="service" id="security.authentication.success_handler" on-invalid="null" />
+            <argument type="service" id="security.authentication.failure_handler" on-invalid="null" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
-        
     </services>
 </container>
