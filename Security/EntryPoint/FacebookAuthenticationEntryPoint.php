@@ -5,8 +5,8 @@ namespace FOS\FacebookBundle\Security\EntryPoint;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Authentication\EntryPoint\AuthenticationEntryPointInterface;
-use Symfony\Component\Security\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Authentication\EntryPoint\AuthenticationEntryPointInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\SecurityContext;
 
 /**
@@ -22,7 +22,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
     /**
      * Constructor
      *
-     * @param Facebook $facebook 
+     * @param Facebook $facebook
      * @param array    $options
      */
     public function __construct(\Facebook $facebook, array $options = array())
