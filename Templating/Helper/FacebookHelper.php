@@ -46,6 +46,7 @@ class FacebookHelper extends Helper
     {
         $name = $name ?: 'FOSFacebookBundle::initialize.html.php';
         return $this->templating->render($name, $parameters + array(
+            'async'       => true,
             'fbAsyncInit' => '',
             'appId'       => (string) $this->appId,
             'xfbml'       => false,
