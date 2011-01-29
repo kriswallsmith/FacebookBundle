@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="fos_facebook.security.authentication.entry_point.class">FOS\FacebookBundle\Security\EntryPoint\FacebookAuthenticationEntryPoint</parameter>
-        <parameter key="fos_facebook.security.authentication.check_path">/login_check</parameter>
     </parameters>
 
     <services>
@@ -18,7 +17,7 @@
                 <argument key="canvas">%fos_facebook.login_url.canvas%</argument>
                 <argument key="display">%fos_facebook.login_url.display%</argument>
                 <argument key="fbconnect">%fos_facebook.login_url.fbconnect%</argument>
-                <argument key="next">%fos_facebook.security.authentication.check_path%</argument>
+                <argument key="next" />
                 <argument key="permissions">%fos_facebook.permissions%</argument>
             </argument>
         </service>
