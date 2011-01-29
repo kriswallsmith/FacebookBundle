@@ -52,7 +52,7 @@ Installation
 
         # application/config/config.yml
           security.config:
-              templates:
+              factories:
                   - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
@@ -77,7 +77,7 @@ Installation
 
         # application/config/config.yml
           security.config:
-              templates:
+              factories:
                   - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
                   - "%kernel.root_dir%/../src/Application/HelloBundle/Resources/config/facebook.xml"
 
