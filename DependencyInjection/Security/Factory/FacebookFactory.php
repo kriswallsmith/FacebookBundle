@@ -4,7 +4,7 @@ namespace FOS\FacebookBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Bundle\FrameworkBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 
 class FacebookFactory implements SecurityFactoryInterface
 {
@@ -29,7 +29,7 @@ class FacebookFactory implements SecurityFactoryInterface
 
         $arguments = $listener->getArguments();
         $arguments[1] = new Reference($providerId);
-        
+
         $options = array(
             'check_path'                     => '/login_check',
             'login_path'                     => '/login',
@@ -47,10 +47,10 @@ class FacebookFactory implements SecurityFactoryInterface
             }
         }
         $arguments[2] = $options;
-        
+
         $container->setParameter('fos_facebook.security.authentication.options', $options);
         $container->setParameter('fos_facebook.security.authentication.check_path', $options['check_path']);
-        
+
         $listener->setArguments($arguments);
 
         $listenerId.= '.'.$id;

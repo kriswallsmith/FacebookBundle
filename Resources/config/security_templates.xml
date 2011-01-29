@@ -14,7 +14,7 @@
         <service id="facebook.auth.factory" class="FOS\FacebookBundle\DependencyInjection\Security\Factory\FacebookFactory" public="false">
             <tag name="security.listener.factory" />
         </service>
-        
+
         <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
             <argument type="service" id="fos_facebook.api" />
         </service>
