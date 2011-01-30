@@ -23,14 +23,7 @@
 
         <service id="fos_facebook.security.authentication.entry_point" class="%fos_facebook.security.authentication.entry_point.class%" public="false" abstract="true">
             <argument type="service" id="fos_facebook.api" />
-            <argument type="collection">
-                <argument key="cancel_url">%fos_facebook.login_url.cancel_url%</argument>
-                <argument key="canvas">%fos_facebook.login_url.canvas%</argument>
-                <argument key="display">%fos_facebook.login_url.display%</argument>
-                <argument key="fbconnect">%fos_facebook.login_url.fbconnect%</argument>
-                <argument key="next" />
-                <argument key="permissions">%fos_facebook.permissions%</argument>
-            </argument>
+            <argument type="collection" />
         </service>
         
     </services>
