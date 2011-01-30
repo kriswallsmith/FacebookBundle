@@ -31,14 +31,6 @@ class FacebookExtension extends Extension
                 $container->setParameter('fos_facebook.' . $attribute, $config[$attribute]);
             }
         }
-
-        if (isset($config['login_url']) && is_array($config['login_url'])) {
-            foreach (array('cancel_url', 'canvas', 'display', 'fbconnect', 'next') as $attribute) {
-                if (isset($config['login_url'][$attribute])) {
-                    $container->setParameter('fos_facebook.login_url.' . $attribute, $config['login_url'][$attribute]);
-                }
-            }
-        }
     }
 
     /**
