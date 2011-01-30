@@ -19,14 +19,6 @@
         <parameter key="fos_facebook.logging">%kernel.debug%</parameter>
         <parameter key="fos_facebook.culture">en_US</parameter>
 
-        <parameter key="fos_facebook.permissions" type="collection"></parameter>
-
-        <parameter key="fos_facebook.login_url.cancel_url"></parameter>
-        <parameter key="fos_facebook.login_url.canvas">0</parameter>
-        <parameter key="fos_facebook.login_url.display">page</parameter>
-        <parameter key="fos_facebook.login_url.fbconnect">1</parameter>
-        <parameter key="fos_facebook.login_url.next">/login_check</parameter>
-
         <parameter key="fos_facebook.helper.class">FOS\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
         <parameter key="fos_facebook.twig.extension.class">FOS\FacebookBundle\Twig\Extension\FacebookExtension</parameter>
     </parameters>

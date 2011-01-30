@@ -9,6 +9,18 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractF
 
 class FacebookFactory extends AbstractFactory
 {
+    protected $authProviderWithoutUserProvider = null;
+
+    public function __construct()
+    {
+        $this->addOption('cancel_url', '');
+        $this->addOption('canvas', 0);
+        $this->addOption('display', 'page');
+        $this->addOption('fbconnect', 1);
+        $this->addOption('next', '/login_check');
+        $this->addOption('permissions', array());
+    }
+
     public function getPosition()
     {
         return 'pre_auth';
@@ -24,34 +36,43 @@ class FacebookFactory extends AbstractFactory
         return 'fos_facebook.security.authentication.listener';
     }
 
-    protected function createAuthProvider(ContainerBuilder $container, $id, $options, $userProviderId)
+    protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId)
     {
-        $authProviderId = 'fos_facebook.auth';
-        if ($userProviderId !== $authProviderId) {
-            $provider = $authProviderId.'.'.$id;
+        $authProviderId = 'fos_facebook.auth.'.$id;
+
+        // with user provider
+        if (isset($config['provider'])) {
             $container
-                ->setDefinition($provider, new DefinitionDecorator($authProviderId))
+                ->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'))
                 ->setArgument(1, new Reference($userProviderId))
-                ->setArgument(2, new Reference('security.account_checker'))
-                ->setArgument(3, $id)
             ;
-        } else {
-            $provider = $authProviderId;
+
+            return $authProviderId;
         }
 
-        return $provider;
+        // without user provider
+        if (null === $this->authProviderWithoutUserProvider) {
+            $this->authProviderWithoutUserProvider = $authProviderId;
+
+            $container->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'));
+        }
+
+        return $this->authProviderWithoutUserProvider;
     }
 
     protected function createEntryPoint($container, $id, $config, $defaultEntryPointId)
     {
         $options = $this->getOptionsFromConfig($config);
 
-        $container->getDefinition($defaultEntryPointId);
-        $arguments = $container->getArguments();
-        $arguments[1]['next'] = $options['check_path'];
-        $container->setArguments($arguments);
+        $entryPointId = 'fos_facebook.security.authentication.entry_point.'.$id;
+        $container
+            ->setDefinition($entryPointId, new DefinitionDecorator('fos_facebook.security.authentication.entry_point'))
+            ->setArgument(1, $options)
+        ;
 
-        return $defaultEntryPointId;
+        // set options to container for use by other classes
+        $container->setParameter('fos_facebook.options.'.$id, $options);
+
+        return $entryPointId;
     }
-
 }

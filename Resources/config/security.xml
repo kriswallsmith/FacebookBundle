@@ -11,11 +11,8 @@
     </parameters>
 
     <services>
-        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
+        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false" abstract="true">
             <argument type="service" id="fos_facebook.api" />
-            <argument />
-            <argument />
-            <argument />
         </service>
 
         <service id="fos_facebook.security.authentication.listener"
@@ -24,7 +21,7 @@
                  abstract="true">
         </service>
 
-        <service id="fos_facebook.security.authentication.entry_point" class="%fos_facebook.security.authentication.entry_point.class%" public="false">
+        <service id="fos_facebook.security.authentication.entry_point" class="%fos_facebook.security.authentication.entry_point.class%" public="false" abstract="true">
             <argument type="service" id="fos_facebook.api" />
             <argument type="collection">
                 <argument key="cancel_url">%fos_facebook.login_url.cancel_url%</argument>
