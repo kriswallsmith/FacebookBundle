@@ -40,10 +40,11 @@ class FacebookFactory extends AbstractFactory
         $authProviderId = 'fos_facebook.auth.'.$id;
 
         // with user provider
-        if (isset($config['provider'])) {
+        if (isset($config['auth_provider'])) {
             $container
-                ->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'))
+                ->setDefinition($authProviderId, new DefinitionDecorator($config['auth_provider']))
                 ->setArgument(1, new Reference($userProviderId))
+                ->setArgument(2, new Reference('security.account_checker'))
             ;
 
             return $authProviderId;
