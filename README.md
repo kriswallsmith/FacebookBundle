@@ -78,7 +78,7 @@ Installation
           security.config:
               factories:
                     - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
-                    - "%kernel.root_dir%/../src/Application/HelloBundle/Resources/config/facebook.xml"
+                    - "%kernel.root_dir%/../src/MyProject/HelloBundle/Resources/config/facebook.xml"
 
               providers:
                   fos_facebook:
