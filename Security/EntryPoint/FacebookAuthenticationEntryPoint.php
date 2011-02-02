@@ -5,9 +5,10 @@ namespace FOS\FacebookBundle\Security\EntryPoint;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\EntryPoint\AuthenticationEntryPointInterface;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\EventDispatcher\EventInterface;
 
 /**
  * FacebookAuthenticationEntryPoint starts an authentication via Facebook.
@@ -34,17 +35,18 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
     /**
      * {@inheritdoc}
      */
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(EventInterface $event, Request $request, AuthenticationException $authException = null)
     {
         $response = new Response();
-        $response->setRedirect($this->facebook->getLoginUrl(array(
-                    'cancel_url' => $request->getUriForPath($this->options->get('cancel_url', '')),
-                    'canvas' => $this->options->get('canvas', 0),
-                    'display' => $this->options->get('display', 'page'),
-                    'fbconnect' => $this->options->get('fbconnect', 1),
-                    'permissions' => implode(',', $this->options->get('permissions', array())),
-                    'next' => $request->getUriForPath($this->options->get('check_path', '')),
-                ))
+        $response->setRedirect($this->facebook->getLoginUrl(
+           array(
+                'cancel_url' => $request->getUriForPath($this->options->get('cancel_url', '')),
+                'canvas' => $this->options->get('canvas', 0),
+                'display' => $this->options->get('display', 'page'),
+                'fbconnect' => $this->options->get('fbconnect', 1),
+                'permissions' => implode(',', $this->options->get('permissions', array())),
+                'next' => $request->getUriForPath($this->options->get('check_path', '')),
+            ))
         );
 
         return $response;
