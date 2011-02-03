@@ -14,6 +14,7 @@
         <parameter key="fos_facebook.class">Facebook</parameter>
         <parameter key="fos_facebook.secret">null</parameter>
         <parameter key="fos_facebook.domain">null</parameter>
+        <parameter key="fos_facebook.permissions" type="collection"></parameter>
 
         <!-- parameters used by the js api -->
         <parameter key="fos_facebook.logging">%kernel.debug%</parameter>
