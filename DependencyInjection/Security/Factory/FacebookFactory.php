@@ -9,8 +9,6 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractF
 
 class FacebookFactory extends AbstractFactory
 {
-    protected $authProviderWithoutUserProvider = null;
-
     public function __construct()
     {
         $this->addOption('cancel_url', '');
@@ -37,27 +35,21 @@ class FacebookFactory extends AbstractFactory
 
     protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId)
     {
-        $authProviderId = 'fos_facebook.auth.'.$id;
-
         // with user provider
-        if (isset($config['auth_provider'])) {
+        if (isset($config['provider'])) {
+            $authProviderId = 'fos_facebook.auth.'.$id;
+
             $container
-                ->setDefinition($authProviderId, new DefinitionDecorator($config['auth_provider']))
-                ->setArgument(1, new Reference($userProviderId))
-                ->setArgument(2, new Reference('security.account_checker'))
+                ->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'))
+                ->addArgument(new Reference($userProviderId))
+                ->addArgument(new Reference('security.account_checker'))
             ;
 
             return $authProviderId;
         }
 
         // without user provider
-        if (null === $this->authProviderWithoutUserProvider) {
-            $this->authProviderWithoutUserProvider = $authProviderId;
-
-            $container->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'));
-        }
-
-        return $this->authProviderWithoutUserProvider;
+        return 'fos_facebook.auth';
     }
 
     protected function createEntryPoint($container, $id, $config, $defaultEntryPointId)

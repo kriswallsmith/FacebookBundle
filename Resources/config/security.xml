@@ -11,10 +11,8 @@
     </parameters>
 
     <services>
-        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false" abstract="true">
+        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
             <argument type="service" id="fos_facebook.api" />
-            <argument >null</argument>
-            <argument >null</argument>
         </service>
 
         <service id="fos_facebook.security.authentication.listener"
