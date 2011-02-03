@@ -78,7 +78,6 @@ Installation
           security.config:
               factories:
                     - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
-                    - "%kernel.root_dir%/../src/MyProject/HelloBundle/Resources/config/facebook.xml"
 
               providers:
                   fos_facebook:
@@ -91,7 +90,7 @@ Installation
                           login_path: /facebook
                           check_path: /facebook-check
                           default_target_path: /facebook
-                          auth_provider: fos_facebook.auth
+                          provider: fos_facebook
                       anonymous: true
 
 Setting up the JavaScript SDK
