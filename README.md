@@ -10,7 +10,7 @@ Installation
 
           // app/autoload.php
           $loader->registerNamespaces(array(
-                'FOS' => __DIR__,
+                'FOS' => __DIR__.'/../src',
                 // your other namespaces
           ));
 
