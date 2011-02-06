@@ -54,16 +54,14 @@ class FacebookFactory extends AbstractFactory
 
     protected function createEntryPoint($container, $id, $config, $defaultEntryPointId)
     {
-        $options = $this->getOptionsFromConfig($config);
-
         $entryPointId = 'fos_facebook.security.authentication.entry_point.'.$id;
         $container
             ->setDefinition($entryPointId, new DefinitionDecorator('fos_facebook.security.authentication.entry_point'))
-            ->setArgument(1, $options)
+            ->setArgument(1, $config)
         ;
 
         // set options to container for use by other classes
-        $container->setParameter('fos_facebook.options.'.$id, $options);
+        $container->setParameter('fos_facebook.options.'.$id, $config);
 
         return $entryPointId;
     }
