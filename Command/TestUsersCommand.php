@@ -53,8 +53,7 @@ abstract class TestUsersCommand extends Command
     protected function getApplicationAccessToken(\Facebook $facebook) {
         if (null == $this->applicationAccessTokenCommand) {
             $applicationAccessTokenCommand = new ApplicationAccessTokenCommand();
-            $applicationAccessTokenCommand->setFacebook($facebook);
-
+            $applicationAccessTokenCommand->setContainer($this->container);
             $this->applicationAccessTokenCommand = $applicationAccessTokenCommand;
         }
 
