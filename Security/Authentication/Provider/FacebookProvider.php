@@ -2,12 +2,12 @@
 
 namespace FOS\FacebookBundle\Security\Authentication\Provider;
 
-use Symfony\Component\Security\User\AccountInterface;
-use Symfony\Component\Security\User\AccountCheckerInterface;
-use Symfony\Component\Security\User\UserProviderInterface;
-use Symfony\Component\Security\Exception\AuthenticationException;
-use Symfony\Component\Security\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Authentication\Provider\AuthenticationProviderInterface;
+use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\AccountCheckerInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
 use FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
 use \Facebook;
@@ -42,12 +42,10 @@ class FacebookProvider implements AuthenticationProviderInterface
             if ($uid = $this->facebook->getUser()) {
                 return $this->createAuthenticatedToken($uid);
             }
+        } catch (AuthenticationException $failed) {
+            throw $failed;
         } catch (\Exception $failed) {
-            if ($failed instanceof AuthenticationException) {
-                throw $failed;
-            }
-
-            throw new AuthenticationException($failed->getMessage(), $failed->getCode(), $failed);
+            throw new AuthenticationException('Unknown error', $failed->getMessage(), $failed->getCode(), $failed);
         }
 
         throw new AuthenticationException('The Facebook user could not be retrieved from the session.');

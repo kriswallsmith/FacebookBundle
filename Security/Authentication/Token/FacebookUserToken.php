@@ -2,7 +2,7 @@
 
 namespace FOS\FacebookBundle\Security\Authentication\Token;
 
-use Symfony\Component\Security\Authentication\Token\Token;
+use Symfony\Component\Security\Core\Authentication\Token\Token;
 
 class FacebookUserToken extends Token
 {

@@ -4,59 +4,18 @@ namespace FOS\FacebookBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Bundle\FrameworkBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractFactory;
 
-class FacebookFactory implements SecurityFactoryInterface
+class FacebookFactory extends AbstractFactory
 {
-    public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPoint)
+    public function __construct()
     {
-        $providerId = 'fos_facebook.auth';
-        if ($userProviderId !== $providerId) {
-            $provider = clone $container->getDefinition($providerId);
-
-            $arguments = $provider->getArguments();
-            $arguments[] = new Reference($userProviderId);
-            $arguments[] = new Reference('security.account_checker');
-
-            $provider->setArguments($arguments);
-
-            $providerId.= '.'.$id;
-            $container->setDefinition($providerId, $provider);
-        }
-
-        $listenerId = 'fos_facebook.security.authentication.listener';
-        $listener = clone $container->getDefinition($listenerId);
-
-        $arguments = $listener->getArguments();
-        $arguments[1] = new Reference($providerId);
-        
-        $options = array(
-            'check_path'                     => '/login_check',
-            'login_path'                     => '/login',
-            'use_forward'                    => false,
-            'always_use_default_target_path' => false,
-            'default_target_path'            => '/',
-            'target_path_parameter'          => '_target_path',
-            'use_referer'                    => false,
-            'failure_path'                   => null,
-            'failure_forward'                => false,
-        );
-        foreach (array_keys($options) as $key) {
-            if (isset($config[$key])) {
-                $options[$key] = $config[$key];
-            }
-        }
-        $arguments[2] = $options;
-        
-        $container->setParameter('fos_facebook.security.authentication.options', $options);
-        $container->setParameter('fos_facebook.security.authentication.check_path', $options['check_path']);
-        
-        $listener->setArguments($arguments);
-
-        $listenerId.= '.'.$id;
-        $container->setDefinition($listenerId, $listener);
-
-        return array($providerId, $listenerId, 'fos_facebook.security.authentication.entry_point');
+        $this->addOption('cancel_url', '');
+        $this->addOption('canvas', 0);
+        $this->addOption('display', 'page');
+        $this->addOption('fbconnect', 1);
+        $this->addOption('permissions', array());
     }
 
     public function getPosition()
@@ -67,5 +26,43 @@ class FacebookFactory implements SecurityFactoryInterface
     public function getKey()
     {
         return 'fos_facebook';
+    }
+
+    protected function getListenerId()
+    {
+        return 'fos_facebook.security.authentication.listener';
+    }
+
+    protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId)
+    {
+        // with user provider
+        if (isset($config['provider'])) {
+            $authProviderId = 'fos_facebook.auth.'.$id;
+
+            $container
+                ->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'))
+                ->addArgument(new Reference($userProviderId))
+                ->addArgument(new Reference('security.account_checker'))
+            ;
+
+            return $authProviderId;
+        }
+
+        // without user provider
+        return 'fos_facebook.auth';
+    }
+
+    protected function createEntryPoint($container, $id, $config, $defaultEntryPointId)
+    {
+        $entryPointId = 'fos_facebook.security.authentication.entry_point.'.$id;
+        $container
+            ->setDefinition($entryPointId, new DefinitionDecorator('fos_facebook.security.authentication.entry_point'))
+            ->setArgument(1, $config)
+        ;
+
+        // set options to container for use by other classes
+        $container->setParameter('fos_facebook.options.'.$id, $config);
+
+        return $entryPointId;
     }
 }

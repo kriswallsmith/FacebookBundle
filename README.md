@@ -8,9 +8,9 @@ Installation
 
   2. Add the FOS namespace to your autoloader:
 
-          // src/autoload.php
+          // app/autoload.php
           $loader->registerNamespaces(array(
-                'FOS' => __DIR__,
+                'FOS' => __DIR__.'/../src',
                 // your other namespaces
           ));
 
@@ -50,10 +50,10 @@ Installation
 
   5. Add this configuration if you want to use the `security component`:
 
-        # application/config/config.yml
+          # application/config/config.yml
           security.config:
-              templates:
-                  - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_templates.xml"
+              factories:
+                  - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
                   fos_facebook:
@@ -64,7 +64,6 @@ Installation
                       pattern:   /.*
                       fos_facebook:  true
                       anonymous: true
-                      stateless: true
 
                   only_facebook: # with facebook entry point (redirect to the facebook login url)
                       pattern:   /only_facebook/.*
@@ -75,11 +74,10 @@ Installation
 
   6. Optionally define a custom user provider class and use it as the provider or define path for login
 
-        # application/config/config.yml
+          # application/config/config.yml
           security.config:
-              templates:
-                  - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_templates.xml"
-                  - "%kernel.root_dir%/../src/Application/helloBundle/Resources/config/facebook.xml"
+              factories:
+                    - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
                   fos_facebook:
@@ -89,12 +87,11 @@ Installation
                   public:
                       pattern:   /.*
                       fos_facebook:
-                        login_path: /facebook
-                        check_path: /facebook-check
-                        default_target_path: /facebook
+                          login_path: /facebook
+                          check_path: /facebook-check
+                          default_target_path: /facebook
+                          provider: fos_facebook
                       anonymous: true
-                      stateless: true
-
 
 Setting up the JavaScript SDK
 -----------------------------

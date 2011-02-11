@@ -6,21 +6,24 @@
 
     <parameters>
         <parameter key="fos_facebook.security.authentication.entry_point.class">FOS\FacebookBundle\Security\EntryPoint\FacebookAuthenticationEntryPoint</parameter>
-        <parameter key="fos_facebook.security.authentication.check_path">/login_check</parameter>
+        <parameter key="fos_facebook.security.authentication.listener.class">FOS\FacebookBundle\Security\Firewall\FacebookListener</parameter>
+        <parameter key="fos_facebook.security.authentication.provider.class">FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider</parameter>
     </parameters>
 
     <services>
-        
-        <service id="fos_facebook.security.authentication.entry_point" class="%fos_facebook.security.authentication.entry_point.class%" public="false">
+        <service id="fos_facebook.auth" class="%fos_facebook.security.authentication.provider.class%" public="false">
             <argument type="service" id="fos_facebook.api" />
-            <argument type="collection">
-                <argument key="cancel_url">%fos_facebook.login_url.cancel_url%</argument>
-                <argument key="canvas">%fos_facebook.login_url.canvas%</argument>
-                <argument key="display">%fos_facebook.login_url.display%</argument>
-                <argument key="fbconnect">%fos_facebook.login_url.fbconnect%</argument>
-                <argument key="next">%fos_facebook.security.authentication.check_path%</argument>
-                <argument key="permissions">%fos_facebook.permissions%</argument>
-            </argument>
+        </service>
+
+        <service id="fos_facebook.security.authentication.listener"
+                 class="%fos_facebook.security.authentication.listener.class%"
+                 parent="security.authentication.listener.abstract"
+                 abstract="true">
+        </service>
+
+        <service id="fos_facebook.security.authentication.entry_point" class="%fos_facebook.security.authentication.entry_point.class%" public="false" abstract="true">
+            <argument type="service" id="fos_facebook.api" />
+            <argument type="collection" />
         </service>
         
     </services>
