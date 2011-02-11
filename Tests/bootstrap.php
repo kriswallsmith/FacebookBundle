@@ -2,7 +2,7 @@
 
 require_once $_SERVER['SYMFONY'].'/Symfony/Component/HttpKernel/bootstrap.php';
 
-use Symfony\Component\HttpFoundation\UniversalClassLoader;
+use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespace('Symfony', $_SERVER['SYMFONY']);
