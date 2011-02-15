@@ -40,7 +40,7 @@ class Configuration
                     ->scalarNode('helper')->defaultValue('FOS\FacebookBundle\Templating\Helper\FacebookHelper')->end()
                     ->scalarNode('twig')->defaultValue('FOS\FacebookBundle\Twig\Extension\FacebookExtension')->end()
                 ->end()
-            ->arrayNode('permissions')->defaultValue(array())->prototype('scalar')->end();
+            ->arrayNode('permissions')->prototype('scalar')->end();
 
         return $treeBuilder->buildTree();
     }
