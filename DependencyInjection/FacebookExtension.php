@@ -2,6 +2,7 @@
 
 namespace FOS\FacebookBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Configuration\Processor;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -16,10 +17,9 @@ class FacebookExtension extends Extension
 
     public function apiLoad($configs, ContainerBuilder $container)
     {
-        $config = array_shift($configs);
-        foreach ($configs as $tmp) {
-            $config = array_replace_recursive($config, $tmp);
-        }
+        $processor = new Processor();
+        $configuration = new Configuration();
+        $config = $processor->process($configuration->getConfigTree(), $configs);
 
         $this->loadDefaults($container);
 
@@ -27,10 +27,12 @@ class FacebookExtension extends Extension
             $container->setAlias($config['alias'], 'fos_facebook.api');
         }
 
-        foreach (array('class', 'file', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'permissions') as $attribute) {
-            if (isset($config[$attribute])) {
-                $container->setParameter('fos_facebook.' . $attribute, $config[$attribute]);
-            }
+        foreach (array('api', 'helper', 'twig') as $attribute) {
+            $container->setParameter('fos_facebook.' . $attribute . '.class', $config['class'][$attribute]);
+        }
+
+        foreach (array('file', 'app_id', 'secret', 'cookie', 'domain', 'logging', 'culture', 'permissions') as $attribute) {
+            $container->setParameter('fos_facebook.' . $attribute, $config[$attribute]);
         }
     }
 

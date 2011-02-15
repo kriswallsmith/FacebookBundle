@@ -4,29 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <!-- parameters used in both the js and php api classes -->
-        <parameter key="fos_facebook.file">null</parameter>
-        <parameter key="fos_facebook.app_id">null</parameter>
-        <parameter key="fos_facebook.cookie">false</parameter>
-
-        <!-- parameters used by the php api -->
-        <parameter key="fos_facebook.class">Facebook</parameter>
-        <parameter key="fos_facebook.secret">null</parameter>
-        <parameter key="fos_facebook.domain">null</parameter>
-        <parameter key="fos_facebook.permissions" type="collection"></parameter>
-
-        <!-- parameters used by the js api -->
-        <parameter key="fos_facebook.logging">%kernel.debug%</parameter>
-        <parameter key="fos_facebook.culture">en_US</parameter>
-
-        <parameter key="fos_facebook.helper.class">FOS\FacebookBundle\Templating\Helper\FacebookHelper</parameter>
-        <parameter key="fos_facebook.twig.extension.class">FOS\FacebookBundle\Twig\Extension\FacebookExtension</parameter>
-    </parameters>
-
     <services>
 
-        <service id="fos_facebook.api" class="%fos_facebook.class%">
+        <service id="fos_facebook.api" class="%fos_facebook.api.class%">
             <file>%fos_facebook.file%</file>
             <argument type="collection">
                 <argument key="appId">%fos_facebook.app_id%</argument>
@@ -46,7 +26,7 @@
             <tag name="templating.helper" alias="facebook" />
         </service>
 
-        <service id="fos_facebook.twig" class="%fos_facebook.twig.extension.class%">
+        <service id="fos_facebook.twig" class="%fos_facebook.twig.class%">
             <argument type="service" id="service_container" />
             <tag name="twig.extension" />
         </service>
