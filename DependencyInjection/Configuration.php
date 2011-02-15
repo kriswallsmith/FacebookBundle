@@ -29,9 +29,9 @@ class Configuration
             ->scalarNode('app_id')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('secret')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('file')->isRequired()->cannotBeEmpty()->end()
-            ->scalarNode('cookie')->defaultValue(false)->end()
-            ->scalarNode('domain')->defaultValue(null)->end()
-            ->scalarNode('alias')->defaultValue(null)->end()
+            ->scalarNode('cookie')->defaultFalse()->end()
+            ->scalarNode('domain')->defaultNull()->end()
+            ->scalarNode('alias')->defaultNull()->end()
             ->scalarNode('logging')->defaultValue('%kernel.debug%')->end()
             ->scalarNode('culture')->defaultValue('en_US')->end()
             ->arrayNode('class')
@@ -40,7 +40,7 @@ class Configuration
                     ->scalarNode('helper')->defaultValue('FOS\FacebookBundle\Templating\Helper\FacebookHelper')->end()
                     ->scalarNode('twig')->defaultValue('FOS\FacebookBundle\Twig\Extension\FacebookExtension')->end()
                 ->end()
-            ->arrayNode('permissions')->prototype('scalar')->end();
+            ->arrayNode('permissions')->defaultValue(array())->prototype('scalar')->end();
 
         return $treeBuilder->buildTree();
     }
