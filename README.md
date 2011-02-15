@@ -145,11 +145,13 @@ This requires adding a getFacebookId() and setFBData() method to the User model.
          */
         protected $facebook;
         protected $userManager;
+        protected $validator;
 
-        public function __construct(Facebook $facebook, $userManager)
+        public function __construct(Facebook $facebook, $userManager, $validator)
         {
             $this->facebook = $facebook;
             $this->userManager = $userManager;
+            $this->validator = $validator;
         }
 
         public function supportsClass($class)
@@ -183,7 +185,10 @@ This requires adding a getFacebookId() and setFBData() method to the User model.
                 // TODO use http://developers.facebook.com/docs/api/realtime
                 $user->setFBData($fbdata);
 
-                // TODO validate the user
+                if (count($this->validator->validate($user, 'Facebook'))) {
+                    // TODO: the user was found obviously, but doesnt match our expectations, do something smart
+                    throw new UsernameNotFoundException('The facebook user could not be stored');
+                }
                 $this->userManager->updateUser($user);
             }
 
