@@ -23,7 +23,7 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fos_facebook:api', 'array');
+        $rootNode = $treeBuilder->root('fos_facebook', 'array');
 
         $rootNode
             ->scalarNode('app_id')->isRequired()->cannotBeEmpty()->end()

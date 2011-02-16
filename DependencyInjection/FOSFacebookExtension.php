@@ -8,14 +8,14 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-class FacebookExtension extends Extension
+class FOSFacebookExtension extends Extension
 {
     protected $resources = array(
         'facebook' => 'facebook.xml',
         'security' => 'security.xml',
     );
 
-    public function apiLoad($configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
         $processor = new Processor();
         $configuration = new Configuration();

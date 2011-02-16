@@ -29,7 +29,7 @@ Installation
   4. Configure the `facebook` service in your config:
 
           # application/config/config.yml
-          fos_facebook.api:
+          fos_facebook:
               file:   %kernel.root_dir%/../vendor/facebook/src/facebook.php
               alias:  facebook
               app_id: 123456879
@@ -51,7 +51,7 @@ Installation
   5. Add this configuration if you want to use the `security component`:
 
           # application/config/config.yml
-          security.config:
+          security:
               factories:
                   - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
@@ -75,7 +75,7 @@ Installation
   6. Optionally define a custom user provider class and use it as the provider or define path for login
 
           # application/config/config.yml
-          security.config:
+          security:
               factories:
                     - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
