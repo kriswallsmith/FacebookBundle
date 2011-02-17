@@ -2,7 +2,7 @@
 
 namespace FOS\FacebookBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Configuration\Processor;
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
