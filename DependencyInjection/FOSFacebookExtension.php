@@ -3,7 +3,7 @@
 namespace FOS\FacebookBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -50,14 +50,6 @@ class FOSFacebookExtension extends Extension
     public function getNamespace()
     {
         return 'http://www.symfony-project.org/schema/dic/fos_facebook';
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function getAlias()
-    {
-        return 'fos_facebook';
     }
 
     /**
