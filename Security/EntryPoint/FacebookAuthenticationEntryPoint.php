@@ -4,7 +4,7 @@ namespace FOS\FacebookBundle\Security\EntryPoint;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -37,8 +37,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
      */
     public function start(EventInterface $event, Request $request, AuthenticationException $authException = null)
     {
-        $response = new Response();
-        $response->setRedirect($this->facebook->getLoginUrl(
+        $response = new RedirectResponse($this->facebook->getLoginUrl(
            array(
                 'cancel_url' => $request->getUriForPath($this->options->get('cancel_url', '')),
                 'canvas' => $this->options->get('canvas', 0),
