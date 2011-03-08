@@ -49,7 +49,7 @@ class FOSFacebookExtension extends Extension
      */
     public function getNamespace()
     {
-        return 'http://www.symfony-project.org/schema/dic/fos_facebook';
+        return 'http://symfony.com/schema/dic/fos_facebook';
     }
 
     /**
