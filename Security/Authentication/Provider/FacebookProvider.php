@@ -2,11 +2,11 @@
 
 namespace FOS\FacebookBundle\Security\Authentication\Provider;
 
-use Symfony\Component\Security\Core\User\AccountInterface;
-use Symfony\Component\Security\Core\User\AccountCheckerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UnsupportedAccountException;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
@@ -22,7 +22,7 @@ class FacebookProvider implements AuthenticationProviderInterface
     protected $userProvider;
     protected $accountChecker;
 
-    public function __construct(Facebook $facebook, UserProviderInterface $userProvider = null, AccountCheckerInterface $accountChecker = null)
+    public function __construct(Facebook $facebook, UserProviderInterface $userProvider = null, UserCheckerInterface $accountChecker = null)
     {
         if (null !== $userProvider && null === $accountChecker) {
             throw new \InvalidArgumentException('$accountChecker cannot be null, if $userProvider is not null.');
@@ -64,8 +64,8 @@ class FacebookProvider implements AuthenticationProviderInterface
         }
 
         $user = $this->userProvider->loadUserByUsername($uid);
-        if (!$user instanceof AccountInterface) {
-            throw new \RuntimeException('User provider did not return an implementation of account interface.');
+        if (!$user instanceof UserInterface) {
+            throw new \RuntimeException('User provider did not return an implementation of user interface.');
         }
 
         $this->accountChecker->checkPreAuth($user);
@@ -77,10 +77,10 @@ class FacebookProvider implements AuthenticationProviderInterface
     /**
      * Finds a user by account
      *
-     * @param AccountInterface $user
+     * @param UserInterface $user
      */
-    public function loadUserByAccount(AccountInterface $user)
+    public function loadUser(UserInterface $user)
     {
-        throw new UnsupportedAccountException('Account is not supported.');
+        throw new UnsupportedUserException('User is not supported.');
     }
 }

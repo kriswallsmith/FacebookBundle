@@ -132,9 +132,9 @@ This requires adding a getFacebookId() and setFBData() method to the User model.
     namespace Foo\BarBundle\Security\User\Provider;
 
     use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-    use Symfony\Component\Security\Core\Exception\UnsupportedAccountException;
+    use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
     use Symfony\Component\Security\Core\User\UserProviderInterface;
-    use Symfony\Component\Security\Core\User\AccountInterface;
+    use Symfony\Component\Security\Core\User\UserInterface;
     use \Facebook;
     use \FacebookApiException;
 
@@ -199,12 +199,12 @@ This requires adding a getFacebookId() and setFBData() method to the User model.
             return $user;
         }
 
-        public function loadUserByAccount(AccountInterface $account)
+        public function loadUser(UserInterface $user)
         {
-            if (!$this->supportsClass(get_class($account)) || !$account->getFacebookId()) {
-                throw new UnsupportedAccountException(sprintf('Instances of "%s" are not supported.', get_class($account)));
+            if (!$this->supportsClass(get_class($user)) || !$user->getFacebookId()) {
+                throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
             }
 
-            return $this->loadUserByUsername($account->getFacebookId());
+            return $this->loadUserByUsername($user->getFacebookId());
         }
     }
