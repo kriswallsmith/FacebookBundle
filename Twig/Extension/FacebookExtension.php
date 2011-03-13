@@ -2,7 +2,6 @@
 
 namespace FOS\FacebookBundle\Twig\Extension;
 
-use FOS\FacebookBundle\Twig\TokenParser\FacebookTokenParser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

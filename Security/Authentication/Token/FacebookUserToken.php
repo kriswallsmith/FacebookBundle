@@ -2,9 +2,9 @@
 
 namespace FOS\FacebookBundle\Security\Authentication\Token;
 
-use Symfony\Component\Security\Core\Authentication\Token\Token;
+use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
-class FacebookUserToken extends Token
+class FacebookUserToken extends AbstractToken
 {
     public function __construct($uid = '', array $roles = array())
     {
@@ -15,5 +15,10 @@ class FacebookUserToken extends Token
         if (!empty($uid)) {
             $this->authenticated = true;
         }
+    }
+
+    public function getCredentials()
+    {
+        return '';
     }
 }
