@@ -20,17 +20,17 @@ class FacebookProvider implements AuthenticationProviderInterface
      */
     protected $facebook;
     protected $userProvider;
-    protected $accountChecker;
+    protected $userChecker;
 
-    public function __construct(Facebook $facebook, UserProviderInterface $userProvider = null, UserCheckerInterface $accountChecker = null)
+    public function __construct(Facebook $facebook, UserProviderInterface $userProvider = null, UserCheckerInterface $userChecker = null)
     {
-        if (null !== $userProvider && null === $accountChecker) {
-            throw new \InvalidArgumentException('$accountChecker cannot be null, if $userProvider is not null.');
+        if (null !== $userProvider && null === $userChecker) {
+            throw new \InvalidArgumentException('$userChecker cannot be null, if $userProvider is not null.');
         }
 
         $this->facebook = $facebook;
         $this->userProvider = $userProvider;
-        $this->accountChecker = $accountChecker;
+        $this->userChecker = $userChecker;
     }
 
     public function authenticate(TokenInterface $token)
@@ -68,14 +68,14 @@ class FacebookProvider implements AuthenticationProviderInterface
             throw new \RuntimeException('User provider did not return an implementation of user interface.');
         }
 
-        $this->accountChecker->checkPreAuth($user);
-        $this->accountChecker->checkPostAuth($user);
+        $this->userChecker->checkPreAuth($user);
+        $this->userChecker->checkPostAuth($user);
 
         return new FacebookUserToken($user, $user->getRoles());
     }
 
     /**
-     * Finds a user by account
+     * Refresh a user
      *
      * @param UserInterface $user
      */

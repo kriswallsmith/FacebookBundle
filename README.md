@@ -57,7 +57,7 @@ Installation
 
               providers:
                   fos_facebook:
-                    id: fos_facebook.auth
+                      id: fos_facebook.auth
 
               firewalls:
                   public:
@@ -81,7 +81,7 @@ Installation
 
               providers:
                   fos_facebook:
-                    id: fos_facebook.user_provider
+                      id: fos_facebook.user_provider
 
               firewalls:
                   public:
