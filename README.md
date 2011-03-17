@@ -1,16 +1,16 @@
 Installation
 ============
 
-  1. Add this bundle to your src/ dir and the Facebook PHP SDK to your vendor/ dir:
+  1. Add this bundle to your and the Facebook PHP SDK to your vendor/ dir:
 
-          $ git submodule add git://github.com/FriendsOfSymfony/FacebookBundle.git src/FOS/FacebookBundle
+          $ git submodule add git://github.com/FriendsOfSymfony/FacebookBundle.git vendor/bundles/FacebookBundle
           $ git submodule add git://github.com/facebook/php-sdk.git vendor/facebook
 
   2. Add the FOS namespace to your autoloader:
 
           // app/autoload.php
           $loader->registerNamespaces(array(
-                'FOS' => __DIR__.'/../src',
+                'FOS' => __DIR__.'/../vendor/bundles',
                 // your other namespaces
           ));
 
@@ -53,7 +53,7 @@ Installation
           # application/config/config.yml
           security:
               factories:
-                  - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
+                  - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
                   fos_facebook:
@@ -77,7 +77,7 @@ Installation
           # application/config/config.yml
           security:
               factories:
-                    - "%kernel.root_dir%/../src/FOS/FacebookBundle/Resources/config/security_factories.xml"
+                    - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
                   fos_facebook:
