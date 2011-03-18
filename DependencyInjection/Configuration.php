@@ -1,8 +1,8 @@
+
 <?php
 
 namespace FOS\FacebookBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
@@ -23,24 +23,27 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fos_facebook', 'array');
+        $rootNode = $treeBuilder->root('fos_facebook');
 
         $rootNode
-            ->scalarNode('app_id')->isRequired()->cannotBeEmpty()->end()
-            ->scalarNode('secret')->isRequired()->cannotBeEmpty()->end()
-            ->scalarNode('file')->isRequired()->cannotBeEmpty()->end()
-            ->scalarNode('cookie')->defaultFalse()->end()
-            ->scalarNode('domain')->defaultNull()->end()
-            ->scalarNode('alias')->defaultNull()->end()
-            ->scalarNode('logging')->defaultValue('%kernel.debug%')->end()
-            ->scalarNode('culture')->defaultValue('en_US')->end()
-            ->arrayNode('class')
-                ->addDefaultsIfNotSet()
-                    ->scalarNode('api')->defaultValue('Facebook')->end()
-                    ->scalarNode('helper')->defaultValue('FOS\FacebookBundle\Templating\Helper\FacebookHelper')->end()
-                    ->scalarNode('twig')->defaultValue('FOS\FacebookBundle\Twig\Extension\FacebookExtension')->end()
+            ->children()
+                ->scalarNode('app_id')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('secret')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('file')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('cookie')->defaultFalse()->end()
+                ->scalarNode('domain')->defaultNull()->end()
+                ->scalarNode('alias')->defaultNull()->end()
+                ->scalarNode('logging')->defaultValue('%kernel.debug%')->end()
+                ->scalarNode('culture')->defaultValue('en_US')->end()
+                ->arrayNode('class')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('api')->defaultValue('Facebook')->end()
+                        ->scalarNode('helper')->defaultValue('FOS\FacebookBundle\Templating\Helper\FacebookHelper')->end()
+                        ->scalarNode('twig')->defaultValue('FOS\FacebookBundle\Twig\Extension\FacebookExtension')->end()
+                    ->end()
                 ->end()
-            ->arrayNode('permissions')->prototype('scalar')->end();
+                ->arrayNode('permissions')->prototype('scalar')->end()->end();
 
         return $treeBuilder->buildTree();
     }
