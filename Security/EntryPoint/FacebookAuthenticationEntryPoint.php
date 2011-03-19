@@ -37,7 +37,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
     /**
      * {@inheritdoc}
      */
-    public function start(GetResponseEvent $event, Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException $authException = null)
     {
         $response = new RedirectResponse($this->facebook->getLoginUrl(
            array(
