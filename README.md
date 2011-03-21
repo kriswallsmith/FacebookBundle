@@ -1,3 +1,30 @@
+Introduction
+============
+
+This Bundle enables integration of the Facebook PHP and JS SDK's. Furthermore it
+also provides a Symfony2 authentication provider so that users can login to a
+Symfony2 application via Facebook. Furthermore via custom user provider support
+the Facebook login can also be integrated with other data sources like the
+database based solution provided by FOSUserBundle.
+
+Note that logging a user requires multiple steps:
+
+  1. the user must be logged into Facebook
+  2. the user must connect his Facebook account to your site
+  3. once the user has done 1. and 2. you must trigger the login
+
+For step 1. and 2. there are two options:
+
+  1. Add a Facebook login button, this approach requires JS code to handle step 3.
+  2. Letting the FOSFacebookBundle redirecting to the Facebook login page
+
+Note that the later happens automatically if the first provider in your first
+firewall configuration is configured to FOSFacebookBundle and the user accesses
+a page that requires authentication without being authenticated.
+
+Please also refer to the Facebook documentation:
+https://developers.facebook.com/docs/guides/web/
+
 Installation
 ============
 
@@ -81,7 +108,7 @@ Installation
 
               providers:
                   fos_facebook:
-                      id: fos_facebook.user_provider
+                      id: my.facebook.user
 
               firewalls:
                   public:
@@ -122,14 +149,38 @@ Just add the following code in one of your templates:
     <!-- inside a twig template -->
     {{ facebook_login_button({'autologoutlink': true}) }}
 
+Note that with this approach only the login and connecting with Facebook will
+be handled. The step of logging in the user into your Symfony2 application
+still needs to be triggered. To do this you will in most cases simply subscribe
+to the "auth.login" event and then redirect to the "check_path":
+
+    <script>
+      FB.Event.subscribe('auth.login', function(response) {
+        window.location = {{ path('facebook_check') }};
+      });
+    </script>
+
+The "facebook_check" route would need to point to a "/facebook-check" pattern
+to match the above configuration.
+
 Example Customer User Provider using the FOS\UserBundle
 -------------------------------------------------------
 
-This requires adding a getFacebookId() and setFBData() method to the User model.
+This requires adding a service for the custom user provider which is then set
+to the provider id in the "provider" section in the config.yml:
+
+    services:
+        my.facebook.user:
+            class: Acme\MyBundle\Security\User\Provider\FacebookProvider
+            arguments:
+                facebook: "@fos_facebook.api"
+                userManager: "@fos_user.user_manager"
+                validator: "@validator"
+                container: "@service_container"
 
     <?php
 
-    namespace Foo\BarBundle\Security\User\Provider;
+    namespace Acme\MyBundle\Security\User\Provider;
 
     use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
     use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -206,5 +257,111 @@ This requires adding a getFacebookId() and setFBData() method to the User model.
             }
 
             return $this->loadUserByUsername($user->getFacebookId());
+        }
+    }
+
+Finally one also needs to add a getFacebookId() and setFBData() method to the User model.
+The following example also adds "firstname" and "lastname" properties:
+
+    <?php
+
+    namespace Acme\MyBundle\Entity;
+
+    use FOS\UserBundle\Entity\User as BaseUser;
+
+    class User extends BaseUser
+    {
+        /**
+         * @var string
+         */
+        protected $firstname;
+
+        /**
+         * @var string
+         */
+        protected $lastname;
+
+        /**
+         * @var string
+         */
+        protected $facebookID;
+
+        /**
+         * @return string
+         */
+        public function getFirstname()
+        {
+            return $this->firstname;
+        }
+
+        /**
+         * @param string $firstname
+         */
+        public function setFirstname($firstname)
+        {
+            $this->firstname = $firstname;
+        }
+
+        /**
+         * @return string
+         */
+        public function getLastname()
+        {
+            return $this->lastname;
+        }
+
+        /**
+         * @param string $lastname
+         */
+        public function setLastname($lastname)
+        {
+            $this->lastname = $lastname;
+        }
+
+        /**
+         * Get the full name of the user (first + last name)
+         * @return string
+         */
+        public function getFullName()
+        {
+            return $this->getFirstName() . ' ' . $this->getLastname();
+        }
+
+        /**
+         * @param string $facebookID
+         * @return void
+         */
+        public function setFacebookID($facebookID)
+        {
+            $this->facebookID = $facebookID;
+            $this->setUsername($facebookID);
+            $this->salt = '';
+        }
+
+        /**
+         * @return string
+         */
+        public function getFacebookID()
+        {
+            return $this->facebookID;
+        }
+
+        /**
+         * @param Array
+         */
+        public function setFBData($fbdata)
+        {
+            if (isset($fbdata['id'])) {
+                $this->setFacebookID($fbdata['id']);
+            }
+            if (isset($fbdata['first_name'])) {
+                $this->setFirstname($fbdata['first_name']);
+            }
+            if (isset($fbdata['last_name'])) {
+                $this->setLastname($fbdata['last_name']);
+            }
+            if (isset($fbdata['email'])) {
+                $this->setEmail($fbdata['email']);
+            }
         }
     }
