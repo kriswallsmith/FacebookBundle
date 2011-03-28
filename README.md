@@ -83,7 +83,7 @@ Installation
                   - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
-                  fos_facebook:
+                  fos_facebook_provider:
                       id: fos_facebook.auth
 
               firewalls:
@@ -108,17 +108,31 @@ Installation
 
               providers:
                   fos_facebook:
-                      id: my.facebook.user
+                      id: my.facebook.user   # see "Example Customer User Provider using the FOS\UserBundle" chapter further down
 
               firewalls:
                   public:
                       pattern:   /.*
-                      fos_facebook:
+                      fos_facebook:   # @TODO this is a confusing name as it also matches the provider key
                           login_path: /facebook
                           check_path: /facebook-check
                           default_target_path: /facebook
-                          provider: fos_facebook
+                          provider: fos_facebook_provider
                       anonymous: true
+
+  7. Optionally use access control to secure specific URLs
+
+
+          # application/config/config.yml
+          security:
+              # ...
+              
+              access_control:
+                  - { path: /facebook/.*,         role: [ROLE_FACEBOOK] }
+                  - { path: /.*,                  role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
+       
+    The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
+    > Note that the order of access controle rules matters!
 
 Setting up the JavaScript SDK
 -----------------------------
@@ -353,6 +367,7 @@ The following example also adds "firstname" and "lastname" properties:
         {
             if (isset($fbdata['id'])) {
                 $this->setFacebookID($fbdata['id']);
+                $this->addRole('ROLE_FACEBOOK');
             }
             if (isset($fbdata['first_name'])) {
                 $this->setFirstname($fbdata['first_name']);
