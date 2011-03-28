@@ -25,6 +25,11 @@ a page that requires authentication without being authenticated.
 Please also refer to the Facebook documentation:
 https://developers.facebook.com/docs/guides/web/
 
+Please also refer to the official documentation of the SecurityBundle, especially
+for details on the configuration:
+http://symfony.com/doc/2.0/book/security/authentication.html
+
+
 Installation
 ============
 
@@ -113,7 +118,7 @@ Installation
               firewalls:
                   public:
                       pattern:   /.*
-                      fos_facebook:   # @TODO this is a confusing name as it also matches the provider key
+                      fos_facebook:
                           login_path: /facebook
                           check_path: /facebook-check
                           default_target_path: /facebook
