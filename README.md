@@ -94,17 +94,17 @@ Installation
               firewalls:
                   require_facebook:
                       # non logged in users will be redirect to the facebook login url
-                      pattern:   /only_facebook/.*
+                      pattern:   ^/secured/
                       fos_facebook:  true
 
                   public:
                       # since anonymous is allowed users will not be forced to login
-                      pattern:   /.*
+                      pattern:   ^/.*
                       fos_facebook:  true
                       anonymous: true
 
               access_control:
-                  - { path: /.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+                  - { path: ^/.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
 
   6. Optionally define a custom user provider class and use it as the provider or define path for login
 
@@ -120,10 +120,10 @@ Installation
 
               firewalls:
                   public:
-                      pattern:   /.*
+                      pattern:   ^/.*
                       fos_facebook:
-                          login_path: /facebook
-                          check_path: /facebook-check
+                          login_path: ^/facebook$
+                          check_path: ^/facebook-check$
                           default_target_path: /facebook
                           provider: my_fos_facebook_provider
                       anonymous: true
@@ -136,8 +136,8 @@ Installation
               # ...
               
               access_control:
-                  - { path: /facebook/.*,         role: [ROLE_FACEBOOK] }
-                  - { path: /.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+                  - { path: ^/facebook/,         role: [ROLE_FACEBOOK] }
+                  - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
        
     The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
     > Note that the order of access controle rules matters!
