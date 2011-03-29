@@ -104,7 +104,7 @@ Installation
                       anonymous: true
 
               access_control:
-                  - { path: /.*, role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
+                  - { path: /.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
 
   6. Optionally define a custom user provider class and use it as the provider or define path for login
 
@@ -137,7 +137,7 @@ Installation
               
               access_control:
                   - { path: /facebook/.*,         role: [ROLE_FACEBOOK] }
-                  - { path: /.*,                  role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
+                  - { path: /.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
        
     The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
     > Note that the order of access controle rules matters!
