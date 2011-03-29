@@ -92,14 +92,16 @@ Installation
                       id: fos_facebook.auth
 
               firewalls:
+                  require_facebook:
+                      # non logged in users will be redirect to the facebook login url
+                      pattern:   /only_facebook/.*
+                      fos_facebook:  true
+
                   public:
+                      # since anonymous is allowed users will not be forced to login
                       pattern:   /.*
                       fos_facebook:  true
                       anonymous: true
-
-                  only_facebook: # with facebook entry point (redirect to the facebook login url)
-                      pattern:   /only_facebook/.*
-                      fos_facebook:  true
 
               access_control:
                   - { path: /.*, role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
