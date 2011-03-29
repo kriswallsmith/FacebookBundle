@@ -88,7 +88,7 @@ Installation
                   - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
-                  fos_facebook_provider:
+                  fos_facebook:
                       id: fos_facebook.auth
 
               firewalls:
@@ -114,7 +114,8 @@ Installation
                     - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
-                  fos_facebook:
+                  # choose the provider name freely
+                  my_fos_facebook_provider:
                       id: my.facebook.user   # see "Example Customer User Provider using the FOS\UserBundle" chapter further down
 
               firewalls:
@@ -124,7 +125,7 @@ Installation
                           login_path: /facebook
                           check_path: /facebook-check
                           default_target_path: /facebook
-                          provider: fos_facebook_provider
+                          provider: my_fos_facebook_provider
                       anonymous: true
 
   7. Optionally use access control to secure specific URLs
