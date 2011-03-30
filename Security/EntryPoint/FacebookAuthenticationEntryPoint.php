@@ -27,10 +27,10 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
      * @param Facebook $facebook
      * @param array    $options
      */
-    public function __construct(\Facebook $facebook, array $options = array(), array $permssions = array())
+    public function __construct(\Facebook $facebook, array $options = array(), array $permissions = array())
     {
         $this->facebook = $facebook;
-        $this->permssions = $permssions;
+        $this->permissions = $permissions;
         $this->options = new ParameterBag($options);
     }
 
@@ -45,7 +45,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
                 'canvas' => $this->options->get('canvas', 0),
                 'display' => $this->options->get('display', 'page'),
                 'fbconnect' => $this->options->get('fbconnect', 1),
-                'permissions' => implode(',', $this->permssions),
+                'permissions' => implode(',', $this->permissions),
                 'next' => $request->getUriForPath($this->options->get('check_path', '')),
             ))
         );
