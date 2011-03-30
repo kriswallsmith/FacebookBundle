@@ -57,8 +57,20 @@ Installation
                   // ...
               );
           }
+          
+  4. Add the following routes to your application
+          
+          #application/config/routing.yml
+          _security_check:
+              pattern:  /login_check
+          _security_logout:
+              pattern:  /logout
 
-  4. Configure the `facebook` service in your config:
+          #application/config/routing.xml
+          <route id="_security_check" pattern="/login_check" />
+          <route id="_security_logout" pattern="/logout" />     
+
+  5. Configure the `facebook` service in your config:
 
           # application/config/config.yml
           fos_facebook:
@@ -80,7 +92,7 @@ Installation
      If you do not include a `file` value in the config you will have to
      configure your application to autoload the `Facebook` class.
 
-  5. Add this configuration if you want to use the `security component`:
+  6. Add this configuration if you want to use the `security component`:
 
           # application/config/config.yml
           security:
@@ -92,21 +104,24 @@ Installation
                       id: fos_facebook.auth
 
               firewalls:
-                  require_facebook:
-                      # non logged in users will be redirect to the facebook login url
-                      pattern:   ^/secured/
-                      fos_facebook:  true
-
                   public:
                       # since anonymous is allowed users will not be forced to login
                       pattern:   ^/.*
                       fos_facebook:  true
                       anonymous: true
+                      logout: true
 
               access_control:
+                  - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_facebook
                   - { path: ^/.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
 
-  6. Optionally define a custom user provider class and use it as the provider or define path for login
+     You have to add `/secured/` in your routing for this to work. An example would be...
+     
+              _facebook_secured:
+                  pattern: /secured/
+                  defaults: { _controller: AcmeDemo:Welcome:index }
+
+  7. Optionally define a custom user provider class and use it as the provider or define path for login
 
           # application/config/config.yml
           security:
@@ -128,7 +143,7 @@ Installation
                           provider: my_fos_facebook_provider
                       anonymous: true
 
-  7. Optionally use access control to secure specific URLs
+  8. Optionally use access control to secure specific URLs
 
 
           # application/config/config.yml
@@ -136,7 +151,7 @@ Installation
               # ...
               
               access_control:
-                  - { path: ^/facebook/,         role: [ROLE_FACEBOOK] }
+                  - { path: ^/facebook/,           role: [ROLE_FACEBOOK] }
                   - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
        
     The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
