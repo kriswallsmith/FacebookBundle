@@ -46,11 +46,11 @@ class FacebookExtension extends \Twig_Extension
 
     public function renderInitialize($parameters = array(), $name = null)
     {
-        return $this->container->get('fos_facebook.helper')->initialize($parameters, $name ?: 'FOSFacebookBundle::initialize.html.twig');
+        return $this->container->get('fos_facebook.helper')->initialize($parameters, $name ?: 'FOSFacebook::initialize.html.twig');
     }
 
     public function renderLoginButton($parameters = array(), $name = null)
     {
-        return $this->container->get('fos_facebook.helper')->loginButton($parameters, $name ?: 'FOSFacebookBundle::loginButton.html.twig');
+        return $this->container->get('fos_facebook.helper')->loginButton($parameters, $name ?: 'FOSFacebook::loginButton.html.twig');
     }
 }

@@ -19,9 +19,9 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
         $templating
             ->expects($this->once())
             ->method('render')
-            ->with('FOSFacebookBundle::initialize.html.php', array(
+            ->with('FOSFacebook::initialize.html.php', array(
                 'appId'   => 123,
-		'async'   => true,
+                'async'   => true,
                 'cookie'  => false,
                 'culture' => 'en_US',
                 'fbAsyncInit' => '',

@@ -25,6 +25,11 @@ a page that requires authentication without being authenticated.
 Please also refer to the Facebook documentation:
 https://developers.facebook.com/docs/guides/web/
 
+Please also refer to the official documentation of the SecurityBundle, especially
+for details on the configuration:
+http://symfony.com/doc/2.0/book/security/authentication.html
+
+
 Installation
 ============
 
@@ -52,8 +57,20 @@ Installation
                   // ...
               );
           }
+          
+  4. Add the following routes to your application
+          
+          #application/config/routing.yml
+          _security_check:
+              pattern:  /login_check
+          _security_logout:
+              pattern:  /logout
 
-  4. Configure the `facebook` service in your config:
+          #application/config/routing.xml
+          <route id="_security_check" pattern="/login_check" />
+          <route id="_security_logout" pattern="/logout" />     
+
+  5. Configure the `facebook` service in your config:
 
           # application/config/config.yml
           fos_facebook:
@@ -75,7 +92,7 @@ Installation
      If you do not include a `file` value in the config you will have to
      configure your application to autoload the `Facebook` class.
 
-  5. Add this configuration if you want to use the `security component`:
+  6. Add this configuration if you want to use the `security component`:
 
           # application/config/config.yml
           security:
@@ -88,18 +105,23 @@ Installation
 
               firewalls:
                   public:
-                      pattern:   /.*
+                      # since anonymous is allowed users will not be forced to login
+                      pattern:   ^/.*
                       fos_facebook:  true
                       anonymous: true
-
-                  only_facebook: # with facebook entry point (redirect to the facebook login url)
-                      pattern:   /only_facebook/.*
-                      fos_facebook:  true
+                      logout: true
 
               access_control:
-                  - { path: /.*, role: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
+                  - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_facebook
+                  - { path: ^/.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
 
-  6. Optionally define a custom user provider class and use it as the provider or define path for login
+     You have to add `/secured/` in your routing for this to work. An example would be...
+     
+              _facebook_secured:
+                  pattern: /secured/
+                  defaults: { _controller: AcmeDemo:Welcome:index }
+
+  7. Optionally define a custom user provider class and use it as the provider or define path for login
 
           # application/config/config.yml
           security:
@@ -107,18 +129,33 @@ Installation
                     - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
               providers:
-                  fos_facebook:
-                      id: my.facebook.user
+                  # choose the provider name freely
+                  my_fos_facebook_provider:
+                      id: my.facebook.user   # see "Example Customer User Provider using the FOS\UserBundle" chapter further down
 
               firewalls:
                   public:
-                      pattern:   /.*
+                      pattern:   ^/.*
                       fos_facebook:
-                          login_path: /facebook
-                          check_path: /facebook-check
+                          login_path: ^/facebook$
+                          check_path: ^/facebook-check$
                           default_target_path: /facebook
-                          provider: fos_facebook
+                          provider: my_fos_facebook_provider
                       anonymous: true
+
+  8. Optionally use access control to secure specific URLs
+
+
+          # application/config/config.yml
+          security:
+              # ...
+              
+              access_control:
+                  - { path: ^/facebook/,           role: [ROLE_FACEBOOK] }
+                  - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+       
+    The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
+    > Note that the order of access controle rules matters!
 
 Setting up the JavaScript SDK
 -----------------------------
@@ -353,6 +390,7 @@ The following example also adds "firstname" and "lastname" properties:
         {
             if (isset($fbdata['id'])) {
                 $this->setFacebookID($fbdata['id']);
+                $this->addRole('ROLE_FACEBOOK');
             }
             if (isset($fbdata['first_name'])) {
                 $this->setFirstname($fbdata['first_name']);

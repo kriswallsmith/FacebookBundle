@@ -4,7 +4,7 @@ namespace FOS\FacebookBundle\Tests;
 
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Bundle\FrameworkBundle\Util\Filesystem;
+use Symfony\Component\HttpKernel\Util\Filesystem;
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 class Kernel extends BaseKernel
@@ -21,7 +21,7 @@ class Kernel extends BaseKernel
         }
 
         parent::__construct('env', true);
-        
+
         require_once __DIR__.'/FacebookApiException.php';
 
         $loader = new UniversalClassLoader();
