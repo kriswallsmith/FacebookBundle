@@ -2,7 +2,8 @@
 
 namespace FOS\FacebookBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder,
+    Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This class contains the configuration information for the bundle
@@ -12,14 +13,14 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
  *
  * @author Lukas Kahwe Smith <smith@pooteeweet.org>
  */
-class Configuration
+class Configuration implements ConfigurationInterface
 {
     /**
      * Generates the configuration tree.
      *
-     * @return \Symfony\Component\DependencyInjection\Configuration\NodeInterface
+     * @return TreeBuilder
      */
-    public function getConfigTree()
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('fos_facebook');
@@ -44,7 +45,7 @@ class Configuration
                 ->end()
                 ->arrayNode('permissions')->prototype('scalar')->end()->end();
 
-        return $treeBuilder->buildTree();
+        return $treeBuilder;
     }
 
 }
