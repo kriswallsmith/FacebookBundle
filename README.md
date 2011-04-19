@@ -137,9 +137,9 @@ Installation
                   public:
                       pattern:   ^/.*
                       fos_facebook:
-                          login_path: ^/facebook$
-                          check_path: ^/facebook-check$
-                          default_target_path: /facebook
+                          login_path: ^/login
+                          check_path: ^/login_check$
+                          default_target_path: /
                           provider: my_fos_facebook_provider
                       anonymous: true
 
@@ -197,7 +197,7 @@ to the "auth.login" event and then redirect to the "check_path":
       });
     </script>
 
-The "facebook_check" route would need to point to a "/facebook-check" pattern
+The "_security_check" route would need to point to a "/login_check" pattern
 to match the above configuration.
 
 Example Customer User Provider using the FOS\UserBundle
