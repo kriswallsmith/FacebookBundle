@@ -119,7 +119,7 @@ Installation
      
               _facebook_secured:
                   pattern: /secured/
-                  defaults: { _controller: AcmeDemo:Welcome:index }
+                  defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
   7. Optionally define a custom user provider class and use it as the provider or define path for login
 
