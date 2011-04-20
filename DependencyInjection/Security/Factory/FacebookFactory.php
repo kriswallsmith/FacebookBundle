@@ -56,7 +56,7 @@ class FacebookFactory extends AbstractFactory
         $entryPointId = 'fos_facebook.security.authentication.entry_point.'.$id;
         $container
             ->setDefinition($entryPointId, new DefinitionDecorator('fos_facebook.security.authentication.entry_point'))
-            ->setArgument(1, $config)
+            ->replaceArgument(1, $config)
         ;
 
         // set options to container for use by other classes
