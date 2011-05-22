@@ -58,7 +58,7 @@ Installation
               );
           }
           
-  4. Add the following routes to your application
+  4. Add the following routes to your application and point them at actual controller actions
           
           #application/config/routing.yml
           _security_check:
