@@ -79,6 +79,7 @@ Installation
               app_id: 123456879
               secret: s3cr3t
               cookie: true
+              permissions: [email, user_birthday, user_location]
 
           # application/config/config.xml
           <fos_facebook:api
@@ -87,7 +88,11 @@ Installation
               app_id="123456879"
               secret="s3cr3t"
               cookie="true"
-          />
+          >
+                <permission>email</permission>
+                <permission>user_birthday</permission>
+                <permission>user_location</permission>
+          </fos_facebook:api>
 
      If you do not include a `file` value in the config you will have to
      configure your application to autoload the `Facebook` class.
