@@ -35,6 +35,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('fos_facebook');
 
         $rootNode
+            ->fixXmlConfig('permission', 'permissions')
             ->children()
                 ->scalarNode('app_id')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('secret')->isRequired()->cannotBeEmpty()->end()
