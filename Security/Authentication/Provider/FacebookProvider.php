@@ -88,7 +88,7 @@ class FacebookProvider implements AuthenticationProviderInterface
      *
      * @param UserInterface $user
      */
-    public function loadUser(UserInterface $user)
+    public function refreshUser(UserInterface $user)
     {
         throw new UnsupportedUserException('User is not supported.');
     }
