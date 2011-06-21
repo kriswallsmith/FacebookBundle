@@ -24,7 +24,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 class TestUsersDeleteCommandTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      * @dataProvider provider
@@ -33,33 +32,29 @@ class TestUsersDeleteCommandTest extends \PHPUnit_Framework_TestCase
     {
         $facebook = $this->getMock('Facebook', array('api','getAppId'));
         $facebook
-        ->expects($this->once())
-        ->method('api')
-        ->with($this->equalTo($userId), $this->equalTo('DELETE'), $this->equalTo($params))
-        ->will($this->returnValue($resultApi));
-
+            ->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo($userId), $this->equalTo('DELETE'), $this->equalTo($params))
+            ->will($this->returnValue($resultApi));
 
         $facebook
-        ->expects($this->once())
-        ->method('getAppId')
-        ->will($this->returnValue($appId));
-
+            ->expects($this->once())
+            ->method('getAppId')
+            ->will($this->returnValue($appId));
 
         $applicationAccessTokenCommand = $this->getMock('FOS\\FacebookBundle\\Command\\ApplicationAccessTokenCommand', array('getAccessToken'));
 
         $applicationAccessTokenCommand
-        ->expects($this->once())
-        ->method('getAccessToken')
-        ->will($this->returnValue($accessToken));
-
+            ->expects($this->once())
+            ->method('getAccessToken')
+            ->will($this->returnValue($accessToken));
 
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
-        
+
         $command = new TestUsersDeleteCommand();
         $command->setApplicationAccessTokenCommand($applicationAccessTokenCommand);
         $command->setApplication($application);
-
 
         $commandTester = new CommandTester($command);
 
@@ -67,10 +62,6 @@ class TestUsersDeleteCommandTest extends \PHPUnit_Framework_TestCase
 
         $this->assertRegExp('/'.$result.'/', $commandTester->getDisplay());
     }
-
-
-
-
 
     /**
      * @test
@@ -81,21 +72,18 @@ class TestUsersDeleteCommandTest extends \PHPUnit_Framework_TestCase
         $facebook = $this->getMock('Facebook', array('getAppId'));
 
         $facebook
-        ->expects($this->once())
-        ->method('getAppId')
-        ->will($this->returnValue(null));
-
+            ->expects($this->once())
+            ->method('getAppId')
+            ->will($this->returnValue(null));
 
         $applicationAccessTokenCommand = $this->getMock('FOS\\FacebookBundle\\Command\\ApplicationAccessTokenCommand', array('getAccessToken'));
 
-
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
-        
+
         $command = new TestUsersDeleteCommand();
         $command->setApplicationAccessTokenCommand($applicationAccessTokenCommand);
         $command->setApplication($application);
-
 
         $commandTester = new CommandTester($command);
 
@@ -110,19 +98,14 @@ class TestUsersDeleteCommandTest extends \PHPUnit_Framework_TestCase
     {
         $facebook = $this->getMock('Facebook', array('getAppId'));
 
-
         $applicationAccessTokenCommand = $this->getMock('FOS\\FacebookBundle\\Command\\ApplicationAccessTokenCommand', array('getAccessToken'));
-
 
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
-        
+
         $command = new TestUsersDeleteCommand();
         $command->setApplicationAccessTokenCommand($applicationAccessTokenCommand);
         $command->setApplication($application);
-        
-        
-
 
         $commandTester = new CommandTester($command);
 

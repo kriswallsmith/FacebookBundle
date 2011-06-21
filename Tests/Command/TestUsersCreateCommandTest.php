@@ -25,7 +25,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 class TestUsersCreateCommandTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      * @dataProvider provider
@@ -34,33 +33,29 @@ class TestUsersCreateCommandTest extends \PHPUnit_Framework_TestCase
     {
         $facebook = $this->getMock('Facebook', array('api','getAppId'));
         $facebook
-        ->expects($this->once())
-        ->method('api')
-        ->with($this->equalTo($appId.'/accounts/test-users'), $this->equalTo('POST'), $this->equalTo($params))
-        ->will($this->returnValue(array("id"=> "1231....","access_token"=>"1223134...","login_url"=>"https://www.facebook.com/platform/test_account..")));
-        
+            ->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo($appId.'/accounts/test-users'), $this->equalTo('POST'), $this->equalTo($params))
+            ->will($this->returnValue(array("id"=> "1231....","access_token"=>"1223134...","login_url"=>"https://www.facebook.com/platform/test_account..")));
 
         $facebook
-        ->expects($this->once())
-        ->method('getAppId')
-        ->will($this->returnValue($appId));
-
+            ->expects($this->once())
+            ->method('getAppId')
+            ->will($this->returnValue($appId));
 
         $applicationAccessTokenCommand = $this->getMock('FOS\\FacebookBundle\\Command\\ApplicationAccessTokenCommand', array('getAccessToken'));
 
         $applicationAccessTokenCommand
-        ->expects($this->once())
-        ->method('getAccessToken')
-        ->will($this->returnValue($accessToken));
-
+            ->expects($this->once())
+            ->method('getAccessToken')
+            ->will($this->returnValue($accessToken));
 
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
-        
+
         $command = new TestUsersCreateCommand();
         $command->setApplicationAccessTokenCommand($applicationAccessTokenCommand);
         $command->setApplication($application);
-
 
         $commandTester = new CommandTester($command);
 
@@ -69,10 +64,6 @@ class TestUsersCreateCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp("/login_url/", $commandTester->getDisplay());
     }
 
-
-
-    
-    
     /**
      * @test
      * @expectedException \FacebookApiException
@@ -82,26 +73,24 @@ class TestUsersCreateCommandTest extends \PHPUnit_Framework_TestCase
         $facebook = $this->getMock('Facebook', array('getAppId'));
 
         $facebook
-        ->expects($this->once())
-        ->method('getAppId')
-        ->will($this->returnValue(null));
-
+            ->expects($this->once())
+            ->method('getAppId')
+            ->will($this->returnValue(null));
 
         $applicationAccessTokenCommand = $this->getMock('FOS\\FacebookBundle\\Command\\ApplicationAccessTokenCommand', array('getAccessToken'));
 
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
-        
+
         $command = new TestUsersCreateCommand();
         $command->setApplicationAccessTokenCommand($applicationAccessTokenCommand);
         $command->setApplication($application);
-
 
         $commandTester = new CommandTester($command);
 
         $commandTester->execute(array('command' => 'facebook:test-users:create'));
     }
-    
+
     public function provider()
     {
         return array(

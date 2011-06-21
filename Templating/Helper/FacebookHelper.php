@@ -13,7 +13,6 @@ namespace FOS\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\EngineInterface;
-
 use \Facebook;
 
 class FacebookHelper extends Helper

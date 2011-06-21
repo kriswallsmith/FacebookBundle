@@ -13,7 +13,6 @@ namespace FOS\FacebookBundle\Security\Firewall;
 
 use FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken;
 use Symfony\Component\Security\Http\Firewall\AbstractAuthenticationListener;
-
 use Symfony\Component\HttpFoundation\Request;
 
 /**

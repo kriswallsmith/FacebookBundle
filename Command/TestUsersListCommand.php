@@ -12,13 +12,9 @@
 namespace FOS\FacebookBundle\Command;
 
 use Symfony\Component\Console\Output\Output;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 
 /**
  * List test users associated with your application.
@@ -27,18 +23,17 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TestUsersListCommand extends TestUsersCommand
 {
-
     protected function configure()
     {
         parent::configure();
 
         $this
-        ->setName('facebook:test-users:list')
-        ->setDefinition(array(
-        new InputOption('json', null, InputOption::VALUE_NONE, 'To output result as plain JSON'),
-        ))
-        ->setDescription('List test users associated with your application.')
-        ->setHelp(<<<EOF
+            ->setName('facebook:test-users:list')
+            ->setDefinition(array(
+                new InputOption('json', null, InputOption::VALUE_NONE, 'To output result as plain JSON'),
+            ))
+            ->setDescription('List test users associated with your application.')
+            ->setHelp(<<<EOF
 You can access the test users associated with an application by using the Graph API with the application access token.
 
 API
@@ -51,15 +46,15 @@ Response:
 <comment>
 {
  "data" [
-   { 
-    "id": "1231....",  
-    "access_token":"1223134..." , 
-    "login_url":"https://www.facebook.com/platform/test_account.." 
+   {
+    "id": "1231....",
+    "access_token":"1223134..." ,
+    "login_url":"https://www.facebook.com/platform/test_account.."
    }
-   { 
-    "id": "1231....",  
-    "access_token":"1223134..." , 
-    "login_url":"https://www.facebook.com/platform/test_account.." 
+   {
+    "id": "1231....",
+    "access_token":"1223134..." ,
+    "login_url":"https://www.facebook.com/platform/test_account.."
    }
  ]
 }
@@ -69,17 +64,17 @@ Response:
 User id of the test user
 
 <comment>access_token</comment>
-You can use this access token to make API calls on behalf of the test user. 
+You can use this access token to make API calls on behalf of the test user.
 This is available only if your application has been installed by the test user.
 
 <comment>login_url</comment>
-You can login as the test user by going to this url. 
+You can login as the test user by going to this url.
 This expires on first use or after 10 minutes whichever happens first.
 
 EOF
-        );
+            )
+        ;
     }
-
 
     /**
      * Executes the current command.
@@ -93,7 +88,6 @@ EOF
     {
         $facebook = $this->getFacebook();
 
-
         $appId = $facebook->getAppId();
 
         if (!$appId) {
@@ -106,19 +100,17 @@ EOF
 
         if ($input->getOption('json')) {
             $output->writeln(json_encode($result), Output::OUTPUT_RAW);
+        } elseif (empty($result['data'])) {
+            $output->writeln('Empty result. use facebook:test-users:create');
         } else {
-            if (empty($result['data'])) {
-                $output->writeln('Empty result. use facebook:test-users:create');
-            } else {
-                $output->writeln('Test Users:');
-                $output->writeln('');
-                foreach ($result['data'] as $user) {
-                    $output->writeln('id:              <comment>'.$user['id'].'</comment>');
-                    $output->writeln('login_url:       <comment>'.$user['login_url'].'</comment>');
-                    $output->writeln('---------------------------------------------------------------------------------');
-                }
-                $output->writeln('');
+            $output->writeln('Test Users:');
+            $output->writeln('');
+            foreach ($result['data'] as $user) {
+                $output->writeln('id:              <comment>'.$user['id'].'</comment>');
+                $output->writeln('login_url:       <comment>'.$user['login_url'].'</comment>');
+                $output->writeln('---------------------------------------------------------------------------------');
             }
+            $output->writeln('');
         }
     }
 }

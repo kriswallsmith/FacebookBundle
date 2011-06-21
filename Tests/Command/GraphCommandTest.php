@@ -25,7 +25,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 class GraphCommandTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      * @dataProvider methods
@@ -34,10 +33,10 @@ class GraphCommandTest extends \PHPUnit_Framework_TestCase
     {
         $facebook = $this->getMock('Facebook', array('api'));
         $facebook
-        ->expects($this->once())
-        ->method('api')
-        ->with($this->equalTo('platform'), $this->equalTo($method), $this->equalTo(array()))
-        ->will($this->returnValue('{id:"1234567890"}'));
+            ->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo('platform'), $this->equalTo($method), $this->equalTo(array()))
+            ->will($this->returnValue('{id:"1234567890"}'));
 
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
@@ -52,8 +51,6 @@ class GraphCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp("/1234567890/", $commandTester->getDisplay());
     }
 
-    
-
     /**
      * @test
      */
@@ -61,10 +58,10 @@ class GraphCommandTest extends \PHPUnit_Framework_TestCase
     {
         $facebook = $this->getMock('Facebook', array('api'));
         $facebook
-        ->expects($this->once())
-        ->method('api')
-        ->with($this->equalTo('platform'), $this->equalTo('GET'), $this->equalTo(array('access_token' => 'access_token1234567890')))
-        ->will($this->returnValue('{id:"1234567890"}'));
+            ->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo('platform'), $this->equalTo('GET'), $this->equalTo(array('access_token' => 'access_token1234567890')))
+            ->will($this->returnValue('{id:"1234567890"}'));
 
         $application = new Application(new Kernel());
         $application->getKernel()->getContainer()->set('fos_facebook.api', $facebook);
@@ -78,7 +75,6 @@ class GraphCommandTest extends \PHPUnit_Framework_TestCase
 
         $this->assertRegExp("/1234567890/", $commandTester->getDisplay());
     }
-
 
     /**
      * @test
@@ -117,8 +113,6 @@ class GraphCommandTest extends \PHPUnit_Framework_TestCase
 
         $commandTester->execute(array('command' => 'facebook:graph'));
     }
-
-
 
     public function methods()
     {

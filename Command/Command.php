@@ -27,7 +27,8 @@ abstract class Command extends ContainerAwareCommand
      *
      * @return \Facebook
      */
-    public function getFacebook() {
+    public function getFacebook()
+    {
         return $this->getContainer()->get('fos_facebook.api');
     }
 }

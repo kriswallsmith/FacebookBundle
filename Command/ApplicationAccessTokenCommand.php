@@ -12,10 +12,7 @@
 namespace FOS\FacebookBundle\Command;
 
 use Symfony\Component\Console\Output\Output;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -27,9 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ApplicationAccessTokenCommand extends Command
 {
-
     static private $oathAccessTokenLocation = 'https://graph.facebook.com/oauth/access_token';
-
 
     /**
      * Get application access token
@@ -41,7 +36,7 @@ class ApplicationAccessTokenCommand extends Command
         $facebook = $this->getFacebook();
 
         $appId = $facebook->getAppId();
-         
+
         if (!$appId) {
             throw new \FacebookApiException('Set app_id in config');
         }
@@ -84,21 +79,20 @@ class ApplicationAccessTokenCommand extends Command
         parent::configure();
 
         $this
-        ->setName('facebook:application-access-token')
-        ->setDefinition(array(
-        new InputOption('plain', null, InputOption::VALUE_NONE, 'To output result as plain text'),
-        ))
-        ->setDescription('Get application access token')
-        ->setHelp(<<<EOF
+            ->setName('facebook:application-access-token')
+            ->setDefinition(array(
+                new InputOption('plain', null, InputOption::VALUE_NONE, 'To output result as plain text'),
+            ))
+            ->setDescription('Get application access token')
+            ->setHelp(<<<EOF
 Construct an OAuth access token associated with your application.
-OAuth access tokens have no active user session, but allow 
+OAuth access tokens have no active user session, but allow
 you to make administrative calls that do not require an active user.
 
 EOF
-
-        );
+            )
+        ;
     }
-
 
     /**
      * Executes the current command.
@@ -121,5 +115,4 @@ EOF
             $output->writeln('');
         }
     }
-
 }

@@ -43,7 +43,8 @@ abstract class TestUsersCommand extends Command
      * @param \Facebook $facebook
      * @return string access token
      */
-    public function setApplicationAccessTokenCommand(ApplicationAccessTokenCommand $command) {
+    public function setApplicationAccessTokenCommand(ApplicationAccessTokenCommand $command)
+    {
         $this->applicationAccessTokenCommand = $command;
     }
 
@@ -55,7 +56,8 @@ abstract class TestUsersCommand extends Command
      * @param \Facebook $facebook
      * @return string access token
      */
-    protected function getApplicationAccessToken(\Facebook $facebook) {
+    protected function getApplicationAccessToken(\Facebook $facebook)
+    {
         if (null == $this->applicationAccessTokenCommand) {
             $applicationAccessTokenCommand = new ApplicationAccessTokenCommand();
             $applicationAccessTokenCommand->setContainer($this->getContainer());

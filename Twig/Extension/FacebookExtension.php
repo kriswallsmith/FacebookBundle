@@ -13,17 +13,14 @@ namespace FOS\FacebookBundle\Twig\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * 
- */
 class FacebookExtension extends \Twig_Extension
 {
     protected $container;
 
     /**
      * Constructor.
-     * 
-     * @param ContainerInterface $container 
+     *
+     * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {

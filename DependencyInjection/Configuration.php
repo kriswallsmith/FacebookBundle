@@ -53,7 +53,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('twig')->defaultValue('FOS\FacebookBundle\Twig\Extension\FacebookExtension')->end()
                     ->end()
                 ->end()
-                ->arrayNode('permissions')->prototype('scalar')->end()->end();
+                ->arrayNode('permissions')->prototype('scalar')->end()
+            ->end();
 
         return $treeBuilder;
     }
