@@ -52,7 +52,7 @@ Installation
 
               ./bin/vendors install
 
-          * Using Submodules
+          * Using Submodules. Please note that you must checkout the facebook php-sdk 2.1.2 tag. The V3 branch is not supported.
 
                 $ git submodule add git://github.com/FriendsOfSymfony/FOSFacebookBundle.git vendor/bundles/FOS/FacebookBundle
                 $ git submodule add git://github.com/facebook/php-sdk.git vendor/facebook
