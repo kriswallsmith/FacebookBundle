@@ -46,13 +46,12 @@ Installation
               [FacebookSDK]
                   git=git://github.com/facebook/php-sdk.git
                   target=/facebook
-                  version=v2.1.2
 
           Run the vendors script::
 
               ./bin/vendors install
 
-          * Using Submodules. Please note that you must checkout the facebook php-sdk 2.1.2 tag. The V3 branch is not supported.
+          * Using Submodules.
 
                 $ git submodule add git://github.com/FriendsOfSymfony/FOSFacebookBundle.git vendor/bundles/FOS/FacebookBundle
                 $ git submodule add git://github.com/facebook/php-sdk.git vendor/facebook

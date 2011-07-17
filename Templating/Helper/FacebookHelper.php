@@ -13,7 +13,6 @@ namespace FOS\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\EngineInterface;
-use \Facebook;
 
 class FacebookHelper extends Helper
 {
@@ -23,7 +22,7 @@ class FacebookHelper extends Helper
     protected $permissions;
     protected $facebook;
 
-    public function __construct(EngineInterface $templating, Facebook $facebook, $logging = true, $culture = 'en_US', array $permissions = array())
+    public function __construct(EngineInterface $templating, \BaseFacebook $facebook, $logging = true, $culture = 'en_US', array $permissions = array())
     {
         $this->templating  = $templating;
         $this->logging     = $logging;
