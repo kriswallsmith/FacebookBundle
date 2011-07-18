@@ -92,7 +92,7 @@ Installation
 
           # application/config/config.yml
           fos_facebook:
-              file:   %kernel.root_dir%/facebook.php
+              file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
               alias:  facebook
               app_id: 123456879
               secret: s3cr3t
@@ -101,7 +101,7 @@ Installation
 
           # application/config/config.xml
           <fos_facebook:api
-              file="%kernel.root_dir%/facebook.php"
+              file="%kernel.root_dir%/../vendor/facebook/src/base_facebook.php"
               alias="facebook"
               app_id="123456879"
               secret="s3cr3t"
@@ -114,11 +114,6 @@ Installation
 
      If you do not include a `file` value in the config you will have to
      configure your application to autoload the `Facebook` class.
-
-     If you do set the `file` value create a file with the following content in your kernel dir:
-
-        require __DIR__.'/../vendor/facebook/src/base_facebook.php';
-        require __DIR__.'/../vendor/bundles/FOS/FacebookBundle/Facebook/FacebookSessionPersistence.php';
 
   6. Add this configuration if you want to use the `security component`:
 
