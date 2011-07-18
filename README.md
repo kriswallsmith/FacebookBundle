@@ -113,7 +113,7 @@ Installation
           </fos_facebook:api>
 
      If you do not include a `file` value in the config you will have to
-     configure your application to autoload the `Facebook` class.
+     configure your application to autoload the `BaseFacebook` class.
 
   6. Add this configuration if you want to use the `security component`:
 
@@ -178,7 +178,7 @@ Installation
                   - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
        
     The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
-    > Note that the order of access controle rules matters!
+    > Note that the order of access control rules matters!
 
 Setting up the JavaScript SDK
 -----------------------------
@@ -246,7 +246,7 @@ to the provider id in the "provider" section in the config.yml:
     use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
     use Symfony\Component\Security\Core\User\UserProviderInterface;
     use Symfony\Component\Security\Core\User\UserInterface;
-    use \Facebook;
+    use \BaseFacebook;
     use \FacebookApiException;
 
     class FacebookProvider implements UserProviderInterface
@@ -258,7 +258,7 @@ to the provider id in the "provider" section in the config.yml:
         protected $userManager;
         protected $validator;
 
-        public function __construct(Facebook $facebook, $userManager, $validator)
+        public function __construct(BaseFacebook $facebook, $userManager, $validator)
         {
             $this->facebook = $facebook;
             $this->userManager = $userManager;
