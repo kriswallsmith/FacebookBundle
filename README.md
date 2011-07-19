@@ -33,7 +33,7 @@ http://symfony.com/doc/2.0/book/security/authentication.html
 Installation
 ============
 
-  1. Add this bundle to your and the Facebook PHP SDK to your vendor/ dir:
+  1. Add this bundle to your and the Facebook PHP SDK to your ``vendor/`` dir:
       * Using the vendors script.
 
         Add the following lines in your ``deps`` file::
@@ -46,11 +46,11 @@ Installation
                 git=git://github.com/facebook/php-sdk.git
                 target=/facebook
 
-        Run the vendors script::
+        Run the vendors script:
 
             ./bin/vendors install
 
-      * Using Submodules
+      * Using git submodules.
 
             $ git submodule add git://github.com/FriendsOfSymfony/FOSFacebookBundle.git vendor/bundles/FOS/FacebookBundle
             $ git submodule add git://github.com/facebook/php-sdk.git vendor/facebook
