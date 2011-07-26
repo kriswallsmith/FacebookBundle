@@ -48,10 +48,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
     {
         $response = new RedirectResponse($this->facebook->getLoginUrl(
            array(
-                'cancel_url' => $request->getUriForPath($this->options->get('cancel_url', '')),
-                'canvas' => $this->options->get('canvas', 0),
                 'display' => $this->options->get('display', 'page'),
-                'fbconnect' => $this->options->get('fbconnect', 1),
                 'req_perms' => implode(',', $this->permissions),
                 'redirect_uri' => $request->getUriForPath($this->options->get('check_path', '')),
             ))
