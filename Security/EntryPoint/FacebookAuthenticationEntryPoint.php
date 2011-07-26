@@ -49,7 +49,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
         $response = new RedirectResponse($this->facebook->getLoginUrl(
            array(
                 'display' => $this->options->get('display', 'page'),
-                'req_perms' => implode(',', $this->permissions),
+                'scope' => implode(',', $this->permissions),
                 'redirect_uri' => $request->getUriForPath($this->options->get('check_path', '')),
             ))
         );
