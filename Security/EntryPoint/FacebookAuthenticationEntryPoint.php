@@ -54,7 +54,10 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
             ))
             
         );
-		echo '<script>top.location.href="'.$loginUrl.'"</script>';
-        die;
+        
+        if($this->options->get('server_url') & $this->options->get('app_url'))
+        	return new Response('<html><head></head><body><script>top.location.href="'.$loginUrl.'";</script></body></html>');
+        
+        return $response;
     }
 }
