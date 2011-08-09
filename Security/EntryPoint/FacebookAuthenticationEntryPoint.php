@@ -46,18 +46,23 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $response = new RedirectResponse($loginUrl = $this->facebook->getLoginUrl(
+    	if ($this->options->get('server_url') & $this->options->get('app_url')){
+    	    $redirect_uri = str_replace($this->options->get('server_url'), $this->options->get('app_url'), $request->getUriForPath($this->options->get('check_path', '')));
+    	} else {
+    	    $redirect_uri = $request->getUriForPath($this->options->get('check_path', ''));
+    	}
+        
+        $loginUrl = $this->facebook->getLoginUrl(
            array(
                 'display' => $this->options->get('display', 'page'),
                 'scope' => implode(',', $this->permissions),
-                'redirect_uri' => str_replace($this->options->get('server_url'), $this->options->get('app_url'), $request->getUriForPath($this->options->get('check_path', ''))),
-            ))
-            
-        );
+                'redirect_uri' => $redirect_uri,
+        ));
         
-        if($this->options->get('server_url') & $this->options->get('app_url'))
-        	return new Response('<html><head></head><body><script>top.location.href="'.$loginUrl.'";</script></body></html>');
+        if ($this->options->get('server_url') & $this->options->get('app_url')){
+            return new Response('<html><head></head><body><script>top.location.href="'.$loginUrl.'";</script></body></html>');
+        }
         
-        return $response;
+        return new RedirectResponse($loginUrl);
     }
 }
