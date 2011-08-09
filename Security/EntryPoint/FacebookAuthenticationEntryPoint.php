@@ -46,14 +46,15 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $response = new RedirectResponse($this->facebook->getLoginUrl(
+        $response = new RedirectResponse($loginUrl = $this->facebook->getLoginUrl(
            array(
                 'display' => $this->options->get('display', 'page'),
                 'scope' => implode(',', $this->permissions),
-                'redirect_uri' => $request->getUriForPath($this->options->get('check_path', '')),
+                'redirect_uri' => str_replace($this->options->get('server_url'), $this->options->get('app_url'), $request->getUriForPath($this->options->get('check_path', ''))),
             ))
+            
         );
-
-        return $response;
+		echo '<script>top.location.href="'.$loginUrl.'"</script>';
+        die;
     }
 }
