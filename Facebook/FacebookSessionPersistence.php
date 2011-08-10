@@ -63,6 +63,7 @@ class FacebookSessionPersistence extends \BaseFacebook
             self::errorLog('Unsupported key passed to getPersistentData.');
             return $default;
         }
+        
         $sessionVariableName = $this->constructSessionVariableName($key);
         if ($this->session->has($sessionVariableName)) {
             return $this->session->get($sessionVariableName);
@@ -82,7 +83,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     {
         if (!in_array($key, self::$kSupportedKeys)) {
             self::errorLog('Unsupported key passed to clearPersistentData.');
-	        return;
+            return;
         }
 	
         $this->session->remove($this->constructSessionVariableName($key));
