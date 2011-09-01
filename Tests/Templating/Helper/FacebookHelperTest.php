@@ -35,13 +35,18 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
                 'culture' => 'en_US',
                 'fbAsyncInit' => '',
                 'logging' => true,
-                'session' => null,
+                'oauth' => true,
                 'status'  => false,
                 'xfbml'   => false,
             ))
             ->will($this->returnValue($expected));
+        
+        $facebookMock = $this->getMock('\BaseFacebook', array('getAppId'));
+        $facebookMock->expects($this->once())
+            ->method('getAppId')
+            ->will($this->returnValue('123'));
 
-        $helper = new FacebookHelper($templating, '123');
-        $this->assertSame($expected, $helper->initialize());
+        $helper = new FacebookHelper($templating, $facebookMock);
+        $this->assertSame($expected, $helper->initialize(array('cookie' => false)));
     }
 }
