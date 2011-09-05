@@ -40,7 +40,7 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
                 'xfbml'   => false,
             ))
             ->will($this->returnValue($expected));
-        
+
         $facebookMock = $this->getMock('\BaseFacebook', array('getAppId'));
         $facebookMock->expects($this->once())
             ->method('getAppId')
@@ -49,7 +49,7 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
         $helper = new FacebookHelper($templating, $facebookMock);
         $this->assertSame($expected, $helper->initialize(array('cookie' => false)));
     }
-    
+
     /**
      * @covers FOS\FacebookBundle\Templating\Helper\FacebookHelper::loginButton
      */
@@ -69,7 +69,7 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
                 'scope'          => '1,2,3',
             ))
             ->will($this->returnValue($expected));
-        
+
         $facebookMock = $this->getMock('\BaseFacebook', array('getAppId'));
         $facebookMock->expects($this->any())
             ->method('getAppId');
