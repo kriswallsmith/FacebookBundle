@@ -61,7 +61,7 @@ class FacebookFactoryTest extends \PHPUnit_Framework_TestCase
         $idsArray = $this->facebookFactoryCreate(array('remember_me' => false));
         $this->assertEquals('fos_facebook.security.authentication.entry_point.l3l0', $idsArray[2]);
     }
-    
+
     /**
      * @covers FOS\FacebookBundle\DependencyInjection\Security\Factory\FacebookFactory::getListenerId
      */
@@ -77,16 +77,17 @@ class FacebookFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private function facebookFactoryCreate($config = array())
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder', array('setDefinition', 'addArgument', 'replaceArgument'));
-        $container->expects($this->any())
+        $definition = $this->getMock('Symfony\Component\DependencyInjection\Definition', array('addArgument', 'replaceArgument'));
+        $definition->expects($this->any())
             ->method('replaceArgument')
-            ->will($this->returnValue($container));
-        $container->expects($this->any())
+            ->will($this->returnValue($definition));
+        $definition->expects($this->any())
             ->method('addArgument')
-            ->will($this->returnValue($container));
+            ->will($this->returnValue($definition));
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder', array('setDefinition'));
         $container->expects($this->any())
             ->method('setDefinition')
-            ->will($this->returnValue($container));
+            ->will($this->returnValue($definition));
 
         return $this->factory->create($container, 'l3l0', $config, 'l3l0.user.provider', null);
     }
