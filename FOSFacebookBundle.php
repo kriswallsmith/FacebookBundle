@@ -13,9 +13,6 @@ namespace FOS\FacebookBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @codeCoverageIgnore 
- */
 class FOSFacebookBundle extends Bundle
 {
 }
