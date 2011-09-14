@@ -47,7 +47,7 @@ class FacebookAuthenticationEntryPointTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers FOS\FacebookBundle\Security\EntryPoint\FacebookAuthenticationEntryPoint::start
      */
-    public function testThatResponseWithJsRedirectionToFacebookLoginUrlIsCreatedWhenAppAndServerUrlsAreDefined()
+    public function testThatRedirectionToFacebookLoginUrlIsCreated()
     {
         $requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request', array('getUriForPath'));
 
