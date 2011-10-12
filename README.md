@@ -205,9 +205,9 @@ the opening `body` tag:
 
       <body>
           <!-- inside a php template -->
-          <?php echo $view['facebook']->initialize(array('xfbml' => true, 'fbAsyncInit' => 'onfbinit();')) ?>
+          <?php echo $view['facebook']->initialize(array('xfbml' => true, 'fbAsyncInit' => 'onFbInit();')) ?>
           <!-- inside a twig template -->
-          {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onfbinit();'}) }}
+          {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
 
 If you will be adding XFBML markup to your site you may also declare the
 namespace, perhaps in the opening `html` tag:
@@ -230,7 +230,7 @@ still needs to be triggered. To do this you will in most cases simply subscribe
 to the "auth.login" event and then redirect to the "check_path":
 
     <script>
-      function onfbinit() {
+      function onFbInit() {
          if (typeof(FB) != 'undefined' && FB != null ) {
               FB.Event.subscribe('auth.login', function(response) {
                    window.location = "{{ path('_security_check') }}";
@@ -246,7 +246,7 @@ Also, you need to trigger the logout action, so, subscribe the "auth.logout"
 to redirect to the "logout" route:
 
     <script>
-      function onfbinit() {
+      function onFbInit() {
          if (typeof(FB) != 'undefined' && FB != null ) {
               FB.Event.subscribe('auth.login', function(response) {
                    window.location = "{{ path('_security_check') }}";
