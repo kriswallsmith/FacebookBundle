@@ -275,7 +275,6 @@ to redirect to the "logout" route:
       }
     </script>
 
-NB:
 
 Example Customer User Provider using the FOS\UserBundle
 -------------------------------------------------------
