@@ -242,7 +242,7 @@ to the "auth.login" event and then redirect to the "check_path":
       function onFbInit() {
          if (typeof(FB) != 'undefined' && FB != null ) {
               FB.Event.subscribe('auth.login', function(response) {
-                   setTimeout("goLogIn()",500);
+                   setTimeout(goLogIn,500);
               });
          }
       }
@@ -266,7 +266,7 @@ to redirect to the "logout" route:
       function onFbInit() {
          if (typeof(FB) != 'undefined' && FB != null ) {
               FB.Event.subscribe('auth.login', function(response) {
-                   setTimeout("goLogIn()",500);
+                   setTimeout(goLogIn,500);
               });
               FB.Event.subscribe('auth.logout', function(response) {
                    window.location = "{{ path('_security_logout') }}";
