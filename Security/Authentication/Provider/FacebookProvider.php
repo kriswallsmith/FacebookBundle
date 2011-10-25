@@ -11,6 +11,10 @@
 
 namespace FOS\FacebookBundle\Security\Authentication\Provider;
 
+use FOS\FacebookBundle\Security\User\UserManagerInterface;
+
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -28,16 +32,22 @@ class FacebookProvider implements AuthenticationProviderInterface
     protected $facebook;
     protected $userProvider;
     protected $userChecker;
+    protected $createIfNotExists;
 
-    public function __construct(\BaseFacebook $facebook, UserProviderInterface $userProvider = null, UserCheckerInterface $userChecker = null)
+    public function __construct(\BaseFacebook $facebook, UserProviderInterface $userProvider = null, UserCheckerInterface $userChecker = null, $createIfNotExists = false)
     {
         if (null !== $userProvider && null === $userChecker) {
             throw new \InvalidArgumentException('$userChecker cannot be null, if $userProvider is not null.');
         }
 
+        if ($createIfNotExists && !$userProvider instanceof UserManagerInterface) {
+            throw new \InvalidArgumentException('The $userProvider must implement UserManagerInterface if $createIfNotExists is true.');
+        }
+
         $this->facebook = $facebook;
         $this->userProvider = $userProvider;
         $this->userChecker = $userChecker;
+        $this->createIfNotExists = $createIfNotExists;
     }
 
     public function authenticate(TokenInterface $token)
@@ -46,15 +56,27 @@ class FacebookProvider implements AuthenticationProviderInterface
             return null;
         }
 
+        $user = $token->getUser();
+        if ($user instanceof UserInterface) {
+            $this->userChecker->checkPostAuth($user);
+
+            $newToken = new FacebookUserToken($user, $user->getRoles());
+            $newToken->setAttributes($token->getAttributes());
+
+            return $newToken;
+        }
+
         try {
             if ($uid = $this->facebook->getUser()) {
-                $token->setUser($uid);
-                return $this->createAuthenticatedToken($uid);
+                $newToken = $this->createAuthenticatedToken($uid);
+                $newToken->setAttributes($token->getAttributes());
+
+                return $newToken;
             }
         } catch (AuthenticationException $failed) {
             throw $failed;
         } catch (\Exception $failed) {
-            throw new AuthenticationException('Unknown error', $failed->getMessage(), (int)$failed->getCode(), $failed);
+            throw new AuthenticationException($failed->getMessage(), null, (int)$failed->getCode(), $failed);
         }
 
         throw new AuthenticationException('The Facebook user could not be retrieved from the session.');
@@ -71,13 +93,20 @@ class FacebookProvider implements AuthenticationProviderInterface
             return new FacebookUserToken($uid);
         }
 
-        $user = $this->userProvider->loadUserByUsername($uid);
+        try {
+            $user = $this->userProvider->loadUserByUsername($uid);
+            $this->userChecker->checkPostAuth($user);
+        } catch (UsernameNotFoundException $ex) {
+            if (!$this->createIfNotExists) {
+                throw $ex;
+            }
+
+            $user = $this->userProvider->createUserFromUid($uid);
+        }
+
         if (!$user instanceof UserInterface) {
             throw new \RuntimeException('User provider did not return an implementation of user interface.');
         }
-
-        $this->userChecker->checkPreAuth($user);
-        $this->userChecker->checkPostAuth($user);
 
         return new FacebookUserToken($user, $user->getRoles());
     }

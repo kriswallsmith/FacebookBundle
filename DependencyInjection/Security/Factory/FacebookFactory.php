@@ -23,6 +23,7 @@ class FacebookFactory extends AbstractFactory
         $this->addOption('display', 'page');
         $this->addOption('app_url');
         $this->addOption('server_url');
+        $this->addOption('create_user_if_not_exists', false);
     }
 
     public function getPosition()
@@ -50,6 +51,7 @@ class FacebookFactory extends AbstractFactory
                 ->setDefinition($authProviderId, new DefinitionDecorator('fos_facebook.auth'))
                 ->addArgument(new Reference($userProviderId))
                 ->addArgument(new Reference('security.user_checker'))
+                ->addArgument($config['create_user_if_not_exists'])
             ;
 
             return $authProviderId;
