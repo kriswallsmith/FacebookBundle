@@ -365,6 +365,9 @@ to the provider id in the "provider" section in the config.yml:
 
         public function refreshUser(UserInterface $user)
         {
+        
+            $user->setFacebookId($user->getUsername()); 
+        
             if (!$this->supportsClass(get_class($user)) || !$user->getFacebookId()) {
                 throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
             }
