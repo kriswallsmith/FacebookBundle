@@ -365,9 +365,6 @@ to the provider id in the "provider" section in the config.yml:
 
         public function refreshUser(UserInterface $user)
         {
-        
-            $user->setFacebookId($user->getUsername()); 
-        
             if (!$this->supportsClass(get_class($user)) || !$user->getFacebookId()) {
                 throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
             }
@@ -401,6 +398,20 @@ The following example also adds "firstname" and "lastname" properties:
          * @var string
          */
         protected $facebookID;
+
+
+        public function serialize()
+        {
+            return serialize(array($this->facebookId, parent::serialize()));
+        }
+
+        public function unserialize($data)
+        {
+            list($this->facebookId, $parentData) = unserialize($data);
+            parent::unserialize($parentData);
+        }
+
+
 
         /**
          * @return string
