@@ -40,7 +40,7 @@ class FacebookFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCreateUserAuthProviderWhenDefinedInConfig()
     {
-        $idsArray = $this->facebookFactoryCreate(array('provider' => true, 'remember_me' => false));
+        $idsArray = $this->facebookFactoryCreate(array('provider' => true, 'remember_me' => false, 'create_user_if_not_exists' => false));
         $this->assertEquals('fos_facebook.auth.l3l0', $idsArray[0]);
     }
 

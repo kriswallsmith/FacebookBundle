@@ -46,6 +46,9 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
 
         $facebookProvider = new FacebookProvider($facebookMock);
         $tokenMock = $this->getMock('FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken');
+        $tokenMock->expects($this->once())
+            ->method('getAttributes')
+            ->will($this->returnValue(array()));
 
         $this->assertEquals('123', $facebookProvider->authenticate($tokenMock)->getUser());
     }
@@ -55,7 +58,6 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCannotAuthenticateWhenUserProviderThrowsAuthenticationException()
     {
-        $userMock = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
         $facebookMock = $this->getMock('\BaseFacebook', array('getUser'));
         $facebookMock->expects($this->once())
             ->method('getUser')
@@ -142,11 +144,12 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
 
         $userCheckerMock = $this->getMock('Symfony\Component\Security\Core\User\UserCheckerInterface');
         $userCheckerMock->expects($this->once())
-            ->method('checkPreAuth');
-        $userCheckerMock->expects($this->once())
             ->method('checkPostAuth');
 
         $tokenMock = $this->getMock('FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken');
+        $tokenMock->expects($this->once())
+            ->method('getAttributes')
+            ->will($this->returnValue(array()));
 
         $facebookProvider = new FacebookProvider($facebookMock, $userProviderMock, $userCheckerMock);
         $this->assertEquals('l3l0', $facebookProvider->authenticate($tokenMock)->getUsername());
