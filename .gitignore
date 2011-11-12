@@ -1,2 +1,5 @@
 phpunit.xml
 coverage
+vendor/facebook
+vendor/symfony
+vendor/twig
