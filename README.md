@@ -120,9 +120,6 @@ Installation
 
           # application/config/config.yml
           security:
-              factories:
-                  - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
-
               providers:
                   fos_facebook:
                       id: fos_facebook.auth
@@ -152,9 +149,6 @@ Installation
 
           # application/config/config.yml
           security:
-              factories:
-                    - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
-
               providers:
                   # choose the provider name freely
                   my_fos_facebook_provider:
