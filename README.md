@@ -1,6 +1,8 @@
 Introduction
 ============
 
+Note: this branch is compatible with releases of Symfony2 in the 2.0.x branch.
+
 This Bundle enables integration of the Facebook PHP and JS SDK's. Furthermore it
 also provides a Symfony2 authentication provider so that users can login to a
 Symfony2 application via Facebook. Furthermore via custom user provider support
