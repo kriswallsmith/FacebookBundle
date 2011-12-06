@@ -11,6 +11,7 @@
 
 namespace FOS\FacebookBundle\Twig\Extension;
 
+use FOS\FacebookBundle\Templating\Helper\FacebookHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FacebookExtension extends \Twig_Extension
@@ -50,11 +51,17 @@ class FacebookExtension extends \Twig_Extension
         return 'facebook';
     }
 
+    /**
+     * @see FacebookHelper::initialize()
+     */
     public function renderInitialize($parameters = array(), $name = null)
     {
         return $this->container->get('fos_facebook.helper')->initialize($parameters, $name ?: 'FOSFacebookBundle::initialize.html.twig');
     }
 
+    /**
+     * @see FacebookHelper::loginButton()
+     */
     public function renderLoginButton($parameters = array(), $name = null)
     {
         return $this->container->get('fos_facebook.helper')->loginButton($parameters, $name ?: 'FOSFacebookBundle::loginButton.html.twig');
