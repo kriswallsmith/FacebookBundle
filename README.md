@@ -30,7 +30,7 @@ Please also refer to the official documentation of the SecurityBundle, especiall
 for details on the configuration:
 http://symfony.com/doc/2.0/book/security/authentication.html
 
-[![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSFacebookBundle.png)](http://travis-ci.org/FriendsOfSymfony/FOSFacebookBundle)
+[![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSFacebookBundle.png?branch=master)](http://travis-ci.org/FriendsOfSymfony/FOSFacebookBundle)
 
 Installation
 ============
