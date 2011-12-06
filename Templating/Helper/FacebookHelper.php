@@ -36,6 +36,8 @@ class FacebookHelper extends Helper
      *
      * The default template includes the following parameters:
      *
+     *  * async
+     *  * fbAsyncInit
      *  * appId
      *  * xfbml
      *  * oauth
