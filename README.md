@@ -120,10 +120,6 @@ Installation
 
           # application/config/config.yml
           security:
-              providers:
-                  fos_facebook:
-                      id: fos_facebook.auth
-
               firewalls:
                   public:
                       # since anonymous is allowed users will not be forced to login
