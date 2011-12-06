@@ -125,10 +125,6 @@ Installation
               factories:
                   - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
 
-              providers:
-                  fos_facebook:
-                      id: fos_facebook.auth
-
               firewalls:
                   public:
                       # since anonymous is allowed users will not be forced to login
