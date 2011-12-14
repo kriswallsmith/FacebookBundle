@@ -1,53 +1,37 @@
 <?php
+
+/*
+ * This file is part of the FOSFacebookBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\FacebookBundle\Security\Logout;
 
-use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 /**
  * Listener for the logout action
- * 
- * This handler will erase the cookie keeped by facebook
- * for the application.
- * 
+ *
+ * This handler will clear the application's Facebook cookie.
  */
 class FacebookHandler implements LogoutHandlerInterface
 {
-    
-    /**
-     * @var \Facebook $facebookApi
-     */
-    private $facebookApi;
-    
-    /**
-     * __construct
-     * 
-     * @param \Facebook $facebookApi
-     */
-    public function __construct(\BaseFacebook $facebookApi)
+    private $facebook;
+
+    public function __construct(\BaseFacebook $facebook)
     {
-        $this->facebookApi = $facebookApi;
+        $this->facebook = $facebook;
     }
-    
-    /**
-     * This method is called by the LogoutListener when a user has requested
-     * to be logged out. Usually, you would unset session variables, or remove
-     * cookies, etc.
-     *
-     * @param Request        $request
-     * @param Response       $response
-     * @param TokenInterface $token
-     * @return void
-     */
+
     public function logout(Request $request, Response $response, TokenInterface $token)
     {
-        $fb_cookie = sprintf(
-            'fbsr_%s',
-            $this->facebookApi->getAppId()
-        );
-        $response->headers->clearCookie($fb_cookie);
+        $response->headers->clearCookie('fbsr_'.$this->facebook->getAppId());
     }
-    
 }
