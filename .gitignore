@@ -3,3 +3,4 @@ coverage
 vendor/facebook
 vendor/symfony
 vendor/twig
+Tests/autoload.php
