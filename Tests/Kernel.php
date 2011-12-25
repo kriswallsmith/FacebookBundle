@@ -13,7 +13,7 @@ namespace FOS\FacebookBundle\Tests;
 
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\HttpKernel\Util\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 class Kernel extends BaseKernel
