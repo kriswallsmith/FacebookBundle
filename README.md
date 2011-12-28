@@ -233,13 +233,9 @@ to the `auth.statusChange` event and then redirect to the `check_path`:
       function onFbInit() {
           if (typeof(FB) != 'undefined' && FB != null ) {
               FB.Event.subscribe('auth.statusChange', function(response) {
-                  if (response.session) {
-                      setTimeout(goLogIn, 500);
-                  } else {
-                      window.location = "{{ path('_security_logout') }}";
-                  }
+                  setTimeout(goLogIn, 500);
               });
-         }
+          }
       }
     </script>
     
@@ -250,8 +246,8 @@ Facebook cookie. You can avoid this step but you might get this error message:
 The "_security_check" route would need to point to a "/login_check" pattern
 to match the above configuration.
 
-Also, you need to trigger the logout action, so, subscribe the "auth.logout"
-to redirect to the "logout" route:
+Also, you need to trigger the logout action, so, using the same event (`auth.statusChange`), add a simple
+check for `response.session` to redirect to the "logout" route:
 
     <script>
       function goLogIn(){
@@ -259,14 +255,15 @@ to redirect to the "logout" route:
       }
     
       function onFbInit() {
-         if (typeof(FB) != 'undefined' && FB != null ) {
-              FB.Event.subscribe('auth.login', function(response) {
-                   setTimeout(goLogIn,500);
+          if (typeof(FB) != 'undefined' && FB != null ) {
+              FB.Event.subscribe('auth.statusChange', function(response) {
+                  if (response.session) {
+                      setTimeout(goLogIn, 500);
+                  } else {
+                      window.location = "{{ path('_security_logout') }}";
+                  }
               });
-              FB.Event.subscribe('auth.logout', function(response) {
-                   window.location = "{{ path('_security_logout') }}";
-              });
-         }
+          }
       }
     </script>
 
