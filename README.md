@@ -45,6 +45,7 @@ Installation
             [FOSFacebookBundle]
                 git=git://github.com/FriendsOfSymfony/FOSFacebookBundle.git
                 target=/bundles/FOS/FacebookBundle
+                version=origin/2.0
             
             [FacebookSDK]
                 git=git://github.com/facebook/php-sdk.git
