@@ -52,6 +52,14 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('twig')->defaultValue('FOS\FacebookBundle\Twig\Extension\FacebookExtension')->end()
                     ->end()
                 ->end()
+                ->arrayNode('channel')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('use')->defaultValue(true)->end()
+                        ->scalarNode('url')->defaultValue('/channel.html')->end()
+                        ->scalarNode('expire')->defaultValue(60*60*24*365)->end()
+                    ->end()
+                ->end()
                 ->arrayNode('permissions')->prototype('scalar')->end()
             ->end();
 

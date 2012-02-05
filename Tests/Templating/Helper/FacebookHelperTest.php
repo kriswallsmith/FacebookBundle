@@ -37,6 +37,7 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
                 'logging' => true,
                 'oauth' => true,
                 'status'  => false,
+                'channelUrl' => '/channel.html',
                 'xfbml'   => false,
             ))
             ->will($this->returnValue($expected));
@@ -45,11 +46,12 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(array('getAppId'))
             ->getMock();
+
         $facebookMock->expects($this->once())
             ->method('getAppId')
             ->will($this->returnValue('123'));
 
-        $helper = new FacebookHelper($templating, $facebookMock);
+        $helper = new FacebookHelper($templating, $facebookMock, $routing);
         $this->assertSame($expected, $helper->initialize(array('cookie' => false)));
     }
 
@@ -83,10 +85,11 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(array('getAppId'))
             ->getMock();
+
         $facebookMock->expects($this->any())
             ->method('getAppId');
 
-        $helper = new FacebookHelper($templating, $facebookMock, true, 'en_US', array(1,2,3) );
+        $helper = new FacebookHelper($templating, $facebookMock, null, true, 'en_US', array(1,2,3) );
         $this->assertSame($expected, $helper->loginButton(array('label' => 'testLabel')));
     }
 }

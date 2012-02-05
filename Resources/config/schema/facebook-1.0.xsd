@@ -17,12 +17,18 @@
         <xsd:attribute name="logging" type="xsd:boolean" />
         <xsd:attribute name="culture" type="xsd:string" />
         <xsd:attribute name="xfbml" type="xsd:boolean" />
+        <xsd:attribute name="channel" type="channel" />
         <xsd:attribute name="permissions" type="permissions" />
     </xsd:complexType>
-
+    
     <xsd:complexType name="permissions">
         <xsd:sequence>
             <xsd:element name="permission" type="xsd:string" />
         </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="channel">
+        <xsd:attribute name="url" type="xsd:string" />
+        <xsd:attribute name="expire" type="xsd:integer" />
     </xsd:complexType>
 </xsd:schema>
