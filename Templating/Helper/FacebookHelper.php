@@ -12,7 +12,7 @@
 namespace FOS\FacebookBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
 class FacebookHelper extends Helper
@@ -23,9 +23,8 @@ class FacebookHelper extends Helper
     protected $culture;
     protected $scope;
     protected $facebook;
-    protected $channelUrl;
 
-    public function __construct(EngineInterface $templating, \BaseFacebook $facebook, Router $routing = null,$logging = true, $culture = 'en_US', array $scope = array(),$channelUrl = '/channel.html')
+    public function __construct(EngineInterface $templating, \BaseFacebook $facebook, RouterInterface $routing = null, $logging = true, $culture = 'en_US', array $scope = array())
     {
         $this->templating  = $templating;
         $this->logging     = $logging;
@@ -33,7 +32,6 @@ class FacebookHelper extends Helper
         $this->culture     = $culture;
         $this->scope       = $scope;
         $this->facebook    = $facebook;
-        $this->channelUrl  = $channelUrl;
     }
 
     /**
@@ -68,7 +66,7 @@ class FacebookHelper extends Helper
             'status'      => false,
             'cookie'      => true,
             'logging'     => $this->logging,
-            'channelUrl'  => $this->routing->getContext()->getHost().$this->channelUrl,
+            'channelUrl'  => $this->routing->generate('fos_facebook_channel',array(),true),
             'culture'     => $this->culture,
         ));
     }

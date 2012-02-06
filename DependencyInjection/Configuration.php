@@ -55,8 +55,6 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('channel')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('use')->defaultValue(true)->end()
-                        ->scalarNode('url')->defaultValue('/channel.html')->end()
                         ->scalarNode('expire')->defaultValue(60*60*24*365)->end()
                     ->end()
                 ->end()

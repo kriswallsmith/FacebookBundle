@@ -47,6 +47,14 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('getAppId'))
             ->getMock();
 
+        $routing = $this->getMockBuilder('Symfony\Component\Routing\Router')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $routing
+            ->expects($this->once())
+            ->method('generate')
+            ->will($this->returnValue('/channel.html'));
+        
         $facebookMock->expects($this->once())
             ->method('getAppId')
             ->will($this->returnValue('123'));
