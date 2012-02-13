@@ -2,7 +2,7 @@
 
 namespace FOS\FacebookBundle\Facebook;
 
-use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Implements Symfony2 session persistence for Facebook.
@@ -21,7 +21,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     * @param array $config the application configuration.
     * @see BaseFacebook::__construct in facebook.php
     */
-    public function __construct($config, Session\Session $session, $prefix = self::PREFIX)
+    public function __construct($config, Session $session, $prefix = self::PREFIX)
     {
         $this->session = $session;
         $this->prefix  = $prefix;
