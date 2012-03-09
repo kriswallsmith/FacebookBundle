@@ -1,4 +1,19 @@
 {
+    "repositories": {
+        "facebook-unofficial": {
+            "type": "package",
+            "package": {
+                "name": "facebook/php-sdk",
+                "version": "3.1.1",
+                "source": {
+                    "url": "git://github.com/facebook/php-sdk.git",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        }
+    },
+
     "name": "friendsofsymfony/facebook-bundle",
     "type": "symfony-bundle",
     "description": "Integrate the Facebook Platform into your Symfony2 application.",
@@ -22,6 +37,7 @@
         "symfony/symfony": ">=2.1.0-dev",
         "facebook/php-sdk": "3.*"
     },
+
     "autoload": {
         "psr-0": { "FOS\\FacebookBundle": "" }
     },
