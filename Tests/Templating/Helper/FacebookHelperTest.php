@@ -41,7 +41,10 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
             ))
             ->will($this->returnValue($expected));
 
-        $facebookMock = $this->getMock('\BaseFacebook', array('getAppId'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getAppId'))
+            ->getMock();
         $facebookMock->expects($this->once())
             ->method('getAppId')
             ->will($this->returnValue('123'));
@@ -70,7 +73,10 @@ class FacebookHelperTest extends \PHPUnit_Framework_TestCase
             ))
             ->will($this->returnValue($expected));
 
-        $facebookMock = $this->getMock('\BaseFacebook', array('getAppId'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getAppId'))
+            ->getMock();
         $facebookMock->expects($this->any())
             ->method('getAppId');
 

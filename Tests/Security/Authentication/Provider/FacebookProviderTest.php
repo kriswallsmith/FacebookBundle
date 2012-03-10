@@ -21,7 +21,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatUserCheckerCannotBeNullWhenUserProviderIsNotNull()
     {
-        $facebookProvider = new FacebookProvider($this->getMock('\BaseFacebook'), $this->getMock('Symfony\Component\Security\Core\User\UserProviderInterface'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->getMock();
+        new FacebookProvider($facebookMock, $this->getMock('Symfony\Component\Security\Core\User\UserProviderInterface'));
     }
 
     /**
@@ -29,7 +32,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCannotAuthenticateWhenTokenIsNotFacebookUserToken()
     {
-        $facebookProvider = new FacebookProvider($this->getMock('\BaseFacebook'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $facebookProvider = new FacebookProvider($facebookMock);
         $this->assertNull($facebookProvider->authenticate($this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')));
     }
 
@@ -39,7 +45,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCanAuthenticateUserWithoutUserProvider()
     {
-        $facebookMock = $this->getMock('\BaseFacebook', array('getUser'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUser'))
+            ->getMock();
         $facebookMock->expects($this->once())
             ->method('getUser')
             ->will($this->returnValue('123'));
@@ -58,7 +67,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCannotAuthenticateWhenUserProviderThrowsAuthenticationException()
     {
-        $facebookMock = $this->getMock('\BaseFacebook', array('getUser'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUser'))
+            ->getMock();
         $facebookMock->expects($this->once())
             ->method('getUser')
             ->will($this->returnValue('123'));
@@ -81,7 +93,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCannotAuthenticateWhenUserProviderDoesNotReturnUsetInterface()
     {
-        $facebookMock = $this->getMock('\BaseFacebook', array('getUser'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUser'))
+            ->getMock();
         $facebookMock->expects($this->once())
             ->method('getUser')
             ->will($this->returnValue('123'));
@@ -104,7 +119,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatCannotAuthenticateWhenCannotRetrieveFacebookUserFromSession()
     {
-        $facebookMock = $this->getMock('\BaseFacebook', array('getUser'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUser'))
+            ->getMock();
         $facebookMock->expects($this->once())
             ->method('getUser')
             ->will($this->returnValue(false));
@@ -131,7 +149,10 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
             ->method('getRoles')
             ->will($this->returnValue(array()));
 
-        $facebookMock = $this->getMock('\BaseFacebook', array('getUser'));
+        $facebookMock = $this->getMockBuilder('FOS\FacebookBundle\Facebook\FacebookSessionPersistence')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUser'))
+            ->getMock();
         $facebookMock->expects($this->once())
             ->method('getUser')
             ->will($this->returnValue('123'));
