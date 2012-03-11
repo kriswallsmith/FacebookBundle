@@ -9,6 +9,9 @@
                     "url": "git://github.com/facebook/facebook-php-sdk.git",
                     "type": "git",
                     "reference": "origin/master"
+                },
+                "autoload": {
+                    "classmap": ["src"]
                 }
             }
         }
