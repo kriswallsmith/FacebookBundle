@@ -17,7 +17,7 @@ For step 1. and 2. there are two options:
 
   1. Select "OAuth Migration" in the Facebook application settings.
   2. Add a Facebook login button, this approach requires JS code to handle step 3.
-  3. Letting the FOSFacebookBundle redirect to the Facebook login page
+  3. Letting FOSFacebookBundle redirect to the Facebook login page.
 
 Note that the later happens automatically if the first provider in your first
 firewall configuration is configured to FOSFacebookBundle and the user accesses
@@ -28,7 +28,7 @@ https://developers.facebook.com/docs/guides/web/
 
 Please also refer to the official documentation of the SecurityBundle, especially
 for details on the configuration:
-http://symfony.com/doc/current/book/security/authentication.html
+http://symfony.com/doc/current/book/security.html
 
 [![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSFacebookBundle.png?branch=master)](http://travis-ci.org/FriendsOfSymfony/FOSFacebookBundle)
 
