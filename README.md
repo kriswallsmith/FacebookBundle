@@ -408,7 +408,7 @@ The following example also adds "firstname" and "lastname" properties:
 
         public function unserialize($data)
         {
-            list($this->facebookId, $parentData) = unserialize($data);
+            list($this->facebookID, $parentData) = unserialize($data);
             parent::unserialize($parentData);
         }
 
