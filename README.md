@@ -401,7 +401,7 @@ The following example also adds "firstname" and "lastname" properties, using the
 
         public function serialize()
         {
-            return serialize(array($this->facebookId, parent::serialize()));
+            return serialize(array($this->facebookID, parent::serialize()));
         }
 
         public function unserialize($data)
