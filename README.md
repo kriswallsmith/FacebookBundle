@@ -274,7 +274,7 @@ Example Custom User Provider using the FOS\UserBundle
 
 >If you still want to use the FOSUserBudle form login add the "chainprovider" configuration parameter to your security.yml
 >
->    providers:
+>      providers:
 >        fos_user_bundle: ...
 >        my_fos_facebook_provider: ...
 >        chainprovider:
