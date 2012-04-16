@@ -20,7 +20,7 @@ class FacebookUserTokenTest extends \PHPUnit_Framework_TestCase
      */
     public function testThatAlwaysReturnEmptyCredentials($uid, $roles)
     {
-        $token = new FacebookUserToken($uid, $roles);
+        $token = new FacebookUserToken('main', $uid, $roles);
 
         $this->assertEquals('', $token->getCredentials());
     }
