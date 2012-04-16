@@ -35,6 +35,27 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider::authenticate
+     * @covers FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider::supports
+     */
+    public function testThatCannotAuthenticateWhenTokenFromOtherFirewall()
+    {
+        $providerKeyForProvider = 'main';
+        $providerKeyForToken    = 'connect';
+
+        $facebookProvider = new FacebookProvider($providerKeyForProvider, $this->getMock('\BaseFacebook'));
+
+        $tokenMock = $this->getMock('FOS\FacebookBundle\Security\Authentication\Token\FacebookUserToken', array('getProviderKey'), array($providerKeyForToken));
+        $tokenMock->expects($this->any())
+            ->method('getProviderKey')
+            ->will($this->returnValue($providerKeyForToken));
+
+        $this->assertFalse($facebookProvider->supports($tokenMock));
+        $this->assertNull($facebookProvider->authenticate($tokenMock));
+    }
+
+    /**
+     * @covers FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider::authenticate
+     * @covers FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider::supports
      * @covers FOS\FacebookBundle\Security\Authentication\Provider\FacebookProvider::createAuthenticatedToken
      */
     public function testThatCanAuthenticateUserWithoutUserProvider()
@@ -56,6 +77,7 @@ class FacebookProviderTest extends \PHPUnit_Framework_TestCase
             ->method('getProviderKey')
             ->will($this->returnValue($providerKey));
 
+        $this->assertTrue($facebookProvider->supports($tokenMock));
         $this->assertEquals('123', $facebookProvider->authenticate($tokenMock)->getUser());
     }
 
