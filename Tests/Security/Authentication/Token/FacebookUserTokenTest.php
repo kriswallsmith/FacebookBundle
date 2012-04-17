@@ -37,4 +37,12 @@ class FacebookUserTokenTest extends \PHPUnit_Framework_TestCase
             array('l3l0', array('role1', 'role2'))
         );
     }
+
+    public function testThatProviderKeyIsNotEmptyAfterDeserialization()
+    {
+        $providerKey = 'main';
+        $token = unserialize(serialize(new FacebookUserToken($providerKey)));
+
+        $this->assertEquals($providerKey, $token->getProviderKey());
+    }
 }

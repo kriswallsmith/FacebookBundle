@@ -39,4 +39,15 @@ class FacebookUserToken extends AbstractToken
     {
         return $this->providerKey;
     }
+
+    public function serialize()
+    {
+        return serialize(array($this->providerKey, parent::serialize()));
+    }
+
+    public function unserialize($str)
+    {
+        list($this->providerKey, $parentStr) = unserialize($str);
+        parent::unserialize($parentStr);
+    }
 }
