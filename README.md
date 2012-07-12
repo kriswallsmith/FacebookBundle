@@ -198,7 +198,7 @@ the opening `body` tag:
 <?php // inside a php template ?>
 <?php echo $view['facebook']->initialize(array('xfbml' => true, 'fbAsyncInit' => 'onFbInit();')) ?>
 ```
-```html
+```html+jinja
 <!-- inside a twig template -->
 {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
 ```
