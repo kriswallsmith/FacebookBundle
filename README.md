@@ -219,7 +219,7 @@ Just add the following code in one of your templates:
 <?php // inside a php template ?>
 <?php echo $view['facebook']->loginButton(array('autologoutlink' => true)) ?>
 ```
-```html
+```html+jinja
 <!-- inside a twig template -->
 {{ facebook_login_button({'autologoutlink': true}) }}
 ```
@@ -227,7 +227,7 @@ Note that with this approach only the login and connecting with Facebook will
 be handled. The step of logging in the user into your Symfony2 application
 still needs to be triggered. To do this you will in most cases simply subscribe
 to the `auth.statusChange` event and then redirect to the `check_path`:
-```html
+```html+jinja
 <script>
     function goLogIn(){
         window.location = "{{ path('_security_check') }}";
@@ -251,7 +251,7 @@ to match the above configuration.
 
 Also, you need to trigger the logout action, so, using the same event (`auth.statusChange`), add a simple
 check for `response.session` to redirect to the `logout` route:
-```html
+```html+jinja
 <script>
     function goLogIn(){
         window.location.href = "{{ path('_security_check') }}";
