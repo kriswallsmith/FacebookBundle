@@ -54,7 +54,7 @@ Installation
   2. Run the composer to download the bundle
 
 ``` bash
-$ php composer.phar update netmeansnet/multi-user-bundle
+$ php composer.phar update friendsofsymfony/facebook-bundle
 ```
 
   
