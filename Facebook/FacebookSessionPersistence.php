@@ -25,9 +25,71 @@ class FacebookSessionPersistence extends \BaseFacebook
     {
         $this->session = $session;
         $this->prefix  = $prefix;
-        $this->session->start();
 
-        parent::__construct($config);
+        $this->setAppId($config['appId']);
+        $this->setAppSecret($config['secret']);
+        if (isset($config['fileUpload'])) {
+            $this->setFileUploadSupport($config['fileUpload']);
+        }
+        if (isset($config['trustForwarded']) && $config['trustForwarded']) {
+            $this->trustForwarded = true;
+        }
+    }
+
+    public function getLoginUrl($params=array()) {
+        $this->establishCSRFTokenState();
+        $currentUrl = $this->getCurrentUrl();
+
+        // if 'scope' is passed as an array, convert to comma separated list
+        $scopeParams = isset($params['scope']) ? $params['scope'] : null;
+        if ($scopeParams && is_array($scopeParams)) {
+            $params['scope'] = implode(',', $scopeParams);
+        }
+
+        return $this->getUrl(
+            'www',
+            'dialog/oauth',
+            array_merge(array(
+                'client_id' => $this->getAppId(),
+                'redirect_uri' => $currentUrl, // possibly overwritten
+                'state' => $this->getState()),
+            $params));
+    }
+
+    protected function getCode() {
+        if (isset($_REQUEST['code'])) {
+            if ($this->getState() !== null &&
+                isset($_REQUEST['state']) &&
+                $this->getState() === $_REQUEST['state']) {
+
+                    // CSRF state has done its job, so clear it
+                    $this->setState(null);
+                    $this->clearPersistentData('state');
+                    return $_REQUEST['code'];
+                } else {
+                    self::errorLog('CSRF state token does not match one provided.');
+                    return false;
+                }
+        }
+
+        return false;
+    }
+
+    protected function establishCSRFTokenState() {
+        if ($this->getState() === null) {
+            $this->setState(md5(uniqid(mt_rand(), true)));
+            $this->setPersistentData('state', $this->getState());
+        }
+    }
+
+    private function getState()
+    {
+        return $this->getPersistentData('state');
+    }
+
+    private function setState($state)
+    {
+        $this->state = $state;
     }
 
     /**
