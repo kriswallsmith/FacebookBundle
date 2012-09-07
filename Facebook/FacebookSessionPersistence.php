@@ -78,7 +78,6 @@ class FacebookSessionPersistence extends \BaseFacebook
     protected function establishCSRFTokenState() {
         if ($this->getState() === null) {
             $this->setState(md5(uniqid(mt_rand(), true)));
-            $this->setPersistentData('state', $this->getState());
         }
     }
 
@@ -89,7 +88,7 @@ class FacebookSessionPersistence extends \BaseFacebook
 
     private function setState($state)
     {
-        $this->state = $state;
+        $this->setPersistentData('state', $state);
     }
 
     /**
