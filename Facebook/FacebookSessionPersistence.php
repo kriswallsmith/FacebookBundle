@@ -83,7 +83,7 @@ class FacebookSessionPersistence extends \BaseFacebook
 
     private function getState()
     {
-        return $this->getPersistentData('state');
+        return $this->getPersistentData('state', null);
     }
 
     private function setState($state)
