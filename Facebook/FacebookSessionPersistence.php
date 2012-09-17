@@ -3,6 +3,7 @@
 namespace FOS\FacebookBundle\Facebook;
 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Implements Symfony2 session persistence for Facebook.
@@ -26,6 +27,9 @@ class FacebookSessionPersistence extends \BaseFacebook
         $this->session = $session;
         $this->prefix  = $prefix;
         $this->session->start();
+
+        // Add trustProxy configuration
+        $config['trustForwarded'] = Request::isProxyTrusted();
 
         parent::__construct($config);
     }
@@ -63,7 +67,7 @@ class FacebookSessionPersistence extends \BaseFacebook
             self::errorLog('Unsupported key passed to getPersistentData.');
             return $default;
         }
-        
+
         $sessionVariableName = $this->constructSessionVariableName($key);
         if ($this->session->has($sessionVariableName)) {
             return $this->session->get($sessionVariableName);
@@ -105,7 +109,7 @@ class FacebookSessionPersistence extends \BaseFacebook
         }
     }
 
-    protected function constructSessionVariableName($key) 
+    protected function constructSessionVariableName($key)
     {
         return $this->prefix.implode('_', array(
             'fb',
