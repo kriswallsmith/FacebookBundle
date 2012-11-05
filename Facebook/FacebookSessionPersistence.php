@@ -65,9 +65,11 @@ class FacebookSessionPersistence extends \BaseFacebook
                     // CSRF state has done its job, so clear it
                     $this->setState(null);
                     $this->clearPersistentData('state');
+
                     return $_REQUEST['code'];
                 } else {
                     self::errorLog('CSRF state token does not match one provided.');
+
                     return false;
                 }
         }
@@ -79,16 +81,6 @@ class FacebookSessionPersistence extends \BaseFacebook
         if ($this->getState() === null) {
             $this->setState(md5(uniqid(mt_rand(), true)));
         }
-    }
-
-    private function getState()
-    {
-        return $this->getPersistentData('state', null);
-    }
-
-    private function setState($state)
-    {
-        $this->setPersistentData('state', $state);
     }
 
     /**
@@ -104,6 +96,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     {
         if (!in_array($key, self::$kSupportedKeys)) {
             self::errorLog('Unsupported key passed to setPersistentData.');
+
             return;
         }
 
@@ -122,16 +115,16 @@ class FacebookSessionPersistence extends \BaseFacebook
     {
         if (!in_array($key, self::$kSupportedKeys)) {
             self::errorLog('Unsupported key passed to getPersistentData.');
+
             return $default;
         }
-        
+
         $sessionVariableName = $this->constructSessionVariableName($key);
         if ($this->session->has($sessionVariableName)) {
             return $this->session->get($sessionVariableName);
         }
 
         return $default;
-
     }
 
     /**
@@ -144,6 +137,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     {
         if (!in_array($key, self::$kSupportedKeys)) {
             self::errorLog('Unsupported key passed to clearPersistentData.');
+
             return;
         }
 
@@ -166,12 +160,22 @@ class FacebookSessionPersistence extends \BaseFacebook
         }
     }
 
-    protected function constructSessionVariableName($key) 
+    protected function constructSessionVariableName($key)
     {
         return $this->prefix.implode('_', array(
             'fb',
             $this->getAppId(),
             $key,
         ));
+    }
+
+    private function getState()
+    {
+        return $this->getPersistentData('state', null);
+    }
+
+    private function setState($state)
+    {
+        $this->setPersistentData('state', $state);
     }
 }
