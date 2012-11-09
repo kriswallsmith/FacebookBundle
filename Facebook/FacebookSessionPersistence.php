@@ -17,10 +17,10 @@ class FacebookSessionPersistence extends \BaseFacebook
     protected $prefix;
     protected static $kSupportedKeys = array('state', 'code', 'access_token', 'user_id');
 
-   /**
-    * @param array $config the application configuration.
-    * @see BaseFacebook::__construct in facebook.php
-    */
+    /**
+     * @param array $config the application configuration.
+     * @see BaseFacebook::__construct in facebook.php
+     */
     public function __construct($config, Session $session, $prefix = self::PREFIX)
     {
         $this->session = $session;
@@ -36,7 +36,8 @@ class FacebookSessionPersistence extends \BaseFacebook
         }
     }
 
-    public function getLoginUrl($params=array()) {
+    public function getLoginUrl($params = array())
+    {
         $this->establishCSRFTokenState();
         $currentUrl = $this->getCurrentUrl();
 
@@ -49,14 +50,19 @@ class FacebookSessionPersistence extends \BaseFacebook
         return $this->getUrl(
             'www',
             'dialog/oauth',
-            array_merge(array(
-                'client_id' => $this->getAppId(),
-                'redirect_uri' => $currentUrl, // possibly overwritten
-                'state' => $this->getState()),
-            $params));
+            array_merge(
+                array(
+                    'client_id' => $this->getAppId(),
+                    'redirect_uri' => $currentUrl, // possibly overwritten
+                    'state' => $this->getState(),
+                ),
+                $params
+            )
+        );
     }
 
-    protected function getCode() {
+    protected function getCode()
+    {
         if (isset($_REQUEST['code'])) {
             if ($this->getState() !== null &&
                 isset($_REQUEST['state']) &&
@@ -67,17 +73,18 @@ class FacebookSessionPersistence extends \BaseFacebook
                     $this->clearPersistentData('state');
 
                     return $_REQUEST['code'];
-                } else {
-                    self::errorLog('CSRF state token does not match one provided.');
+            } else {
+                self::errorLog('CSRF state token does not match one provided.');
 
-                    return false;
-                }
+                return false;
+            }
         }
 
         return false;
     }
 
-    protected function establishCSRFTokenState() {
+    protected function establishCSRFTokenState()
+    {
         if ($this->getState() === null) {
             $this->setState(md5(uniqid(mt_rand(), true)));
         }
@@ -162,11 +169,14 @@ class FacebookSessionPersistence extends \BaseFacebook
 
     protected function constructSessionVariableName($key)
     {
-        return $this->prefix.implode('_', array(
-            'fb',
-            $this->getAppId(),
-            $key,
-        ));
+        return $this->prefix.implode(
+            '_',
+            array(
+                'fb',
+                $this->getAppId(),
+                $key,
+            )
+        );
     }
 
     private function getState()
