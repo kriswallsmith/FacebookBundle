@@ -49,13 +49,13 @@ Installation
         "friendsofsymfony/facebook-bundle": "dev-master"
     }
 }
-
-```
+  ```
+  
   2. Run the composer to download the bundle
 
-``` bash
-$ php composer.phar update friendsofsymfony/facebook-bundle
-```
+  ``` bash
+  $ php composer.phar update friendsofsymfony/facebook-bundle
+  ```
 
   
   3. Add this bundle to your application's kernel:
