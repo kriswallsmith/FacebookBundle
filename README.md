@@ -49,17 +49,17 @@ Installation
         "friendsofsymfony/facebook-bundle": "dev-master"
     }
 }
-
-```
+  ```
+  
   2. Run the composer to download the bundle
 
-``` bash
-$ php composer.phar update friendsofsymfony/facebook-bundle
-```
+  ``` bash
+  $ php composer.phar update friendsofsymfony/facebook-bundle
+  ```
 
   
   3. Add this bundle to your application's kernel:
-
+  ``` 
           // app/ApplicationKernel.php
           public function registerBundles()
           {
@@ -69,33 +69,33 @@ $ php composer.phar update friendsofsymfony/facebook-bundle
                   // ...
               );
           }
-          
+  ```        
   4. Add the following routes to your application and point them at actual controller actions
-          
+  ```
           #application/config/routing.yml
           _security_check:
               pattern:  /login_check
           _security_logout:
               pattern:  /logout
-
+  ```
           #application/config/routing.xml
           <route id="_security_check" pattern="/login_check" />
           <route id="_security_logout" pattern="/logout" />     
 
   5. Configure the `facebook` service in your config:
-
+  ```
           # application/config/config.yml
           fos_facebook:
-              file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
+              file:   %kernel.root_dir%/../vendor/facebook/php-sdk/src/base_facebook.php
               alias:  facebook
               app_id: 123456879
               secret: s3cr3t
               cookie: true
               permissions: [email, user_birthday, user_location]
-
+  ```
           # application/config/config.xml
           <fos_facebook:api
-              file="%kernel.root_dir%/../vendor/facebook/src/base_facebook.php"
+              file="%kernel.root_dir%/../vendor/facebook/php-sdk/src/base_facebook.php"
               alias="facebook"
               app_id="123456879"
               secret="s3cr3t"
@@ -135,7 +135,7 @@ $ php composer.phar update friendsofsymfony/facebook-bundle
                   defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
   7. Optionally define a custom user provider class and use it as the provider or define path for login
-
+  ```
           # application/config/config.yml
           security:
               providers:
@@ -154,7 +154,7 @@ $ php composer.phar update friendsofsymfony/facebook-bundle
                           default_target_path: /
                           provider: my_fos_facebook_provider
                       anonymous: true
-          
+
           # application/config/config_dev.yml
           security:
               firewalls:
@@ -184,13 +184,14 @@ A templating helper is included for loading the Facebook JavaScript SDK and
 initializing it with parameters from your service container. To setup the
 Facebook JavaScript environment, add the following to your layout just after
 the opening `body` tag:
-
-      <body>
-          <!-- inside a php template -->
-          <?php echo $view['facebook']->initialize(array('xfbml' => true, 'fbAsyncInit' => 'onFbInit();')) ?>
-          <!-- inside a twig template -->
-          {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
-
+```php
+<?php // inside a php template ?>
+<?php echo $view['facebook']->initialize(array('xfbml' => true, 'fbAsyncInit' => 'onFbInit();')) ?>
+```
+```html+jinja
+<!-- inside a twig template -->
+{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+```
 Note that `fbAsyncInit` is a parameter helping you to execute JavaScript within 
 the function initializing the connection with Facebook, just after the `FB.init();`
 call. `onFbInit();` is a JavaScript function defined furthermore to execute functions
@@ -198,73 +199,83 @@ which need `FB` initialized.
 
 If you will be adding XFBML markup to your site you may also declare the
 namespace, perhaps in the opening `html` tag:
-
-      <html xmlns:fb="http://www.facebook.com/2008/fbml">
-
+```html
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+```
 Include the login button in your templates
 ------------------------------------------
 
 Just add the following code in one of your templates:
-
-    <!-- inside a php template -->
-    <?php echo $view['facebook']->loginButton(array('autologoutlink' => true)) ?>
-    <!-- inside a twig template -->
-    {{ facebook_login_button({'autologoutlink': true}) }}
-
+```php
+<?php // inside a php template ?>
+<?php echo $view['facebook']->loginButton(array('autologoutlink' => true)) ?>
+```
+```html+jinja
+<!-- inside a twig template -->
+{{ facebook_login_button({'autologoutlink': true}) }}
+```
 Note that with this approach only the login and connecting with Facebook will
 be handled. The step of logging in the user into your Symfony2 application
 still needs to be triggered. To do this you will in most cases simply subscribe
 to the `auth.statusChange` event and then redirect to the `check_path`:
-
-    <script>
-      function goLogIn(){
-          window.location = "{{ path('_security_check') }}";
-      }
+```html+jinja
+<script>
+    function goLogIn(){
+        window.location = "{{ path('_security_check') }}";
+    }
     
-      function onFbInit() {
-          if (typeof(FB) != 'undefined' && FB != null ) {
-              FB.Event.subscribe('auth.statusChange', function(response) {
-                  setTimeout(goLogIn, 500);
-              });
-          }
-      }
-    </script>
-    
+    function onFbInit() {
+        if (typeof(FB) != 'undefined' && FB != null ) {
+            FB.Event.subscribe('auth.statusChange', function(response) {
+                setTimeout(goLogIn, 500);
+            });
+        }
+    }
+</script>
+```  
 Note that we wait 500ms before redirecting to let the browser dealing with the 
 Facebook cookie. You can avoid this step but you might get this error message:
 *"The Facebook user could not be retrieved from the session."*
 
-The "_security_check" route would need to point to a "/login_check" pattern
+The `_security_check` route would need to point to a `/login_check` pattern
 to match the above configuration.
 
 Also, you need to trigger the logout action, so, using the same event (`auth.statusChange`), add a simple
-check for `response.session` to redirect to the "logout" route:
-
-    <script>
-      function goLogIn(){
-          window.location.href = "{{ path('_security_check') }}";
-      }
+check for `response.session` to redirect to the `logout` route:
+```html+jinja
+<script>
+    function goLogIn(){
+        window.location.href = "{{ path('_security_check') }}";
+    }
     
-      function onFbInit() {
-          if (typeof(FB) != 'undefined' && FB != null ) {
-              FB.Event.subscribe('auth.statusChange', function(response) {
-                  if (response.session || response.authResponse) {
-                      setTimeout(goLogIn, 500);
-                  } else {
-                      window.location.href = "{{ path('_security_logout') }}";
-                  }
-              });
-          }
-      }
-    </script>
-
+    function onFbInit() {
+        if (typeof(FB) != 'undefined' && FB != null ) {
+            FB.Event.subscribe('auth.statusChange', function(response) {
+                if (response.session || response.authResponse) {
+                    setTimeout(goLogIn, 500);
+                } else {
+                    window.location.href = "{{ path('_security_logout') }}";
+                }
+            });
+        }
+    }
+</script>
+```
 
 Example Custom User Provider using the FOS\UserBundle
 -------------------------------------------------------
 
+>If you still want to use the FOSUserBudle form login add the "chainprovider" configuration parameter to your security.yml
+>
+>      providers:
+>        chainprovider:
+>            providers: [fos_user_bundle, my_fos_facebook_provider]
+>        fos_user_bundle: ...
+>        my_fos_facebook_provider: ...
+
 This requires adding a service for the custom user provider which is then set
 to the provider id in the "provider" section in the config.yml:
-
+  ```
     services:
         my.facebook.user:
             class: Acme\MyBundle\Security\User\Provider\FacebookProvider
@@ -274,6 +285,7 @@ to the provider id in the "provider" section in the config.yml:
                 validator: "@validator"
                 container: "@service_container"
 
+  ```
     <?php
 
     namespace Acme\MyBundle\Security\User\Provider;
@@ -437,7 +449,7 @@ The following example also adds "firstname" and "lastname" properties, using the
          */
         public function getFullName()
         {
-            return $this->getFirstName() . ' ' . $this->getLastname();
+            return $this->getFirstname() . ' ' . $this->getLastname();
         }
 
         /**
