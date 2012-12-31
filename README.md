@@ -226,7 +226,7 @@ to the `auth.statusChange` event and then redirect to the `check_path`:
     
     function onFbInit() {
         if (typeof(FB) != 'undefined' && FB != null ) {
-            FB.Event.subscribe('auth.statusChange', function(response) {
+            FB.Event.subscribe('auth.login', function(response) {
                 setTimeout(goLogIn, 500);
             });
         }
@@ -253,7 +253,7 @@ check for `response.session` to redirect to the `logout` route:
             //NOTE: auth.statusChange is deprecated and the old logout didn't work properly
             FB.Event.subscribe('auth.login', function(response) {
                   setTimeout(goLogIn, 500);
-            });              
+            });
             FB.Event.subscribe('auth.logout', function(response) {
                   window.location.href = "{{ path('_security_logout') }}";
             });
