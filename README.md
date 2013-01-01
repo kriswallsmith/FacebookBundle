@@ -121,8 +121,6 @@ Installation
                           app_url: "http://apps.facebook.com/appName/"
                           server_url: "http://localhost/facebookApp/"
                       anonymous: true
-                      logout:
-                          handlers: ["fos_facebook.logout_handler"]
 
               access_control:
                   - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_facebook
