@@ -50,6 +50,9 @@ Installation
     }
 }
   ```
+
+  You composer should be working with minimum stability setted as "dev". For more information about it, go to [http://getcomposer.org/doc/04-schema.md#minimum-stability](composer documentation).
+  
   
   2. Run the composer to download the bundle
 
