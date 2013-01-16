@@ -62,7 +62,7 @@ class FacebookProvider implements AuthenticationProviderInterface
         if ($user instanceof UserInterface) {
             $this->userChecker->checkPostAuth($user);
 
-            $newToken = new FacebookUserToken($this->providerKey, $user, $user->getRoles());
+            $newToken = new FacebookUserToken($this->providerKey, $user, $user->getRoles(), $token->getAccessToken());
             $newToken->setAttributes($token->getAttributes());
 
             return $newToken;
