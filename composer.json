@@ -22,7 +22,11 @@
         "symfony/framework-bundle": ">=2.1,<2.3-dev",
         "symfony/security-bundle": ">=2.1,<2.3-dev",
         "symfony/twig-bundle": ">=2.1,<2.3-dev",
-        "facebook/php-sdk": "dev-master"
+        "facebook/php-sdk": "v3.2.1"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "3.7@stable"
     },
 
     "autoload": {
