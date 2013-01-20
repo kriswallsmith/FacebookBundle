@@ -50,7 +50,6 @@ Basic usage
   ```
   # application/config/config.yml
   fos_facebook:
-    file:   %kernel.root_dir%/../vendor/facebook/php-sdk/src/base_facebook.php
     alias:  facebook
     app_id: 123456879
     secret: s3cr3t
@@ -61,7 +60,6 @@ Basic usage
   ```
   # application/config/config.xml
   <fos_facebook:api
-    file="%kernel.root_dir%/../vendor/facebook/php-sdk/src/base_facebook.php"
     alias="facebook"
     app_id="123456879"
     secret="s3cr3t"
@@ -72,8 +70,6 @@ Basic usage
       <permission>user_location</permission>
   </fos_facebook:api>
   ```
-
-If you do not include a `file` value in the config you will have to configure your application to autoload the `BaseFacebook` class.
 
 
 6. Add this configuration if you want to use the `security component`:
