@@ -7,7 +7,7 @@ Basic usage
   ```yaml
   {
     "require": {
-      "friendsofsymfony/facebook-bundle": "1.1"
+      "friendsofsymfony/facebook-bundle": "1.1.*"
     }
   }
   ```
@@ -19,25 +19,27 @@ Basic usage
 
 
 3. Add this bundle to your application's kernel:
-  ```
+
+  ```php
   // app/ApplicationKernel.php
   public function registerBundles()
   {
-    return array(
-      // ...
-      new FOS\FacebookBundle\FOSFacebookBundle(),
-      // ...
-    );
+        return array(
+            // ...
+            new FOS\FacebookBundle\FOSFacebookBundle(),
+            // ...
+        );
   }
   ```
 
 4. Add the following routes to your application and point them at actual controller actions
-  ```
+
+  ```yaml
   #application/config/routing.yml
   _security_check:
-    pattern:  /login_check
+      pattern:  /login_check
   _security_logout:
-    pattern:  /logout
+      pattern:  /logout
   ```
 
   ```xml
@@ -47,24 +49,24 @@ Basic usage
   ```
 
 5. Configure the `facebook` service in your config:
-  ```
+  ```yaml
   # application/config/config.yml
   fos_facebook:
-    alias:  facebook
-    app_id: 123456879
-    secret: s3cr3t
-    cookie: true
-    permissions: [email, user_birthday, user_location]
+      alias:  facebook
+      app_id: 123456879
+      secret: s3cr3t
+      cookie: true
+      permissions: [email, user_birthday, user_location]
   ```
 
-  ```
+  ```xml
   # application/config/config.xml
   <fos_facebook:api
-    alias="facebook"
-    app_id="123456879"
-    secret="s3cr3t"
-    cookie="true"
-    >
+      alias="facebook"
+      app_id="123456879"
+      secret="s3cr3t"
+      cookie="true"
+  >
       <permission>email</permission>
       <permission>user_birthday</permission>
       <permission>user_location</permission>
@@ -74,6 +76,7 @@ Basic usage
 
 6. Add this configuration if you want to use the `security component`:
 
+  ```yaml
           # application/config/config.yml
           security:
               firewalls:
@@ -88,52 +91,57 @@ Basic usage
               access_control:
                   - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_facebook
                   - { path: ^/.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+  ```
 
      You have to add `/secured/` in your routing for this to work. An example would be...
      
-              _facebook_secured:
-                  pattern: /secured/
-                  defaults: { _controller: AcmeDemoBundle:Welcome:index }
+    ```yaml
+    _facebook_secured:
+        pattern: /secured/
+        defaults: { _controller: AcmeDemoBundle:Welcome:index }
+    ```
 
-  7. Optionally define a custom user provider class and use it as the provider or define path for login
+7. Optionally define a custom user provider class and use it as the provider or define path for login
+  ```yaml
+    # application/config/config.yml
+    security:
+        providers:
+            # choose the provider name freely
+            my_fos_facebook_provider:
+                id: my.facebook.user   # see "Example Custom User Provider using the FOS\UserBundle" chapter further down
+
+        firewalls:
+            public:
+                pattern: ^/.*
+                fos_facebook:
+                    app_url: "http://apps.facebook.com/appName/"
+                    server_url: "http://localhost/facebookApp/"
+                    login_path: /login
+                    check_path: /login_check
+                    default_target_path: /
+                    provider: my_fos_facebook_provider
+                anonymous: true
+
+    # application/config/config_dev.yml
+    security:
+        firewalls:
+            public:
+                fos_facebook:
+                    app_url: "http://apps.facebook.com/appName/"
+                    server_url: "http://localhost/facebookApp/app_dev.php/"     
   ```
-          # application/config/config.yml
-          security:
-              providers:
-                  # choose the provider name freely
-                  my_fos_facebook_provider:
-                      id: my.facebook.user   # see "Example Custom User Provider using the FOS\UserBundle" chapter further down
 
-              firewalls:
-                  public:
-                      pattern: ^/.*
-                      fos_facebook:
-                          app_url: "http://apps.facebook.com/appName/"
-                          server_url: "http://localhost/facebookApp/"
-                          login_path: /login
-                          check_path: /login_check
-                          default_target_path: /
-                          provider: my_fos_facebook_provider
-                      anonymous: true
+8. Optionally use access control to secure specific URLs
 
-          # application/config/config_dev.yml
-          security:
-              firewalls:
-                  public:
-                      fos_facebook:
-                          app_url: "http://apps.facebook.com/appName/"
-                          server_url: "http://localhost/facebookApp/app_dev.php/"     
-
-  8. Optionally use access control to secure specific URLs
-
-
-          # application/config/config.yml
-          security:
-              # ...
-              
-              access_control:
-                  - { path: ^/facebook/,           role: [ROLE_FACEBOOK] }
-                  - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    ```yaml
+    # application/config/config.yml
+    security:
+        # ...
+        
+        access_control:
+            - { path: ^/facebook/,           role: [ROLE_FACEBOOK] }
+            - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    ```
        
     The role `ROLE_FACEBOOK` has to be added in your User class (see Acme\MyBundle\Entity\User::setFBData() below).
     > Note that the order of access control rules matters!
@@ -172,8 +180,8 @@ Just add the following code in one of your templates:
 <?php // inside a php template ?>
 <?php echo $view['facebook']->loginButton(array('autologoutlink' => true)) ?>
 ```
-```html+jinja
-<!-- inside a twig template -->
+```jinja
+{# inside a twig template #}
 {{ facebook_login_button({'autologoutlink': true}) }}
 ```
 If you want customize the the login button, you can set these parameters into:
