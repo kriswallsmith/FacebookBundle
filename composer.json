@@ -24,7 +24,7 @@
         "facebook/php-sdk": "3.2.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7"
+        "phpunit/phpunit": "3.7.*"
     },
     "config": {
         "bin-dir": "bin"
