@@ -4,10 +4,10 @@ Basic usage
 
 1. Add the following lines in your composer.json:
 
-  ```
+  ```yaml
   {
     "require": {
-      "friendsofsymfony/facebook-bundle": "dev-master"
+      "friendsofsymfony/facebook-bundle": "1.1"
     }
   }
   ```

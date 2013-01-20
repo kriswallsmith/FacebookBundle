@@ -13,7 +13,7 @@ database based solution provided by FOSUserBundle.
 Prerequisites
 -------------
 
-This version requires Symfony 2.1
+This version requires at least Symfony 2.1
 
 
 Documentation
