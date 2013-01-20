@@ -28,5 +28,6 @@ Before you go ahead and use FOSFacebookBundle you should considerer take a look 
 Usage guide
 -----------
 
-1. [Basic usage](1-basic-usage.md)
-2. [Integration with FOSUserBundle](2-integration-with-fosuserbundle.md)
+1. [Basic usage](https://github.com/FriendsOfSymfony/FOSRestBundle/blob/master/Resources/doc/1-basic-usage.md)
+2. [Integration with FOSUserBundle](https://github.com/FriendsOfSymfony/FOSRestBundle/blob/master/Resources/doc/2-integration-with-fosuserbundle.md)
+3. [Another resources](https://github.com/FriendsOfSymfony/FOSRestBundle/blob/master/Resources/doc/3-another-resources.md)

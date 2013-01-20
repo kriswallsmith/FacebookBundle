@@ -5,7 +5,8 @@ Integration with FOSUserBundle
 >
 >      providers:
 >        chainprovider:
->            providers: [fos_user_bundle, my_fos_facebook_provider]
+>           chain:
+>               providers: [fos_user_bundle, my_fos_facebook_provider]
 >        fos_user_bundle: ...
 >        my_fos_facebook_provider: ...
 
