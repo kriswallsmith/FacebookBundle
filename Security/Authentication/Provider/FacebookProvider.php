@@ -107,15 +107,4 @@ class FacebookProvider implements AuthenticationProviderInterface
         return new FacebookUserToken($this->providerKey, $user, $user->getRoles(), $accessToken);
     }
 
-    /**
-     * hack to help keep compatibility between Symfony 2.2 and Symfony2.1
-     *
-     * @return boolean
-     */
-    protected function _shouldAddExtraInformation()
-    {
-        $reflection = new \ReflectionClass('\\Symfony\\Component\\Security\\Core\\Exception\\AuthenticationException');
-        $contructor = $reflection->getConstructor();
-        return $contructor->getNumberOfParameters() == 4;
-    }
 }
