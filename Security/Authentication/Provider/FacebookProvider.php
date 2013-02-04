@@ -73,9 +73,9 @@ class FacebookProvider implements AuthenticationProviderInterface
             $newToken->setAttributes($token->getAttributes());
  
             return $newToken;
-        } else {
-            throw new AuthenticationException('The Facebook user could not be retrieved from the session.');
         }
+
+        throw new AuthenticationException('The Facebook user could not be retrieved from the session.');
     }
 
     public function supports(TokenInterface $token)
