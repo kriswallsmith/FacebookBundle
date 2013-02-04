@@ -91,7 +91,9 @@ class FacebookProvider implements AuthenticationProviderInterface
 
         try {
             $user = $this->userProvider->loadUserByUsername($uid);
-            $this->userChecker->checkPostAuth($user);
+            if ($user instanceof UserInterface) {
+                $this->userChecker->checkPostAuth($user);
+            }
         } catch (UsernameNotFoundException $ex) {
             if (!$this->createIfNotExists) {
                 throw $ex;
@@ -101,7 +103,7 @@ class FacebookProvider implements AuthenticationProviderInterface
         }
 
         if (!$user instanceof UserInterface) {
-            throw new \RuntimeException('User provider did not return an implementation of user interface.');
+            throw new AuthenticationException('User provider did not return an implementation of user interface.');
         }
 
         return new FacebookUserToken($this->providerKey, $user, $user->getRoles(), $accessToken);
