@@ -68,20 +68,14 @@ class FacebookProvider implements AuthenticationProviderInterface
             return $newToken;
         }
 
-        try {
-            if ($uid = $this->facebook->getUser()) {
-                $newToken = $this->createAuthenticatedToken($uid);
-                $newToken->setAttributes($token->getAttributes());
-
-                return $newToken;
-            }
-        } catch (AuthenticationException $failed) {
-            throw $failed;
-        } catch (\Exception $failed) {
-            throw new AuthenticationException($failed->getMessage(), (int)$failed->getCode(), $failed);
+        if ($uid = $this->facebook->getUser()) {
+            $newToken = $this->createAuthenticatedToken($uid);
+            $newToken->setAttributes($token->getAttributes());
+ 
+            return $newToken;
+        } else {
+            throw new AuthenticationException('The Facebook user could not be retrieved from the session.');
         }
-
-        throw new AuthenticationException('The Facebook user could not be retrieved from the session.');
     }
 
     public function supports(TokenInterface $token)
