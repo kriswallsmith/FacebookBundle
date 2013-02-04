@@ -81,6 +81,9 @@ class FacebookProvider implements AuthenticationProviderInterface
         } catch (AuthenticationException $failed) {
             throw $failed;
         } catch (\Exception $failed) {
+            if ($this->_shouldAddExtraInformation()) {
+                throw new AuthenticationException($failed->getMessage(), null, (int)$failed->getCode(), $failed);
+            }
             throw new AuthenticationException($failed->getMessage(), (int)$failed->getCode(), $failed);
         }
 
@@ -114,5 +117,17 @@ class FacebookProvider implements AuthenticationProviderInterface
         }
 
         return new FacebookUserToken($this->providerKey, $user, $user->getRoles(), $accessToken);
+    }
+
+    /**
+     * hack to help keep compatibility between Symfony 2.2 and Symfony2.1
+     *
+     * @return boolean
+     */
+    protected function _shouldAddExtraInformation()
+    {
+        $reflection = new \ReflectionClass('\\Symfony\\Component\\Security\\Core\\Exception\\AuthenticationException');
+        $contructor = $reflection->getConstructor();
+        return $contructor->getNumberOfParameters() == 4;
     }
 }
