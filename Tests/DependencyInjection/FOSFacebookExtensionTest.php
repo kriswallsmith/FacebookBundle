@@ -55,7 +55,6 @@ class FOSFacebookExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new FOSFacebookExtension();
         $configs = array(
             array('class' => array('api' => 'foo')),
-            array('file' => 'foo'),
             array('app_id' => 'foo'),
             array('secret' => 'foo'),
             array('cookie' => 'foo'),
@@ -81,7 +80,6 @@ class FOSFacebookExtensionTest extends \PHPUnit_Framework_TestCase
 
         $configs = array(
             array('class' => array('api' => 'foo')),
-            array('file' => 'foo'),
             array('app_id' => 'foo'),
             array('secret' => 'foo'),
             array('cookie' => 'foo'),

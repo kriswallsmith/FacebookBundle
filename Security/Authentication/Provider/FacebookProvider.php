@@ -62,23 +62,21 @@ class FacebookProvider implements AuthenticationProviderInterface
         if ($user instanceof UserInterface) {
             $this->userChecker->checkPostAuth($user);
 
-            $newToken = new FacebookUserToken($this->providerKey, $user, $user->getRoles());
+            $newToken = new FacebookUserToken($this->providerKey, $user, $user->getRoles(), $token->getAccessToken());
             $newToken->setAttributes($token->getAttributes());
 
             return $newToken;
         }
 
-        try {
-            if ($uid = $this->facebook->getUser()) {
-                $newToken = $this->createAuthenticatedToken($uid);
-                $newToken->setAttributes($token->getAttributes());
+        if (!is_null($token->getAccessToken())) {
+              $this->facebook->setAccessToken($token->getAccessToken());
+        }
 
-                return $newToken;
-            }
-        } catch (AuthenticationException $failed) {
-            throw $failed;
-        } catch (\Exception $failed) {
-            throw new AuthenticationException($failed->getMessage(), null, (int)$failed->getCode(), $failed);
+        if ($uid = $this->facebook->getUser()) {
+            $newToken = $this->createAuthenticatedToken($uid,$token->getAccessToken());
+            $newToken->setAttributes($token->getAttributes());
+
+            return $newToken;
         }
 
         throw new AuthenticationException('The Facebook user could not be retrieved from the session.');
@@ -89,15 +87,17 @@ class FacebookProvider implements AuthenticationProviderInterface
         return $token instanceof FacebookUserToken && $this->providerKey === $token->getProviderKey();
     }
 
-    protected function createAuthenticatedToken($uid)
+    protected function createAuthenticatedToken($uid, $accessToken = null)
     {
         if (null === $this->userProvider) {
-            return new FacebookUserToken($this->providerKey, $uid);
+            return new FacebookUserToken($this->providerKey, $uid, array(), $accessToken);
         }
 
         try {
             $user = $this->userProvider->loadUserByUsername($uid);
-            $this->userChecker->checkPostAuth($user);
+            if ($user instanceof UserInterface) {
+                $this->userChecker->checkPostAuth($user);
+            }
         } catch (UsernameNotFoundException $ex) {
             if (!$this->createIfNotExists) {
                 throw $ex;
@@ -107,9 +107,10 @@ class FacebookProvider implements AuthenticationProviderInterface
         }
 
         if (!$user instanceof UserInterface) {
-            throw new \RuntimeException('User provider did not return an implementation of user interface.');
+            throw new AuthenticationException('User provider did not return an implementation of user interface.');
         }
 
-        return new FacebookUserToken($this->providerKey, $user, $user->getRoles());
+        return new FacebookUserToken($this->providerKey, $user, $user->getRoles(), $accessToken);
     }
+
 }
