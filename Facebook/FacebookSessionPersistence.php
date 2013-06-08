@@ -19,8 +19,9 @@ class FacebookSessionPersistence extends \BaseFacebook
     protected static $kSupportedKeys = array('state', 'code', 'access_token', 'user_id');
 
     /**
-     * @param array $config the application configuration.
-     * @see BaseFacebook::__construct in facebook.php
+     * @param array $config
+     * @param Session $session
+     * @param string $prefix
      */
     public function __construct($config, Session $session, $prefix = self::PREFIX)
     {
@@ -36,6 +37,10 @@ class FacebookSessionPersistence extends \BaseFacebook
         $this->trustForwarded = isset($config['trustForwarded']) ? $config['trustForwarded'] : Request::getTrustedProxies();
     }
 
+    /**
+     * @param array $params
+     * @return string
+     */
     public function getLoginUrl($params = array())
     {
         $this->establishCSRFTokenState();
@@ -61,6 +66,9 @@ class FacebookSessionPersistence extends \BaseFacebook
         );
     }
 
+    /**
+     * @return bool|mixed
+     */
     protected function getCode()
     {
         if (isset($_REQUEST['code'])) {
