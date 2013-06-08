@@ -226,3 +226,5 @@ The following example also adds "firstname" and "lastname" properties, using the
             }
         }
     }
+
+Next: [Additional resources](3-another-resources.md)

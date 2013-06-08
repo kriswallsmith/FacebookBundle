@@ -7,7 +7,7 @@ Basic usage
   ```json
   {
       "require": {
-        "friendsofsymfony/facebook-bundle": "1.1.*"
+        "friendsofsymfony/facebook-bundle": "1.2.*"
       }
   }
   ```
@@ -232,3 +232,5 @@ You can avoid this step, but you might get this error message:
 
 The `_security_check` route would need to point to a `/login_check` pattern
 to match the above configuration.
+
+Next: [Integration with FOSUserBundle](2-integration-with-fosuserbundle.md)
