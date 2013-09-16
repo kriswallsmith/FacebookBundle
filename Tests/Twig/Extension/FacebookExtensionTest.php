@@ -54,11 +54,11 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('fos_facebook.helper')
             ->will($this->returnValue($helperMock));
- 
+
         $extension = new FacebookExtension($containerMock);
         $this->assertSame('returnedValue', $extension->renderInitialize());
     }
-    
+
     /**
      * @covers FOS\FacebookBundle\Twig\Extension\FacebookExtension::renderloginButton
      */
@@ -75,7 +75,7 @@ class FacebookExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('fos_facebook.helper')
             ->will($this->returnValue($helperMock));
- 
+
         $extension = new FacebookExtension($containerMock);
         $this->assertSame('returnedValueLogin', $extension->renderLoginButton());
     }

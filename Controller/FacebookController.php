@@ -15,20 +15,20 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
 
 class FacebookController extends ContainerAware
-{       
+{
     /**
      * public function channelAction()
-     * 
+     *
      * This function mimics the channel.html file suggested by facebook.
-     * 
-     * References : 
+     *
+     * References :
      * https://developers.facebook.com/docs/reference/javascript/
-     * 
+     *
      * @version         1.0
-     * 
+     *
      * @author          Antoine Durieux
-     * 
-     * @return          Response
+     *
+     * @return Response
      */
     public function channelAction()
     {
@@ -49,5 +49,5 @@ class FacebookController extends ContainerAware
 
         return $response;
     }
-    
+
 }

@@ -33,7 +33,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
      * Constructor
      *
      * @param BaseFacebook $facebook
-     * @param array    $options
+     * @param array        $options
      */
     public function __construct(\BaseFacebook $facebook, array $options = array(), array $permissions = array())
     {
@@ -51,6 +51,7 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
         $redirect_to_facebook = $this->options->get('redirect_to_facebook_login');
         if ($redirect_to_facebook == false) {
             $loginPath = $this->options->get('login_path');
+
             return new RedirectResponse($loginPath);
         }
 
@@ -58,18 +59,18 @@ class FacebookAuthenticationEntryPoint implements AuthenticationEntryPointInterf
         if ($this->options->get('server_url') && $this->options->get('app_url')) {
             $redirect_uri = str_replace($this->options->get('server_url'), $this->options->get('app_url'), $redirect_uri);
         }
-        
+
         $loginUrl = $this->facebook->getLoginUrl(
            array(
                 'display' => $this->options->get('display', 'page'),
                 'scope' => implode(',', $this->permissions),
                 'redirect_uri' => $redirect_uri,
         ));
-        
-        if ($this->options->get('server_url') && $this->options->get('app_url')){
+
+        if ($this->options->get('server_url') && $this->options->get('app_url')) {
             return new Response('<html><head></head><body><script>top.location.href="'.$loginUrl.'";</script></body></html>');
         }
-        
+
         return new RedirectResponse($loginUrl);
     }
 }

@@ -19,9 +19,9 @@ class FacebookSessionPersistence extends \BaseFacebook
     protected static $kSupportedKeys = array('state', 'code', 'access_token', 'user_id');
 
     /**
-     * @param array $config
+     * @param array   $config
      * @param Session $session
-     * @param string $prefix
+     * @param string  $prefix
      */
     public function __construct($config, Session $session, $prefix = self::PREFIX)
     {
@@ -38,7 +38,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     }
 
     /**
-     * @param array $params
+     * @param  array  $params
      * @return string
      */
     public function getLoginUrl($params = array())
@@ -103,7 +103,7 @@ class FacebookSessionPersistence extends \BaseFacebook
      * getPersistentData($key) return $value. This call may be in another request.
      *
      * @param string $key
-     * @param array $value
+     * @param array  $value
      *
      * @return void
      */
@@ -121,7 +121,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     /**
      * Get the data for $key, persisted by BaseFacebook::setPersistentData()
      *
-     * @param string $key The key of the data to retrieve
+     * @param string  $key     The key of the data to retrieve
      * @param boolean $default The default value to return if $key is not found
      *
      * @return mixed
@@ -145,7 +145,7 @@ class FacebookSessionPersistence extends \BaseFacebook
     /**
      * Clear the data with $key from the persistent storage
      *
-     * @param string $key
+     * @param  string $key
      * @return void
      */
     protected function clearPersistentData($key)

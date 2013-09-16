@@ -11,7 +11,6 @@
 
 namespace FOS\FacebookBundle\Tests\DependencyInjection;
 
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 use FOS\FacebookBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase

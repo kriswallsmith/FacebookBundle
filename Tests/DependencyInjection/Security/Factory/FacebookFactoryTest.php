@@ -84,7 +84,7 @@ class FacebookFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $config
+     * @param  array $config
      * @return array
      */
     private function facebookFactoryCreate($config = array(), $id = 'l3l0')
