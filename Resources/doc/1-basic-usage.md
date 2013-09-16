@@ -40,12 +40,15 @@ Basic usage
       pattern:  /login_check
   _security_logout:
       pattern:  /logout
+  fos_facebook_channel:
+      resource: "@FOSFacebookBundle/Resources/config/routing.xml"
   ```
 
   ```xml
   #application/config/routing.xml
   <route id="_security_check" pattern="/login_check" />
   <route id="_security_logout" pattern="/logout" />
+  <import resource="@FOSFacebookBundle/Resources/config/routing.xml"/>
   ```
 
 5. Configure the `facebook` service in your config:
