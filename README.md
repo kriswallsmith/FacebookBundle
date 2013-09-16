@@ -8,6 +8,7 @@ database based solution provided by FOSUserBundle.
 
 
 [![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSFacebookBundle.png?branch=master)](http://travis-ci.org/FriendsOfSymfony/FOSFacebookBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/FriendsOfSymfony/FOSFacebookBundle/badges/quality-score.png?s=15e53e898985730302ecb079408c7640d3b7291b)](https://scrutinizer-ci.com/g/FriendsOfSymfony/FOSFacebookBundle/)
 
 
 Prerequisites
