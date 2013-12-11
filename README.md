@@ -14,7 +14,7 @@ database based solution provided by FOSUserBundle.
 Prerequisites
 -------------
 
-This version (1.2) requires at least Symfony 2.2. If you are using Symfony 2.1, you can use the 1.1 version.
+This version (1.3) requires at least Symfony 2.2. If you are using Symfony 2.1, you can use the 1.1 version.
 
 
 Documentation
