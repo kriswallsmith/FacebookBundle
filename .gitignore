@@ -4,3 +4,6 @@ vendor
 bin
 composer.phar
 composer.lock
+.buildpath
+.project
+.settings

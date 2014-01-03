@@ -1,0 +1,2 @@
+fos_facebook_bundle:
+    resource: "@FOSFacebookBundle/Resources/config/routing.xml"

@@ -23,9 +23,7 @@
         "facebook/php-sdk": "3.2.*"
     },
     "require-dev": {
-        "symfony/framework-bundle": "~2.2",
-        "symfony/security-bundle": "~2.2",
-        "symfony/twig-bundle": "~2.2",
+        "symfony/symfony": "~2.2",
         "phpunit/phpunit": "3.7.*"
     },
     "config": {
