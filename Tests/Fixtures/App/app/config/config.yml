@@ -1,0 +1,19 @@
+framework:
+    secret: FOSFacebookBundle
+    router: { resource: "%kernel.root_dir%/config/routing.yml" }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    form: false
+    csrf_protection: false
+    default_locale: en
+    translator: { fallback: en }
+    profiler: { only_exceptions: false }
+    test: ~
+    session:
+        storage_id: session.storage.filesystem
+
+fos_facebook:
+    alias:  facebook
+    app_id: 123456879
+    secret: s3cr3t
+    cookie: true
+    permissions: [email]

@@ -44,6 +44,8 @@ class FOSFacebookExtension extends Extension
             $container->setParameter('fos_facebook.'.$attribute, $config[$attribute]);
         }
 
+        $container->setParameter('fos_facebook.channel.expire', $config['channel']['expire']);
+
         if (isset($config['file']) && $container->hasDefinition('fos_facebook.api')) {
             $facebookApi = $container->getDefinition('fos_facebook.api');
             $facebookApi->setFile($config['file']);

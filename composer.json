@@ -26,6 +26,9 @@
         "symfony/framework-bundle": "~2.2",
         "symfony/security-bundle": "~2.2",
         "symfony/twig-bundle": "~2.2",
+        "symfony/finder": "~2.2",
+        "symfony/browser-kit": "~2.2",
+        "symfony/form": "~2.2",
         "phpunit/phpunit": "3.7.*"
     },
     "config": {
