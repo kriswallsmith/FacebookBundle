@@ -7,7 +7,7 @@ Basic usage
   ```json
   {
       "require": {
-        "friendsofsymfony/facebook-bundle": "1.2.*"
+        "friendsofsymfony/facebook-bundle": "1.3.*"
       }
   }
   ```
