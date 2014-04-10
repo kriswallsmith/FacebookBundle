@@ -4,22 +4,22 @@ Integration with FOSUserBundle
 If you still want to use the FOSUserBundle form login, add the "chain_provider" configuration parameter to your ```security.yml```:
 ```
       providers:
-        chain_provider:
-           chain:
-               providers: [fos_userbundle, my_fos_facebook_provider]
-        fos_user_bundle: ...
-        my_fos_facebook_provider: 
-           id: my.facebook.user
+          chain_provider:
+              chain:
+                  providers: [fos_userbundle, my_fos_facebook_provider]
+          fos_user_bundle: ...
+          my_fos_facebook_provider:
+              id: my.facebook.user
 ```
 
 You need to have separate ```login_path``` and ```check_path```'s than your ```FOSUserBundle``` firewall. In the ```security.yml``` be sure it looks something like this:
 
 ```
     firewalls:
-      secured_area:
-        fos_facebook:
-          login_path: _security_login
-          check_path: _security_check
+        secured_area:
+            fos_facebook:
+                login_path: _security_login
+                check_path: _security_check
 ```
 
 Both `login_path` and `check_path` need to be the routes that are defined in ```routing.yml```:
@@ -82,7 +82,7 @@ to the provider id in the "provider" section in ```config.yml```:
 
         public function supportsClass($class)
         {
-	    return $this->userProvider->supportsClass($class);
+            return $this->userProvider->supportsClass($class);
         }
 
         public function findUserByFbId($fbId)
