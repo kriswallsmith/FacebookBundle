@@ -1,6 +1,8 @@
-DEPRECATED - See [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle) instead
-================================================================================
+DEPRECATED
+==========
 
+See [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle) instead
+-------------------------------------------------------------------
 
 FOSFacebookBundle
 =================
